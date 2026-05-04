@@ -1,11 +1,5 @@
 # RL_2026_Final — Enhanced Chain-of-Zoom
 
-**535510 RL Team Project (Group 6)** · NYCU CS · Track 3: Application
-
-王皓平 · 司徒立中 · 馬楷翔
-
-Built on top of [Chain-of-Zoom](https://github.com/bryanswkim/Chain-of-Zoom) (Kim et al., 2025).
-
 ## Project Goal
 
 Enhance Chain-of-Zoom (CoZ) for extreme super-resolution (up to 256×) by addressing two failure modes of the unoptimized VLM prompt extractor:
