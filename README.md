@@ -1,4 +1,31 @@
-# RL_2026_Final
+# RL_2026_Final — Enhanced Chain-of-Zoom
+
+**535510 RL Team Project (Group 6)** · NYCU CS · Track 3: Application
+
+王皓平 · 司徒立中 · 馬楷翔
+
+Built on top of [Chain-of-Zoom](https://github.com/bryanswkim/Chain-of-Zoom) (Kim et al., 2025).
+
+## Project Goal
+
+Enhance Chain-of-Zoom (CoZ) for extreme super-resolution (up to 256×) by addressing two failure modes of the unoptimized VLM prompt extractor:
+
+- **Fail Case 1 — Semantic Drift.** At deep zoom levels the VLM loses global context and hallucinates unrelated concepts (e.g. animal fur → "neurons / synapses").
+- **Fail Case 2 — Prompt Convergence.** Sparse visual evidence collapses the VLM into repetitive, low-entropy prompts, providing no new high-frequency guidance to the SR backbone.
+
+### Approach
+
+- **Expanded state space**: condition the VLM on the previous scale-state `x_{i-2}` and the current scale factor (AR-2 trajectory + scale awareness).
+- **Multi-objective reward via GRPO**:
+  - `R_anc` — semantic anchor reward, consistency with original `x_0` description (fixes drift).
+  - `R_rep` — cross-scale repetition penalty (fixes prompt convergence).
+  - `R_fb`  — intermediate SR feedback reward on the previous step's pixels.
+
+### Evaluation
+
+- **No-reference VQA metrics**: NIQE, MUSIQ, MANIQA, CLIPIQA
+- **Datasets**: DIV2K (800 imgs), DIV8K (1500 imgs); resize + center-crop to 512×512
+- **Baselines**: NN Interpolation, Direct SR, original Chain-of-Zoom
 
 ---
 
