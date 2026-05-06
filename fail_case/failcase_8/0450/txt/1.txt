@@ -1,0 +1,1 @@
+wall, red, brick, lamp, outdoor, exterior, building, texture, color, pattern, detail, close-up, zoom-in, focus, lighting,
