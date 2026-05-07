@@ -226,10 +226,11 @@ if __name__ == "__main__":
 
         vlm_model_name = "Qwen/Qwen2.5-VL-3B-Instruct"
         print(f"Loading base VLM model: {vlm_model_name}")
+        vlm_device_map = "cpu" if args.efficient_memory else "cuda:0"
         vlm_model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             vlm_model_name,
-            torch_dtype="auto",
-            device_map="cuda:0"
+            torch_dtype=torch.float16 if args.efficient_memory else "auto",
+            device_map=vlm_device_map
         )
         vlm_processor = AutoProcessor.from_pretrained(vlm_model_name)
         print('Base VLM LOADING COMPLETE')
