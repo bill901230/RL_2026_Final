@@ -159,6 +159,8 @@ if __name__ == "__main__":
     parser.add_argument('--lora_rank', type=int, default=4)
     parser.add_argument('--rec_type', type=str, choices=['nearest', 'bicubic','onestep','recursive','recursive_multiscale'], default='recursive_multiscale', help='type of inference to use')
     parser.add_argument('--rec_num', type=int, default=4)
+    parser.add_argument('--crop_x', type=int, default=None, help='X center (px) of first zoom in 512×512 space; default: image center')
+    parser.add_argument('--crop_y', type=int, default=None, help='Y center (px) of first zoom in 512×512 space; default: image center')
     
     parser.add_argument('--vae_encoder_tiled_size', type=int, default=1024)
     parser.add_argument('--vae_decoder_tiled_size', type=int, default=128)
@@ -289,9 +291,11 @@ if __name__ == "__main__":
                 rscale = pow(args.upscale, rec+1)
                 w, h = start_image_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                
+
                 # crop from the original highest-res image available for this step
-                cropped_region = start_image_pil.crop(((w-new_w)//2, (h-new_h)//2, (w+new_w)//2, (h+new_h)//2))
+                cx = max(new_w // 2, min(args.crop_x, w - new_w // 2)) if (rec == 0 and args.crop_x is not None) else w // 2
+                cy = max(new_h // 2, min(args.crop_y, h - new_h // 2)) if (rec == 0 and args.crop_y is not None) else h // 2
+                cropped_region = start_image_pil.crop((cx - new_w // 2, cy - new_h // 2, cx + new_w // 2, cy + new_h // 2))
                 
                 if args.rec_type == 'onestep':
                     current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
@@ -315,7 +319,9 @@ if __name__ == "__main__":
                 rscale = args.upscale
                 w, h = prev_sr_output_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                cropped_region = prev_sr_output_pil.crop(((w-new_w)//2, (h-new_h)//2, (w+new_w)//2, (h+new_h)//2))
+                cx = max(new_w // 2, min(args.crop_x, w - new_w // 2)) if (rec == 0 and args.crop_x is not None) else w // 2
+                cy = max(new_h // 2, min(args.crop_y, h - new_h // 2)) if (rec == 0 and args.crop_y is not None) else h // 2
+                cropped_region = prev_sr_output_pil.crop((cx - new_w // 2, cy - new_h // 2, cx + new_w // 2, cy + new_h // 2))
                 current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
 
                 # this resized image is also the input for VLM
@@ -329,7 +335,9 @@ if __name__ == "__main__":
                 rscale = args.upscale
                 w, h = prev_sr_output_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                cropped_region = prev_sr_output_pil.crop(((w-new_w)//2, (h-new_h)//2, (w+new_w)//2, (h+new_h)//2))
+                cx = max(new_w // 2, min(args.crop_x, w - new_w // 2)) if (rec == 0 and args.crop_x is not None) else w // 2
+                cy = max(new_h // 2, min(args.crop_y, h - new_h // 2)) if (rec == 0 and args.crop_y is not None) else h // 2
+                cropped_region = prev_sr_output_pil.crop((cx - new_w // 2, cy - new_h // 2, cx + new_w // 2, cy + new_h // 2))
                 current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
 
                 # save the SR input image (which is the "zoomed-in" image for VLM)
