@@ -5,6 +5,7 @@ the image crop. Two backends:
   - "vlm"       : Qwen2.5-VL-7B-Instruct rates alignment 0-10 (parsed -> [0,1]).
   - "clipscore" : cosine(CLIP image, CLIP text), cheap fallback (no extra model).
 """
+import math
 import re
 
 import torch
@@ -18,6 +19,8 @@ CRITIC_PROMPT = (
 
 
 class Critic:
+    _NUMBER_RE: re.Pattern[str] = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)")
+
     def __init__(self, cfg, clip_embedder=None, device="cuda:2"):
         rc = cfg["rewards"]["r_crit"]
         self.backend = rc.get("backend", "vlm")
@@ -44,13 +47,32 @@ class Critic:
         else:
             raise ValueError(f"Unknown R_crit backend: {self.backend}")
 
+    @staticmethod
+    def _clamp01(value: float) -> float:
+        if not math.isfinite(value):
+            return 0.0
+        return max(0.0, min(1.0, value))
+
+    @classmethod
+    def _parse_rating(cls, text: object) -> float:
+        match = cls._NUMBER_RE.search(str(text))
+        if match is None:
+            return 0.0
+        try:
+            value = float(match.group(0))
+        except (OverflowError, ValueError):
+            return 0.0
+        return cls._clamp01(value / 10.0)
+
     @torch.no_grad()
     def score(self, crop_pil, prompt):
         """Return alignment reward in [0,1]."""
         if self.backend == "clipscore":
-            img = self.clip.embed_image(crop_pil)
-            txt = self.clip.embed_text(prompt)
-            return float(self.clip.cosine(img, txt).item())
+            clip = self.clip
+            assert clip is not None
+            img = clip.embed_image(crop_pil)
+            txt = clip.embed_text(prompt)
+            return self._clamp01(float(clip.cosine(img, txt).item()))
 
         # vlm backend
         messages = [
@@ -73,6 +95,4 @@ class Critic:
         gen = self.model.generate(**inputs, max_new_tokens=8, do_sample=False)
         trimmed = gen[0][inputs.input_ids.shape[1]:]
         out = self.processor.decode(trimmed, skip_special_tokens=True)
-        m = re.search(r"\d+(\.\d+)?", out)
-        val = float(m.group()) if m else 0.0
-        return max(0.0, min(1.0, val / 10.0))
+        return self._parse_rating(out)
