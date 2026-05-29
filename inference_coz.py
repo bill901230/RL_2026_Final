@@ -238,6 +238,8 @@ if __name__ == "__main__":
     parser.add_argument('--rec_num', type=int, default=4)
     parser.add_argument('--crop_strategy', type=str, choices=['center', 'entropy', 'edges', 'detail'], default='center',
                         help='How to choose the recursive zoom crop region. center=legacy geometric center. entropy=Shannon entropy of grayscale histogram. edges=Sobel gradient magnitude sum (highest edge/object density; best for figure-dense scenes). detail=composite of edges+entropy with min-max normalization.')
+    parser.add_argument('--crop_x', type=int, default=None, help='X center (px) of first zoom in 512×512 space; default: image center. When set together with --crop_y, overrides --crop_strategy for the first zoom (rec==0).')
+    parser.add_argument('--crop_y', type=int, default=None, help='Y center (px) of first zoom in 512×512 space; default: image center. When set together with --crop_x, overrides --crop_strategy for the first zoom (rec==0).')
     
     parser.add_argument('--vae_encoder_tiled_size', type=int, default=1024)
     parser.add_argument('--vae_decoder_tiled_size', type=int, default=128)
@@ -368,11 +370,17 @@ if __name__ == "__main__":
                 rscale = pow(args.upscale, rec+1)
                 w, h = start_image_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                
+
                 # crop from the original highest-res image available for this step
-                _l, _t = select_crop_top_left(start_image_pil, new_w, new_h, args.crop_strategy)
+                if rec == 0 and args.crop_x is not None and args.crop_y is not None:
+                    cx = max(new_w // 2, min(args.crop_x, w - new_w // 2))
+                    cy = max(new_h // 2, min(args.crop_y, h - new_h // 2))
+                    _l, _t = cx - new_w // 2, cy - new_h // 2
+                    print(f'CROP@rec{rec} explicit center=({cx},{cy}) bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
+                else:
+                    _l, _t = select_crop_top_left(start_image_pil, new_w, new_h, args.crop_strategy)
+                    print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 cropped_region = start_image_pil.crop((_l, _t, _l + new_w, _t + new_h))
-                print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 
                 if args.rec_type == 'onestep':
                     current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
@@ -396,9 +404,15 @@ if __name__ == "__main__":
                 rscale = args.upscale
                 w, h = prev_sr_output_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                _l, _t = select_crop_top_left(prev_sr_output_pil, new_w, new_h, args.crop_strategy)
+                if rec == 0 and args.crop_x is not None and args.crop_y is not None:
+                    cx = max(new_w // 2, min(args.crop_x, w - new_w // 2))
+                    cy = max(new_h // 2, min(args.crop_y, h - new_h // 2))
+                    _l, _t = cx - new_w // 2, cy - new_h // 2
+                    print(f'CROP@rec{rec} explicit center=({cx},{cy}) bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
+                else:
+                    _l, _t = select_crop_top_left(prev_sr_output_pil, new_w, new_h, args.crop_strategy)
+                    print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 cropped_region = prev_sr_output_pil.crop((_l, _t, _l + new_w, _t + new_h))
-                print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
 
                 # this resized image is also the input for VLM
@@ -412,9 +426,15 @@ if __name__ == "__main__":
                 rscale = args.upscale
                 w, h = prev_sr_output_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                _l, _t = select_crop_top_left(prev_sr_output_pil, new_w, new_h, args.crop_strategy)
+                if rec == 0 and args.crop_x is not None and args.crop_y is not None:
+                    cx = max(new_w // 2, min(args.crop_x, w - new_w // 2))
+                    cy = max(new_h // 2, min(args.crop_y, h - new_h // 2))
+                    _l, _t = cx - new_w // 2, cy - new_h // 2
+                    print(f'CROP@rec{rec} explicit center=({cx},{cy}) bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
+                else:
+                    _l, _t = select_crop_top_left(prev_sr_output_pil, new_w, new_h, args.crop_strategy)
+                    print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 cropped_region = prev_sr_output_pil.crop((_l, _t, _l + new_w, _t + new_h))
-                print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
 
                 # save the SR input image (which is the "zoomed-in" image for VLM)
