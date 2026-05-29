@@ -1,0 +1,7 @@
+axis,a3_mean,w4v2_mean,delta,direction,n,seeds
+niqe,-7.601762,-7.782299,-0.180538,regressed,30,1
+musiq,50.271769,51.813817,1.542047,improved,30,1
+maniqa,0.395817,0.404284,0.008468,improved,30,1
+clipiqa,0.606995,0.614840,0.007845,improved,30,1
+consistency,0.780823,0.782611,0.001788,improved,30,1
+unique_token_ratio,0.623417,0.657096,0.033679,improved,30,1
