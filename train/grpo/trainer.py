@@ -32,7 +32,14 @@ def _load_policy(cfg, device):
     base = Qwen2_5_VLForConditionalGeneration.from_pretrained(
         cfg["model"]["policy_id"], torch_dtype=torch.float16, device_map=device
     )
-    processor = AutoProcessor.from_pretrained(cfg["model"]["policy_id"])
+    # Optional cap on vision tokens per image (memory <- quadratic attention).
+    # null -> Qwen's default (~1MP). Lower it (e.g. 200704 = 256*28*28) to shrink
+    # the visual sequence the policy attends over.
+    proc_kwargs = {}
+    max_pixels = cfg["model"].get("vlm_max_pixels")
+    if max_pixels:
+        proc_kwargs["max_pixels"] = int(max_pixels)
+    processor = AutoProcessor.from_pretrained(cfg["model"]["policy_id"], **proc_kwargs)
     lcfg = cfg["lora"]
     # trainable adapter is named "default" so save_pretrained writes a flat dir
     # that inference_coz.py can load directly via --vlm_lora_path.
@@ -54,6 +61,14 @@ def _load_policy(cfg, device):
     model.set_adapter("default")
     if model.generation_config.pad_token_id is None:
         model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
+    # Gradient checkpointing trades compute for a large drop in activation memory
+    # during the backward forward (the OOM-prone path). Generation stays on cache.
+    if cfg["optim"].get("gradient_checkpointing", True):
+        model.gradient_checkpointing_enable(
+            gradient_checkpointing_kwargs={"use_reentrant": False}
+        )
+        model.enable_input_require_grads()
+        model.generation_config.use_cache = True
     return model, processor, has_ref
 
 
@@ -93,21 +108,25 @@ class GRPOTrainer:
 
     # ---- log-prob utilities -------------------------------------------------
     def _token_logprobs(self, seq_ids, prompt_len, pixel_values, image_grid_thw):
-        """Per-token log-probs of the completion. Returns (logp(T,), mask(T,))."""
+        """Per-token log-probs of the completion only. Returns (logp(Tc,), mask(Tc,)).
+
+        Only the completion positions are scored: we slice the logits to that span
+        *before* the float32 log_softmax, so we never materialise a (L, vocab) fp32
+        tensor over the long visual sequence.
+        """
         out = self.model(
             input_ids=seq_ids,
             attention_mask=torch.ones_like(seq_ids),
             pixel_values=pixel_values,
             image_grid_thw=image_grid_thw,
+            use_cache=False,
         )
-        logits = out.logits[:, :-1, :]            # predict token t+1 from t
-        targets = seq_ids[:, 1:]                   # (1, L-1)
-        logp_all = F.log_softmax(logits.float(), dim=-1)
-        tok_logp = logp_all.gather(-1, targets.unsqueeze(-1)).squeeze(-1)[0]  # (L-1,)
-        idx = torch.arange(targets.shape[1], device=seq_ids.device)
-        comp = idx >= (prompt_len - 1)             # completion target positions
-        nonpad = targets[0] != self.pad_id
-        mask = (comp & nonpad).float()
+        start = prompt_len - 1                      # logits[start] predicts token prompt_len
+        logits_c = out.logits[:, start:-1, :]       # (1, Tc, V) — completion span only
+        targets_c = seq_ids[:, start + 1:]          # (1, Tc) — the completion tokens
+        logp = F.log_softmax(logits_c.float(), dim=-1)
+        tok_logp = logp.gather(-1, targets_c.unsqueeze(-1)).squeeze(-1)[0]  # (Tc,)
+        mask = (targets_c[0] != self.pad_id).float()
         return tok_logp, mask
 
     @torch.no_grad()

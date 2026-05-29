@@ -17,6 +17,9 @@ model:
   sr_lora_path: "ckpt/SR_LoRA/model_20001.pkl"
   sr_vae_path: "ckpt/SR_VAE/vae_encoder_20001.pt"
   sr_lora_rank: 4
+  # Cap vision tokens per image to bound policy attention memory. null -> Qwen
+  # default (~1MP). e.g. 200704 (=256*28*28) roughly halves tokens for 512px crops.
+  vlm_max_pixels: null
 
 lora:
   # If continue_from is set, we continue-train that PEFT adapter (is_trainable=True).
@@ -33,6 +36,10 @@ generation:
   temperature: 1.0
   top_p: 0.95
   group_size: 6          # G completions sampled per state (GRPO group)
+  # Generation micro-batch: how many of the G to decode at once. num_return_sequences
+  # replicates the multi-image vision input, so the full group at once OOMs a 24GB
+  # card. 2 keeps peak vision-encoder memory bounded; raise on bigger GPUs. null = G.
+  sample_micro_batch: 2
 
 rollout:
   upscale: 4             # per-step zoom factor (matches inference --upscale)
@@ -91,6 +98,7 @@ optim:
   adam_epsilon: 1.0e-8
   grad_accum: 1
   max_grad_norm: 1.0
+  gradient_checkpointing: true   # big activation-memory cut; recommended on 24GB cards
   max_steps: 2000
   warmup_steps: 20
   lr_scheduler: "constant_with_warmup"

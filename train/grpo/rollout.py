@@ -77,23 +77,33 @@ class Rollout:
 
     @torch.no_grad()
     def _sample_group(self, inputs, n):
-        """Sample n completions; return list of (seq_ids(1,L), text)."""
-        out = self.policy.generate(
-            **inputs,
-            max_new_tokens=self.gen["max_new_tokens"],
-            do_sample=True,
-            temperature=self.gen["temperature"],
-            top_p=self.gen["top_p"],
-            num_return_sequences=n,
-        )
+        """Sample n completions; return list of (seq_ids(1,L), text).
+
+        Generated in micro-batches: `num_return_sequences` makes HF replicate the
+        (multi-image) vision inputs, so a full group of n at once blows up the
+        vision-encoder attention memory. We cap concurrency at `sample_micro_batch`.
+        """
         prompt_len = inputs.input_ids.shape[1]
+        micro = self.gen.get("sample_micro_batch") or n
         results = []
-        for i in range(out.shape[0]):
-            seq = out[i : i + 1].detach().cpu()
-            text = self.processor.decode(
-                out[i][prompt_len:], skip_special_tokens=True
-            ).strip()
-            results.append((seq, text))
+        remaining = n
+        while remaining > 0:
+            k = min(micro, remaining)
+            out = self.policy.generate(
+                **inputs,
+                max_new_tokens=self.gen["max_new_tokens"],
+                do_sample=True,
+                temperature=self.gen["temperature"],
+                top_p=self.gen["top_p"],
+                num_return_sequences=k,
+            )
+            for i in range(out.shape[0]):
+                seq = out[i : i + 1].detach().cpu()
+                text = self.processor.decode(
+                    out[i][prompt_len:], skip_special_tokens=True
+                ).strip()
+                results.append((seq, text))
+            remaining -= k
         return results, prompt_len
 
     @torch.no_grad()
