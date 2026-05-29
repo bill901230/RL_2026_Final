@@ -5,3 +5,25 @@ experience/
 wandb/
 samples_eye/
 samples_from_step4/
+
+# caches
+.venv/
+.venv-train/
+.hf_cache/
+.torch_cache/
+.cache/
+*.pyc
+
+# data / outputs
+data/
+results/
+outputs/
+high_density_imgs/
+
+# tooling / session artifacts
+.sisyphus/
+*.pdf
+opencode_session_*.md
+
+# model weights
+ckpt/RAM/*.pth
