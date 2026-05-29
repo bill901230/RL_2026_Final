@@ -14,7 +14,7 @@ from qwen_vl_utils import process_vision_info
 SYSTEM_TEMPLATE = (
     "You are zooming into an image. The first image is the original scene (global "
     "context). The following image(s) are progressively zoomed-in crops; the last "
-    "image is the current crop at an effective zoom factor of {scale}x. Using the "
+    "image is the current crop at zoom factor={scale}x. Using the "
     "global context to stay consistent and avoid hallucination, describe what is in "
     "the current (last) crop. Give me a set of words, focusing on new fine details "
     "visible at this zoom level."
