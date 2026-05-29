@@ -1,3 +1,4 @@
+# pyright: reportArgumentType=false, reportAttributeAccessIssue=false, reportCallIssue=false, reportConstantRedefinition=false, reportOperatorIssue=false, reportOptionalCall=false, reportOptionalMemberAccess=false, reportPossiblyUnboundVariable=false
 import os
 import sys
 sys.path.append(os.getcwd())
@@ -14,6 +15,8 @@ from ram import inference_ram as inference
 from utils.wavelet_color_fix import adain_color_fix, wavelet_color_fix
 
 from peft import PeftModel
+
+DEFAULT_VLM_MODEL_PATH = "Qwen/Qwen2.5-VL-3B-Instruct"
 
 tensor_transforms = transforms.Compose([
     transforms.ToTensor(),
@@ -226,6 +229,7 @@ if __name__ == "__main__":
     parser.add_argument('--align_method', type=str, choices=['wavelet', 'adain', 'nofix'], default='nofix')
     parser.add_argument('--lora_path', type=str, default=None, help='for LoRA of SR model')
     parser.add_argument('--vae_path', type=str, default=None)
+    parser.add_argument('--vlm_model_path', type=str, default=DEFAULT_VLM_MODEL_PATH, help='Base/full-finetuned VLM model directory or HF id')
     parser.add_argument('--vlm_lora_path', type=str, default=None, help='Path to the VLM LoRA adapter directory')
     parser.add_argument('--prompt', type=str, default='', help='user prompts')
     parser.add_argument('--prompt_type', type=str, choices=['null','dape','vlm_base','vlm'], default='dape', help='type of prompt to use')
@@ -305,8 +309,8 @@ if __name__ == "__main__":
         from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
         from qwen_vl_utils import process_vision_info
 
-        vlm_model_name = "Qwen/Qwen2.5-VL-3B-Instruct"
-        print(f"Loading base VLM model: {vlm_model_name}")
+        vlm_model_name = args.vlm_model_path
+        print(f"Loading VLM model: {vlm_model_name}")
         vlm_device_map = "cpu" if args.efficient_memory else "cuda:0"
         vlm_model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             vlm_model_name,
@@ -318,16 +322,19 @@ if __name__ == "__main__":
         
         if args.prompt_type == "vlm":
             if not args.vlm_lora_path:
-                raise ValueError("Please specify --vlm_lora_path when using prompt_type 'vlm'")
-            if not os.path.isdir(args.vlm_lora_path):
+                if args.vlm_model_path == DEFAULT_VLM_MODEL_PATH:
+                    raise ValueError("Please specify --vlm_lora_path or a full-FT --vlm_model_path when using prompt_type 'vlm'")
+                print('Using full-FT VLM model without LoRA adapter')
+                vlm_model.eval()
+            elif not os.path.isdir(args.vlm_lora_path):
                 raise ValueError(f"VLM LoRA path does not exist or is not a directory: {args.vlm_lora_path}")
-
-            # load the GRPO fine-tuned VLM LoRA adapter
-            print(f"Loading VLM LoRA adapter from: {args.vlm_lora_path}")
-            vlm_model = PeftModel.from_pretrained(vlm_model, args.vlm_lora_path)
-            vlm_model = vlm_model.merge_and_unload()
-            vlm_model.eval()
-            print('VLM LoRA ADAPTER LOADING COMPLETE')
+            else:
+                # load the GRPO fine-tuned VLM LoRA adapter
+                print(f"Loading VLM LoRA adapter from: {args.vlm_lora_path}")
+                vlm_model = PeftModel.from_pretrained(vlm_model, args.vlm_lora_path)
+                vlm_model = vlm_model.merge_and_unload()
+                vlm_model.eval()
+                print('VLM LoRA ADAPTER LOADING COMPLETE')
 
     os.makedirs(args.output_dir, exist_ok=True)
     os.makedirs(os.path.join(args.output_dir, 'per-sample'), exist_ok=True)
