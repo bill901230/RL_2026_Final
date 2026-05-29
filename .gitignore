@@ -14,8 +14,8 @@ samples_from_step4/
 .cache/
 *.pyc
 
-# data / outputs
-data/
+# data / outputs (anchored to repo root so source dirs like scripts/data/ are not ignored)
+/data/
 results/
 outputs/
 high_density_imgs/
@@ -27,3 +27,6 @@ opencode_session_*.md
 
 # model weights
 ckpt/RAM/*.pth
+ckpt/DAPE/*.pth
+ckpt/SR_LoRA/*.pkl
+ckpt/SR_VAE/*.pt
