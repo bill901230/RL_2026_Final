@@ -5,3 +5,8 @@ experience/
 wandb/
 samples_eye/
 samples_from_step4/
+
+datasets/
+
+docs
+CLAUDE.md

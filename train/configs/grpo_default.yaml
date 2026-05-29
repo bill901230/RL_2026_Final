@@ -1,0 +1,115 @@
+# =============================================================================
+# GRPO fine-tuning config for the Chain-of-Zoom VLM prompt extractor.
+# Every knob the training loop reads lives here; this is the single surface for
+# experimenting with the reward design / algorithm improvements.
+# =============================================================================
+
+seed: 123
+output_dir: experience/grpo_vlm
+device_policy: "cuda:0"   # policy VLM (trained)
+device_sr: "cuda:1"       # frozen SR backbone (for R_fb)
+device_critic: "cuda:2"   # critic VLM + embedders (for R_crit / R_anc / R_rep)
+
+model:
+  policy_id: "Qwen/Qwen2.5-VL-3B-Instruct"   # base VLM
+  # SR backbone (frozen) — same ckpts as inference_coz.py
+  sr_pretrained: "stabilityai/stable-diffusion-3-medium-diffusers"
+  sr_lora_path: "ckpt/SR_LoRA/model_20001.pkl"
+  sr_vae_path: "ckpt/SR_VAE/vae_encoder_20001.pt"
+  sr_lora_rank: 4
+
+lora:
+  # If continue_from is set, we continue-train that PEFT adapter (is_trainable=True).
+  # The shipped checkpoint is already a LoRA (r=8, alpha=32) — just keep training it.
+  continue_from: "ckpt/VLM_LoRA/checkpoint-10000"
+  # Used only when continue_from is null (start a fresh adapter):
+  r: 8
+  alpha: 32
+  dropout: 0.05
+  target_modules: "^(model).*\\.(q_proj|o_proj|gate_proj|down_proj|k_proj|up_proj|v_proj)$"
+
+generation:
+  max_new_tokens: 32
+  temperature: 1.0
+  top_p: 0.95
+  group_size: 6          # G completions sampled per state (GRPO group)
+
+rollout:
+  upscale: 4             # per-step zoom factor (matches inference --upscale)
+  rec_num: 4             # trajectory depth (number of zoom steps)
+  scales: [1, 2, 3, 4]   # which scale steps to train on (1-indexed)
+  process_size: 512
+  images_per_step: 2     # base images sampled per optimizer step
+
+# Reward components. enabled=false drops the component entirely.
+# total reward R = sum_k weight_k * znorm(R_k)
+rewards:
+  normalize: true        # running z-norm per component before weighting
+  r_anc:
+    enabled: true
+    weight: 1.0
+  r_rep:
+    enabled: true
+    weight: 1.0
+    ngram: 2             # n-gram overlap order for repetition detection
+  r_fb:
+    enabled: true
+    weight: 1.0
+    quality_metric: "musiq"   # pyiqa no-ref metric for SR output quality
+    consistency_weight: 0.5   # CLIP(image, input-crop) consistency term
+  r_crit:
+    enabled: true
+    weight: 0.5
+    backend: "vlm"            # "vlm" (Qwen2.5-VL-7B) | "clipscore"
+    critic_id: "Qwen/Qwen2.5-VL-7B-Instruct"
+  r_phr:
+    enabled: true
+    weight: 0.2
+    # phrases penalised as conversational filler (case-insensitive substring match)
+    fillers:
+      - "the image shows"
+      - "i can see"
+      - "this is a"
+      - "this image"
+      - "in the image"
+      - "there is"
+      - "there are"
+      - "appears to be"
+      - "it looks like"
+      - "a set of words"
+
+grpo:
+  kl_beta: 0.04          # KL penalty to the frozen reference policy
+  clip_eps: 0.2          # PPO/GRPO ratio clip
+  adv_eps: 1.0e-6        # std floor for group-normalised advantage
+
+optim:
+  lr: 1.0e-5
+  adam_beta1: 0.9
+  adam_beta2: 0.99
+  weight_decay: 0.0
+  adam_epsilon: 1.0e-8
+  grad_accum: 1
+  max_grad_norm: 1.0
+  max_steps: 2000
+  warmup_steps: 20
+  lr_scheduler: "constant_with_warmup"
+
+logging:
+  wandb: true
+  project: "grpo_coz_vlm"
+  run_name: null         # null -> auto
+  log_every: 1
+  ckpt_every: 200
+  eval_every: 500
+  sample_table_every: 50 # log a table of sampled prompts to wandb
+
+dataset:
+  train_txt: "train_utils/dataset_paths/DIV2K_TRAIN.txt"
+
+eval:
+  enabled: true
+  valid_txt: "train_utils/dataset_paths/DIV2K_VALID.txt"
+  num_images: 20         # subset of valid set per eval pass
+  rec_num: 4
+  metrics: ["niqe", "musiq", "maniqa", "clipiqa"]
