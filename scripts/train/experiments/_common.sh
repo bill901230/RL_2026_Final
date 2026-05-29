@@ -12,7 +12,7 @@
 set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/../../.."            # -> repo root
-PY="${PY:-/project2/cookies/miniconda3/envs/coz/bin/python}"   # always the coz env
+PY="${PY:-python}"
 CONFIG="${CONFIG:-train/configs/grpo_default.yaml}"
 
 run_grpo () {

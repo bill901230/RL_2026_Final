@@ -50,7 +50,7 @@ contributions; `exp4` is the full proposed method. The delta vs. `exp0` isolates
 - **Rename a run:** `NAME=exp1_anchor_w2 bash ... exp1_anchor.sh`.
 - **Tweak any knob:** edit the script's `run_grpo` args, or call the module directly:
   ```bash
-  CUDA_VISIBLE_DEVICES=0 /project2/cookies/miniconda3/envs/coz/bin/python \
+  CUDA_VISIBLE_DEVICES=0 python \
     -m train.train_grpo_vlm --config train/configs/grpo_default.yaml --set \
     rewards.r_anc.enabled=true rewards.r_anc.weight=2.0 \
     device_policy=cuda:0 device_critic=cuda:0 \
@@ -66,6 +66,6 @@ bash scripts/train/experiments/smoke.sh
 
 ## Evaluate a finished run
 ```bash
-/project2/cookies/miniconda3/envs/coz/bin/python -m train.evaluate \
+python -m train.evaluate \
   --config train/configs/grpo_default.yaml --adapter experience/grpo_vlm/exp4_full/final
 ```

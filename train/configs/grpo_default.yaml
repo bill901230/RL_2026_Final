@@ -84,6 +84,11 @@ rewards:
       - "appears to be"
       - "it looks like"
       - "a set of words"
+      - "first image"
+      - "second image"
+      - "third image"
+      - "the first image"
+      - "the second image"
 
 grpo:
   kl_beta: 0.04          # KL penalty to the frozen reference policy
@@ -113,11 +118,11 @@ logging:
   sample_table_every: 50 # log a table of sampled prompts to wandb
 
 dataset:
-  train_txt: "train_utils/dataset_paths/DIV2K_TRAIN.txt"
+  train_txt: "data/manifests/train.txt"
 
 eval:
   enabled: true
-  valid_txt: "train_utils/dataset_paths/DIV2K_VALID.txt"
+  valid_txt: "data/manifests/valid.txt"
   num_images: 20         # subset of valid set per eval pass
   rec_num: 4
   metrics: ["niqe", "musiq", "maniqa", "clipiqa"]
