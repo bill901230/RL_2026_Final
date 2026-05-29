@@ -10,7 +10,9 @@ Reference policy = the *initial* LoRA adapter, kept frozen as a second PEFT
 adapter ("reference") on the same base model (no extra full model in memory).
 Only the trainable "policy" adapter receives gradients.
 """
+import math
 import os
+from typing import Any, cast
 
 import torch
 import torch.nn.functional as F
@@ -22,9 +24,30 @@ from transformers import (
 from peft import PeftModel, LoraConfig
 
 try:
-    import wandb
+    import wandb  # pyright: ignore[reportMissingImports]
 except ImportError:
     wandb = None
+
+
+def _group_advantages(rewards, adv_eps):
+    return (rewards - rewards.mean()) / (rewards.std(unbiased=False) + adv_eps)
+
+
+def _importance_ratio(new_logp, old_logp):
+    return torch.exp(new_logp - old_logp)
+
+
+def _k3_kl(new_logp, ref_logp):
+    diff = ref_logp - new_logp
+    return torch.exp(diff) - diff - 1.0
+
+
+def _clamp_bind_fraction(ratio, clip_eps, mask=None):
+    binds = ((ratio < 1 - clip_eps) | (ratio > 1 + clip_eps)).float()
+    if mask is None:
+        return binds.mean()
+    denom = mask.sum().clamp(min=1.0)
+    return (binds * mask.float()).sum() / denom
 
 
 def _load_policy(cfg, device):
@@ -58,17 +81,19 @@ def _load_policy(cfg, device):
         )
         model = PeftModel(base, peft_cfg, adapter_name="default")
         has_ref = False  # reference == base (adapter disabled)
-    model.set_adapter("default")
-    if model.generation_config.pad_token_id is None:
-        model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
+    model_any = cast(Any, model)
+    processor_any = cast(Any, processor)
+    model_any.set_adapter("default")
+    if model_any.generation_config.pad_token_id is None:
+        model_any.generation_config.pad_token_id = processor_any.tokenizer.pad_token_id
     # Gradient checkpointing trades compute for a large drop in activation memory
     # during the backward forward (the OOM-prone path). Generation stays on cache.
     if cfg["optim"].get("gradient_checkpointing", True):
-        model.gradient_checkpointing_enable(
+        model_any.gradient_checkpointing_enable(
             gradient_checkpointing_kwargs={"use_reentrant": False}
         )
-        model.enable_input_require_grads()
-        model.generation_config.use_cache = True
+        model_any.enable_input_require_grads()
+        model_any.generation_config.use_cache = True
     return model, processor, has_ref
 
 
@@ -150,33 +175,43 @@ class GRPOTrainer:
         total_loss = total_kl = 0.0
         n_comp = sum(len(g.completions) for g in groups) or 1
         reward_log = {}
+        ratio_sum = ratio_sq_sum = ratio_count = 0.0
+        clamp_bind_sum = 0.0
 
         for g in groups:
             rewards = torch.tensor([c.reward for c in g.completions], dtype=torch.float32)
-            adv = (rewards - rewards.mean()) / (rewards.std(unbiased=False) + adv_eps)
+            adv = _group_advantages(rewards, adv_eps)
             pv = g.pixel_values.to(self.device)
             grid = g.image_grid_thw.to(self.device)
 
             for c, a in zip(g.completions, adv.tolist()):
                 seq = c.seq_ids.to(self.device)
+                if c.old_logp is None:
+                    raise ValueError("Completion.old_logp must be cached during rollout sampling")
                 with torch.no_grad():
-                    old_logp, mask = self._token_logprobs(seq, c.prompt_len, pv, grid)
                     ref_logp = self._ref_logprobs(seq, c.prompt_len, pv, grid)
                 new_logp, mask = self._token_logprobs(seq, c.prompt_len, pv, grid)
+                old_logp = c.old_logp.to(self.device)
 
-                ratio = torch.exp(new_logp - old_logp)
+                ratio = _importance_ratio(new_logp, old_logp)
                 surr1 = ratio * a
                 surr2 = torch.clamp(ratio, 1 - clip_eps, 1 + clip_eps) * a
                 pg = -torch.min(surr1, surr2)
-                # k3 KL estimator (non-negative)
-                diff = ref_logp - new_logp
-                kl = torch.exp(diff) - diff - 1.0
+                kl = _k3_kl(new_logp, ref_logp)
                 per_tok = pg + beta * kl
                 denom = mask.sum().clamp(min=1.0)
                 loss = (per_tok * mask).sum() / denom / n_comp
                 loss.backward()
                 total_loss += loss.item() * n_comp
                 total_kl += ((kl * mask).sum() / denom).item()
+                token_count = mask.sum().item()
+                if token_count:
+                    ratio_sum += (ratio * mask).sum().item()
+                    ratio_sq_sum += ((ratio ** 2) * mask).sum().item()
+                    ratio_count += token_count
+                    clamp_bind_sum += (
+                        _clamp_bind_fraction(ratio, clip_eps, mask).item() * token_count
+                    )
 
             for k in (g.completions[0].raw if g.completions else {}):
                 vals = [c.raw[k] for c in g.completions]
@@ -190,13 +225,24 @@ class GRPOTrainer:
             self.cfg["optim"]["max_grad_norm"],
         )
         self.optimizer.step()
-        self.lr_scheduler.step()
+        cast(Any, self.lr_scheduler).step()
         self.global_step += 1
+
+        if ratio_count:
+            ratio_mean = ratio_sum / ratio_count
+            ratio_var = max(ratio_sq_sum / ratio_count - ratio_mean ** 2, 0.0)
+            ratio_std = math.sqrt(ratio_var)
+            clamp_bind_fraction = clamp_bind_sum / ratio_count
+        else:
+            ratio_mean = ratio_std = clamp_bind_fraction = 0.0
 
         logs = {k: sum(v) / len(v) for k, v in reward_log.items()}
         logs.update({
             "loss/policy": total_loss / n_comp,
             "loss/kl": total_kl / n_comp,
+            "ratio/mean": ratio_mean,
+            "ratio/std": ratio_std,
+            "ratio/clamp_bind_fraction": clamp_bind_fraction,
             "grad_norm": float(gn),
             "lr": self.lr_scheduler.get_last_lr()[0],
         })
@@ -254,7 +300,7 @@ class GRPOTrainer:
 
     def run_eval(self):
         try:
-            from train.evaluate import evaluate_adapter
+            from train.evaluate import evaluate_adapter  # pyright: ignore[reportMissingImports]
         except Exception as e:
             print(f"[GRPO] eval skipped: {e}")
             return

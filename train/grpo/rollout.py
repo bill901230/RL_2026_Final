@@ -3,15 +3,17 @@
 For each base image x_0 we roll the recursive-multiscale zoom forward (mirroring
 inference_coz.py:332-346). At every *trained* scale step we sample a group of G
 prompts from the current policy and attach the multi-objective reward to each;
-the trajectory is then advanced using the best prompt's SR output.
+the trajectory is then advanced by the configured group-selection policy.
 
 A `Group` carries everything the trainer needs to recompute token log-probs:
-the shared vision inputs, the prompt length, and each completion's full token ids.
+the shared vision inputs, the prompt length, each completion's full token ids,
+and the sample-time log-probs used as PPO/GRPO old_logp.
 """
 from dataclasses import dataclass, field
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import torch
+import torch.nn.functional as F
 from PIL import Image
 
 from .state import build_messages, process_state
@@ -27,6 +29,7 @@ class Completion:
     reward: float
     raw: Dict[str, float]
     text: str
+    old_logp: Optional[torch.Tensor] = None  # (Tc,) sample-time policy log-probs
 
 
 @dataclass
@@ -37,6 +40,7 @@ class Group:
     completions: List[Completion] = field(default_factory=list)
     scale: int = 0
     base_path: str = ""
+    sampled_idx: int = 0
 
 
 def _center_zoom_crop(img: Image.Image, upscale: int) -> Image.Image:
@@ -45,7 +49,7 @@ def _center_zoom_crop(img: Image.Image, upscale: int) -> Image.Image:
     nw, nh = w // upscale, h // upscale
     cx, cy = w // 2, h // 2
     crop = img.crop((cx - nw // 2, cy - nh // 2, cx + nw // 2, cy + nh // 2))
-    return crop.resize((w, h), Image.BICUBIC)
+    return crop.resize((w, h), Image.Resampling.BICUBIC)
 
 
 class Rollout:
@@ -58,6 +62,9 @@ class Rollout:
         self.device = device
         self.gen = cfg["generation"]
         self.roll = cfg["rollout"]
+        self.advance_policy = self.roll.get("advance_policy", "sampled")
+        if self.advance_policy not in {"best", "sampled"}:
+            raise ValueError("rollout.advance_policy must be 'best' or 'sampled'")
         self._anchor_cache = {}
 
     @torch.no_grad()
@@ -77,7 +84,7 @@ class Rollout:
 
     @torch.no_grad()
     def _sample_group(self, inputs, n):
-        """Sample n completions; return list of (seq_ids(1,L), text).
+        """Sample n completions; return list of (seq_ids(1,L), text, old_logp).
 
         Generated in micro-batches: `num_return_sequences` makes HF replicate the
         (multi-image) vision inputs, so a full group of n at once blows up the
@@ -98,13 +105,31 @@ class Rollout:
                 num_return_sequences=k,
             )
             for i in range(out.shape[0]):
-                seq = out[i : i + 1].detach().cpu()
+                seq_device = out[i : i + 1]
+                old_logp = self._completion_logprobs(
+                    seq_device, prompt_len, inputs
+                ).detach().cpu()
+                seq = seq_device.detach().cpu()
                 text = self.processor.decode(
                     out[i][prompt_len:], skip_special_tokens=True
                 ).strip()
-                results.append((seq, text))
+                results.append((seq, text, old_logp))
             remaining -= k
         return results, prompt_len
+
+    def _completion_logprobs(self, seq_ids, prompt_len, inputs):
+        out = self.policy(
+            input_ids=seq_ids,
+            attention_mask=torch.ones_like(seq_ids),
+            pixel_values=inputs["pixel_values"],
+            image_grid_thw=inputs["image_grid_thw"],
+            use_cache=False,
+        )
+        start = prompt_len - 1
+        logits_c = out.logits[:, start:-1, :]
+        targets_c = seq_ids[:, start + 1:]
+        logp = F.log_softmax(logits_c.float(), dim=-1)
+        return logp.gather(-1, targets_c.unsqueeze(-1)).squeeze(-1)[0]
 
     @torch.no_grad()
     def _greedy_prompt(self, inputs):
@@ -151,15 +176,17 @@ class Rollout:
                     crop_pil=crop, x0_caption=x0_caption,
                     prev_prompts=list(prev_prompts),
                 )
-                for seq, text in samples:
+                for seq, text, old_logp in samples:
                     total, raw = self.rewards.compute(text or "", ctx)
                     group.completions.append(
-                        Completion(seq, prompt_len, total, raw, text)
+                        Completion(seq, prompt_len, total, raw, text, old_logp)
                     )
                 groups.append(group)
-                # advance with the best prompt of the group
-                best = max(group.completions, key=lambda c: c.reward)
-                chosen_prompt = best.text or ""
+                if self.advance_policy == "best":
+                    chosen = max(group.completions, key=lambda c: c.reward)
+                else:
+                    chosen = group.completions[group.sampled_idx]
+                chosen_prompt = chosen.text or ""
             else:
                 chosen_prompt = self._greedy_prompt(inputs)
 
