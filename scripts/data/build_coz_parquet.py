@@ -5,6 +5,7 @@ Rows are one (image, scale-step) state each.  The visual input is the current
 single crop image, while the global context is carried as a cached text caption
 of scale-0 to avoid unvalidated multi-image vLLM rollout behavior.
 """
+# pyright: reportCallIssue=false
 
 from __future__ import annotations
 
@@ -246,6 +247,7 @@ def build_rows(
                     "extra_info": {
                         "x0_caption": x0_caption,
                         "prev_prompt": prev_prompt,
+                        "crop_path": str(crop_path),
                         "scale": scale,
                         "zoom_factor": zoom_factor,
                         "image_id": iid,

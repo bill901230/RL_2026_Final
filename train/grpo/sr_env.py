@@ -20,7 +20,7 @@ _to_pil = transforms.ToPILImage()
 class FrozenSRBackbone:
     def __init__(self, cfg, device="cuda:1"):
         self.device = device
-        model = SD3Euler()
+        model = SD3Euler(device=device)
         model.text_enc_1.to(device)
         model.text_enc_2.to(device)
         model.text_enc_3.to(device)
