@@ -47,6 +47,7 @@ CsvRow: TypeAlias = dict[str, CsvValue]
 
 _NUMERIC_PNG_RE: re.Pattern[str] = re.compile(r"^(\d+)\.png$")
 _NUMERIC_TXT_RE: re.Pattern[str] = re.compile(r"^(\d+)\.txt$")
+_INPUT_CROP_RE: re.Pattern[str] = re.compile(r".*_input\.png$", re.IGNORECASE)
 _TOKEN_RE: re.Pattern[str] = re.compile(r"\b\w+\b", re.UNICODE)
 
 
@@ -91,22 +92,25 @@ def _numeric_files(directory: Path, pattern: re.Pattern[str]) -> list[tuple[int,
 
 
 def _contiguous_scale_images(sample_dir: Path) -> tuple[Path, ...]:
-    indexed = _numeric_files(sample_dir, _NUMERIC_PNG_RE)
-    if not indexed or indexed[0][0] != 0:
+    by_index: dict[int, Path] = {}
+    for idx, path in _numeric_files(sample_dir, _NUMERIC_PNG_RE):
+        # Exclude the concat strip (<stem>.png inside <stem>/, e.g. 0801.png->801)
+        # and zoom-crop inputs (*_input.png) so they cannot poison scale indices.
+        if path.stem == sample_dir.name:
+            continue
+        if _INPUT_CROP_RE.fullmatch(path.name):
+            continue
+        by_index[idx] = path
+    if 0 not in by_index:
         raise FileNotFoundError(f"{sample_dir} does not contain 0.png")
-    indices = [idx for idx, _ in indexed]
-    expected = list(range(indices[-1] + 1))
-    if indices != expected:
-        message = (
-            f"{sample_dir} must contain contiguous scale images "
-            + f"0.png..{indices[-1]}.png; found {indices}"
-        )
-        raise FileNotFoundError(
-            message
-        )
-    if len(indexed) < 2:
+    ordered: list[Path] = []
+    index = 0
+    while index in by_index:  # deepest scale = max contiguous index from 0
+        ordered.append(by_index[index])
+        index += 1
+    if len(ordered) < 2:
         raise FileNotFoundError(f"{sample_dir} needs at least 0.png and 1.png")
-    return tuple(path for _, path in indexed)
+    return tuple(ordered)
 
 
 def _prompt_files(sample_dir: Path) -> tuple[Path, ...]:
