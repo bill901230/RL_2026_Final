@@ -32,6 +32,83 @@ def resize_and_center_crop(img: Image.Image, size: int) -> Image.Image:
     top  = (new_h - size) // 2
     return img.crop((left, top, left + size, top + size))
 
+
+def select_crop_top_left(img, crop_w, crop_h, strategy='center', stride=16, n_bins=32):
+    # Strategies (all return top-left origin of a crop_w x crop_h window):
+    #   center  : legacy geometric center.
+    #   entropy : highest Shannon entropy of grayscale-bin counts.
+    #             Prefers regions with diverse intensities (good for paintings
+    #             with high color variety; weaker on near-monochrome dense
+    #             scenes like a tightly packed battle in earthen tones).
+    #   edges   : highest sum of Sobel gradient magnitude (edge density).
+    #             Empirically the strongest "object density" proxy: dense
+    #             figurative content (crowds, war scenes, ornate architecture)
+    #             always wins over smooth regions (skies, mountains).
+    #             O(1) per window via summed-area table on the gradient map.
+    #   detail  : composite of `edges` and `entropy` (each min-max normalized
+    #             across all candidate windows then summed) - robust default
+    #             when image content is mixed.
+    w, h = img.size
+    if crop_w >= w and crop_h >= h:
+        return 0, 0
+    if strategy == 'center':
+        return (w - crop_w) // 2, (h - crop_h) // 2
+
+    arr = np.asarray(img.convert('L'), dtype=np.float32)
+    H, W = arr.shape
+    tops = list(range(0, H - crop_h + 1, stride))
+    lefts = list(range(0, W - crop_w + 1, stride))
+    if not tops:
+        tops = [0]
+    if not lefts:
+        lefts = [0]
+
+    def edge_scores():
+        from scipy.ndimage import sobel
+        gx = sobel(arr, axis=1, mode='reflect')
+        gy = sobel(arr, axis=0, mode='reflect')
+        mag = np.sqrt(gx * gx + gy * gy)
+        ii = np.cumsum(np.cumsum(mag, axis=0), axis=1)
+        ii = np.pad(ii, ((1, 0), (1, 0)), mode='constant')
+        out = np.zeros((len(tops), len(lefts)), dtype=np.float64)
+        for ti, t in enumerate(tops):
+            for li, l in enumerate(lefts):
+                s = (ii[t + crop_h, l + crop_w] - ii[t, l + crop_w]
+                     - ii[t + crop_h, l] + ii[t, l])
+                out[ti, li] = s
+        return out
+
+    def entropy_scores():
+        bin_idx = (arr.astype(np.int32) * n_bins) // 256
+        bin_idx = np.clip(bin_idx, 0, n_bins - 1)
+        out = np.zeros((len(tops), len(lefts)), dtype=np.float64)
+        for ti, t in enumerate(tops):
+            for li, l in enumerate(lefts):
+                window = bin_idx[t:t + crop_h, l:l + crop_w]
+                hist = np.bincount(window.ravel(), minlength=n_bins).astype(np.float64)
+                p = hist / hist.sum()
+                p_nz = p[p > 0]
+                out[ti, li] = float(-np.sum(p_nz * np.log2(p_nz)))
+        return out
+
+    if strategy == 'entropy':
+        scores = entropy_scores()
+    elif strategy == 'edges':
+        scores = edge_scores()
+    elif strategy == 'detail':
+        e = edge_scores()
+        h_ = entropy_scores()
+        # Min-max normalize each, then sum. Equal weighting.
+        def _nrm(x):
+            lo, hi = x.min(), x.max()
+            return (x - lo) / (hi - lo + 1e-12)
+        scores = _nrm(e) + _nrm(h_)
+    else:
+        raise ValueError(f"Unknown crop_strategy: {strategy!r}")
+
+    ti, li = np.unravel_index(int(np.argmax(scores)), scores.shape)
+    return lefts[li], tops[ti]
+
 def get_validation_prompt(args, image, prompt_image_path, dape_model=None, vlm_model=None, device='cuda'):
     # prepare low-res tensor for SR input
     lq = tensor_transforms(image).unsqueeze(0).to(device)
@@ -159,6 +236,8 @@ if __name__ == "__main__":
     parser.add_argument('--lora_rank', type=int, default=4)
     parser.add_argument('--rec_type', type=str, choices=['nearest', 'bicubic','onestep','recursive','recursive_multiscale'], default='recursive_multiscale', help='type of inference to use')
     parser.add_argument('--rec_num', type=int, default=4)
+    parser.add_argument('--crop_strategy', type=str, choices=['center', 'entropy', 'edges', 'detail'], default='center',
+                        help='How to choose the recursive zoom crop region. center=legacy geometric center. entropy=Shannon entropy of grayscale histogram. edges=Sobel gradient magnitude sum (highest edge/object density; best for figure-dense scenes). detail=composite of edges+entropy with min-max normalization.')
     
     parser.add_argument('--vae_encoder_tiled_size', type=int, default=1024)
     parser.add_argument('--vae_decoder_tiled_size', type=int, default=128)
@@ -291,7 +370,9 @@ if __name__ == "__main__":
                 new_w, new_h = w // rscale, h // rscale
                 
                 # crop from the original highest-res image available for this step
-                cropped_region = start_image_pil.crop(((w-new_w)//2, (h-new_h)//2, (w+new_w)//2, (h+new_h)//2))
+                _l, _t = select_crop_top_left(start_image_pil, new_w, new_h, args.crop_strategy)
+                cropped_region = start_image_pil.crop((_l, _t, _l + new_w, _t + new_h))
+                print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 
                 if args.rec_type == 'onestep':
                     current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
@@ -315,7 +396,9 @@ if __name__ == "__main__":
                 rscale = args.upscale
                 w, h = prev_sr_output_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                cropped_region = prev_sr_output_pil.crop(((w-new_w)//2, (h-new_h)//2, (w+new_w)//2, (h+new_h)//2))
+                _l, _t = select_crop_top_left(prev_sr_output_pil, new_w, new_h, args.crop_strategy)
+                cropped_region = prev_sr_output_pil.crop((_l, _t, _l + new_w, _t + new_h))
+                print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
 
                 # this resized image is also the input for VLM
@@ -329,7 +412,9 @@ if __name__ == "__main__":
                 rscale = args.upscale
                 w, h = prev_sr_output_pil.size
                 new_w, new_h = w // rscale, h // rscale
-                cropped_region = prev_sr_output_pil.crop(((w-new_w)//2, (h-new_h)//2, (w+new_w)//2, (h+new_h)//2))
+                _l, _t = select_crop_top_left(prev_sr_output_pil, new_w, new_h, args.crop_strategy)
+                cropped_region = prev_sr_output_pil.crop((_l, _t, _l + new_w, _t + new_h))
+                print(f'CROP@rec{rec} strategy={args.crop_strategy} bbox=({_l},{_t},{_l+new_w},{_t+new_h}) of {w}x{h}')
                 current_sr_input_image_pil = cropped_region.resize((w, h), Image.BICUBIC)
 
                 # save the SR input image (which is the "zoomed-in" image for VLM)
