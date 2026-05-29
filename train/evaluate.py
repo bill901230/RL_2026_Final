@@ -7,6 +7,7 @@ standalone CLI to evaluate a saved adapter.
 import argparse
 import os
 import sys
+from typing import Any, cast
 
 import yaml
 import torch
@@ -68,7 +69,8 @@ def _build_standalone(cfg, adapter_path):
     )
     processor = AutoProcessor.from_pretrained(cfg["model"]["policy_id"])
     if adapter_path:
-        model = PeftModel.from_pretrained(base, adapter_path).merge_and_unload()
+        adapter = cast(Any, PeftModel.from_pretrained(base, adapter_path))
+        model = adapter.merge_and_unload()
     else:
         model = base
     model.eval()
