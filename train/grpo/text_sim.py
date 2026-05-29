@@ -1,14 +1,15 @@
 """Shared CLIP embedders for the text/image similarity rewards.
 
 Used by:
-  - R_anc : cosine(prompt, x_0 caption)            -> text-text
-  - R_rep : cosine(prompt, previous-scale prompts) -> text-text
-  - R_fb  : cosine(SR image, input crop)           -> image-image (consistency)
-  - R_crit (clipscore backend): cosine(image, prompt) -> image-text
+  - R_anc : mapped cosine(prompt, x_0 caption)            -> text-text
+  - R_rep : mapped cosine(prompt, previous-scale prompts) -> text-text
+  - R_fb  : mapped cosine(SR image, input crop)           -> image-image (consistency)
+  - R_crit (clipscore backend): mapped cosine(image, prompt) -> image-text
 
 One CLIP model serves all of them. ngram_overlap is a cheap lexical companion
 to the embedding similarity for R_rep.
 """
+# pyright: reportArgumentType=false, reportCallIssue=false
 import torch
 import torch.nn.functional as F
 from transformers import CLIPModel, CLIPProcessor
@@ -43,8 +44,12 @@ class ClipEmbedder:
 
     @staticmethod
     def cosine(a, b):
-        """a:(N,D) b:(M,D) normalised -> (N,M) cosine similarity."""
-        return a @ b.t()
+        """a:(N,D) b:(M,D) normalised -> (N,M) similarity in [0,1].
+
+        Raw CLIP cosine is mapped here from [-1,1] to [0,1] for every reward
+        caller, so anchor/repetition/CLIPScore components share one range.
+        """
+        return ((a @ b.t()).clamp(-1.0, 1.0) + 1.0) / 2.0
 
 
 def ngram_set(text, n=2):
