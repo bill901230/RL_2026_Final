@@ -56,8 +56,23 @@ Exact recomputation is in `results/aggregate_full_3seed.csv`. This resolves the 
 - `tune_rrep` vs A3 (`n=30`): unique-token ratio `0.6234 -> 0.6442` (`+0.0208`), consistency `0.7808 -> 0.7841` (`+0.0033`), MUSIQ `50.27 -> 50.86` (`+0.59`), but inverted NIQE `-7.60 -> -7.74` (`-0.14`), MANIQA `-0.0036`, and CLIPIQA `-0.0100` regressed.
 - Honest verdict: diversity moved in the intended direction and beat the w4v2 3-seed mean by `+0.0168`, but it is **not robust yet** because the gain is below the prior w4v2 seed std (`0.0263`) and it trades off several IQA axes. Do not replace W4-v2 with this weight without a 3-seed follow-up or a milder `R_rep` setting.
 
+### Operating points @ n=100
+
+The higher-`R_rep` / higher-`R_fb` checkpoint (`ckpt/VLM_FT/coz_tune_rrep`) was re-evaluated on the full DIV2K-valid split (`0801-0900`, `n=100`) with the same fixed greedy `recursive_multiscale` protocol and seed label `123`. This makes the operating points directly comparable at scale: A3 author baseline, balanced W4-v2 seed123 (`results/w4v2_full.csv`), and max-anti-convergence tuned seed123 (`results/tune_rrep_full.csv`). All axes are higher-is-better; NIQE is the inverted evaluator value.
+
+| axis | A3 full mean | balanced W4-v2 seed123 | tuned `tune_rrep` seed123 | tuned delta vs A3 | tuned minus balanced | reading |
+|---|---:|---:|---:|---:|---:|---|
+| NIQE (inverted) | -8.456 | -8.629 | -8.414 | +0.041 | +0.214 | tuned recovers NIQE vs both A3 and balanced |
+| MUSIQ | 50.107 | 50.644 | 49.813 | -0.294 | -0.831 | tuned gives up the balanced robust MUSIQ win |
+| MANIQA | 0.4085 | 0.4107 | 0.4053 | -0.0032 | -0.0054 | tuned regresses |
+| CLIPIQA | 0.6121 | 0.6199 | 0.6140 | +0.0019 | -0.0060 | tuned is slightly above A3 but below balanced |
+| consistency | 0.7922 | 0.7910 | 0.7952 | +0.0030 | +0.0042 | tuned improves anti-drift where balanced regressed |
+| unique-token ratio | 0.6182 | 0.6894 | 0.6342 | +0.0160 | -0.0552 | tuned improves over A3 but **does not** beat balanced at `n=100` |
+
+Exact operating-point recomputation is in `results/operating_points_n100.csv`. Compared with the balanced 3-seed reference (`results/aggregate_full_3seed.csv`), tuned unique-token ratio (`0.6342`, `+0.0160` vs A3) is also below the balanced 3-seed mean (`0.6495`, `+0.0313`) and below the W4-v2 seed std threshold (`0.0346`), so the higher-`R_rep` arm is **not** a larger or more-robust anti-convergence win at `n=100`. The scaled tradeoff is clearer than the `n=30` probe: tuned buys NIQE and consistency recovery, but pays in MUSIQ, MANIQA, CLIPIQA-vs-balanced, and prompt diversity-vs-balanced. Keep W4-v2 as the balanced operating point; treat `tune_rrep` as a single-seed stress point, not a replacement.
+
 ## Caveats & next steps
 
-- The outstanding eval caveats are now resolved for W4-v2 (`3` seeds on all `100` DIV2K-valid images), but the result is still only three trained checkpoints and `100` GRPO steps; interpret the seed-std robustness rule as a practical filter, not a formal significance test.
-- Stabilize NIQE/consistency and reduce diversity variance: consistency regresses in `3/3` full-valid seeds, inverted NIQE regresses by mean, and the unique-token gain is seed-unanimous but below seed std.
+- The outstanding eval caveats are now resolved for W4-v2 (`3` seeds on all `100` DIV2K-valid images), and `tune_rrep` now has a directly comparable `n=100` eval, but the tuned arm is still only `1` seed; interpret the seed-std robustness rule as a practical filter, not a formal significance test.
+- For the balanced W4-v2 operating point, stabilize NIQE/consistency and reduce diversity variance: consistency regresses in `3/3` full-valid seeds, inverted NIQE regresses by mean, and the unique-token gain is seed-unanimous but below seed std.
 - Remaining arms: A7 state-expansion and A8 higher-`R_fb` weight are still unrun; both should report all `6` axes, not a single metric.
