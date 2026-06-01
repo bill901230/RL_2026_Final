@@ -13,18 +13,18 @@
 
 ## Numerical results
 
-W4-v2 vs A3 author baseline on `eval_subset` (`n=30`, `1` seed, `100` GRPO steps). All reported axes are higher-is-better; NIQE is the inverted evaluator value. Result: `5/6` axes improved, with no single-metric claim.
+W4-v2 vs A3 author baseline on `eval_subset` (`n=30`, `3` seeds, `100` GRPO steps). All reported axes are higher-is-better; NIQE is the inverted evaluator value. Result: `6/6` axes improved by three-seed mean, with no single-metric claim.
 
-| axis | A3 mean | w4v2 mean | delta | reading |
-|---|---:|---:|---:|---|
-| NIQE (inverted) | -7.60 | -7.78 | -0.18 | regression; MUSIQ↑/NIQE↓ no-ref-IQA tradeoff |
-| MUSIQ | 50.27 | 51.81 | +1.54 | improved |
-| MANIQA | 0.3958 | 0.4043 | +0.0085 | improved |
-| CLIPIQA | 0.6070 | 0.6148 | +0.0078 | improved |
-| consistency | 0.7810 | 0.7826 | +0.0016 | anti-drift improved |
-| unique-token ratio | 0.6234 | 0.6571 | +0.0337 | anti-convergence improved |
+| axis | A3 mean | w4v2 mean±std | delta mean±std | seeds improving | reading |
+|---|---:|---:|---:|---:|---|
+| NIQE (inverted) | -7.60 | -7.57±0.19 | +0.03±0.19 | 2/3 | slight mean recovery; still high variance |
+| MUSIQ | 50.27 | 51.16±0.63 | +0.89±0.63 | 3/3 | improved |
+| MANIQA | 0.3958 | 0.3987±0.0054 | +0.0029±0.0054 | 2/3 | modest improvement |
+| CLIPIQA | 0.6070 | 0.6133±0.0060 | +0.0063±0.0060 | 2/3 | improved |
+| consistency | 0.7808 | 0.7820±0.0006 | +0.0012±0.0006 | 3/3 | anti-drift improved |
+| unique-token ratio | 0.6234 | 0.6274±0.0263 | +0.0040±0.0263 | 1/3 | mean anti-convergence improved but seed-fragile |
 
-Exact CSV recomputation is in `results/aggregate_deltas.csv`; the headline table above keeps the rounded deltas used for the W4-v2 verdict.
+Exact CSV recomputation is in `results/aggregate_deltas.csv`; the headline table above keeps rounded 3-seed mean±std deltas used for the W4-v2 verdict. Caveat: seed789 completed on the constrained 2-GPU allocation with `train_batch_size=2` / `ppo_mini_batch_size=2`, while earlier seeds used the original larger micro-run settings, so treat the aggregate as confirmation rather than a final significance claim.
 
 ## 0064 probe
 
@@ -35,6 +35,6 @@ Exact CSV recomputation is in `results/aggregate_deltas.csv`; the headline table
 
 ## Caveats & next steps
 
-- Statistical defensibility is limited: only `1` seed, `n=30`, and `100` GRPO steps; run `>=3` seeds and full DIV2K-valid before final significance claims.
-- Recover NIQE: current inverted NIQE delta is `-0.18`, so tune reward weights against the MUSIQ↑/NIQE↓ tradeoff.
+- Statistical defensibility is still limited: `3` seeds but only `n=30`, `100` GRPO steps, and one constrained 2-GPU seed789 run with smaller batch settings; run full DIV2K-valid before final significance claims.
+- Stabilize NIQE/diversity: inverted NIQE is only `+0.03±0.19` and unique-token ratio is `+0.004±0.026`, so tune reward weights against seed variance rather than optimizing a single metric.
 - Remaining arms: A7 state-expansion and A8 higher-`R_fb` weight are still unrun; both should report all `6` axes, not a single metric.
