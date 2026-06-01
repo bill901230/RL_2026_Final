@@ -1,0 +1,7 @@
+axis,a3_full_mean,a3_full_std,w4v2_full_mean,w4v2_full_std,delta_mean,delta_std_paired,direction,n,seeds,prior_n30_seed123_delta,prior_n30_3seed_delta_mean,prior_n30_3seed_delta_std,holds_vs_n30_seed123,holds_vs_n30_3seed_mean
+niqe,-8.455679,3.863331,-8.628615,4.057353,-0.172936,1.676431,regressed,100,1,-0.180538,0.034358,0.187677,holds_regression,flips_negative
+musiq,50.107096,13.625708,50.644055,13.225546,0.536959,4.620958,improved,100,1,1.542047,0.890400,0.628336,holds_positive,holds_positive
+maniqa,0.408489,0.067390,0.410699,0.064189,0.002210,0.031056,improved,100,1,0.008468,0.002872,0.005369,holds_positive,holds_positive
+clipiqa,0.612066,0.146745,0.619926,0.139764,0.007860,0.065780,improved,100,1,0.007845,0.006327,0.005962,holds_positive,holds_positive
+consistency,0.792217,0.046536,0.790967,0.045451,-0.001250,0.015814,regressed,100,1,0.001788,0.001158,0.000595,flips_negative,flips_negative
+unique_token_ratio,0.618226,0.100655,0.689402,0.114152,0.071177,0.128076,improved,100,1,0.033679,0.004021,0.026254,holds_positive,holds_positive

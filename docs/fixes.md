@@ -26,6 +26,21 @@ W4-v2 vs A3 author baseline on `eval_subset` (`n=30`, `3` seeds, `100` GRPO step
 
 Exact CSV recomputation is in `results/aggregate_deltas.csv`; the headline table above keeps rounded 3-seed mean±std deltas used for the W4-v2 verdict. Caveat: seed789 completed on the constrained 2-GPU allocation with `train_batch_size=2` / `ppo_mini_batch_size=2`, while earlier seeds used the original larger micro-run settings, so treat the aggregate as confirmation rather than a final significance claim.
 
+### n=100 full-valid confirmation (eval-only F3)
+
+A clean eval-only rerun on the full DIV2K valid split (`data/div2k/valid`, `0801-0900`, `n=100`) compared the author A3 adapter (`ckpt/VLM_LoRA/checkpoint-10000`) against the seed-123 balanced full-FT model (`ckpt/VLM_FT/coz_w4v2`) with the same fixed protocol (`recursive_multiscale`, same SR LoRA/VAE, greedy VLM prompting). This is larger-sample confirmation of the seed-123 point only, not a new multi-seed claim.
+
+| axis | A3 full mean±img std | w4v2 full mean±img std | delta mean±paired std | vs prior `n=30` reading |
+|---|---:|---:|---:|---|
+| NIQE (inverted) | -8.456±3.863 | -8.629±4.057 | -0.173±1.676 | seed-123 NIQE regression holds; flips negative vs the 3-seed `+0.03` mean |
+| MUSIQ | 50.107±13.626 | 50.644±13.226 | +0.537±4.621 | positive direction holds, but smaller than seed-123 `+1.54` / 3-seed `+0.89` on `n=30` |
+| MANIQA | 0.4085±0.0674 | 0.4107±0.0642 | +0.0022±0.0311 | positive direction holds, small effect |
+| CLIPIQA | 0.6121±0.1467 | 0.6199±0.1398 | +0.0079±0.0658 | positive direction holds |
+| consistency | 0.7922±0.0465 | 0.7910±0.0455 | -0.00125±0.0158 | flips negative; the `n=30` anti-drift gain does **not** hold on full-valid seed-123 |
+| unique-token ratio | 0.6182±0.1007 | 0.6894±0.1142 | +0.0712±0.1281 | positive direction holds and is larger than `n=30` seed-123 / 3-seed means |
+
+Exact full-valid recomputation is in `results/full_valid_deltas.csv`. Honest verdict: the larger `n=100` rerun supports a positive MUSIQ direction for seed-123, but the effect is smaller and should not be over-read as significance from one seed; it does **not** confirm the prior consistency/anti-drift gain because that axis flips sign. Four of six axes remain positive on full-valid (`MUSIQ`, `MANIQA`, `CLIPIQA`, unique-token ratio); inverted `NIQE` and consistency regress.
+
 ## 0064 probe
 
 - Input `samples/0064.png`, A3=`ckpt/VLM_LoRA/checkpoint-10000`, w4v2=`ckpt/VLM_FT/coz_w4v2` via `--vlm_model_path`, `recursive_multiscale`, `--save_prompts`.
@@ -41,6 +56,6 @@ Exact CSV recomputation is in `results/aggregate_deltas.csv`; the headline table
 
 ## Caveats & next steps
 
-- Statistical defensibility is still limited: `3` seeds but only `n=30`, `100` GRPO steps, and one constrained 2-GPU seed789 run with smaller batch settings; run full DIV2K-valid before final significance claims.
-- Stabilize NIQE/diversity: inverted NIQE is only `+0.03±0.19` and unique-token ratio is `+0.004±0.026`, so tune reward weights against seed variance rather than optimizing a single metric.
+- Statistical defensibility is still limited: `3` seeds at `n=30` plus one clean seed-123 full-valid rerun at `n=100`, `100` GRPO steps, and one constrained 2-GPU seed789 run with smaller batch settings. The full-valid rerun reduces the sample-count caveat for the seed-123 point, but final significance still needs multi-seed full-valid evaluation.
+- Stabilize NIQE/consistency and verify diversity across seeds: inverted NIQE is only `+0.03±0.19` on the 3-seed subset and regresses `-0.173` on full-valid seed-123, while consistency flips to `-0.00125` on full-valid. Unique-token ratio is strong on the full-valid seed-123 rerun but was seed-fragile at `n=30` (`+0.004±0.026`), so tune against seed variance rather than optimizing a single metric.
 - Remaining arms: A7 state-expansion and A8 higher-`R_fb` weight are still unrun; both should report all `6` axes, not a single metric.
