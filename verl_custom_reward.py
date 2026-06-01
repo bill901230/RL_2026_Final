@@ -69,10 +69,10 @@ def _cfg(enable_rfb: bool) -> dict[str, Any]:
             "normalize": True,
             "normalization_mode": "per_group",
             "r_anc": {"enabled": True, "weight": _float_env("COZ_R_ANC_WEIGHT", 0.2)},
-            "r_rep": {"enabled": True, "weight": _float_env("COZ_R_REP_WEIGHT", 1.0), "ngram": 2},
+            "r_rep": {"enabled": True, "weight": _float_env("COZ_R_REP_WEIGHT", 3.0), "ngram": 2},
             "r_fb": {
                 "enabled": enable_rfb,
-                "weight": _float_env("COZ_R_FB_WEIGHT", 1.0),
+                "weight": _float_env("COZ_R_FB_WEIGHT", 1.25),
                 "quality_metric": os.environ.get("COZ_RFB_METRIC", "musiq"),
                 "consistency_weight": _float_env("COZ_RFB_CONSISTENCY_WEIGHT", 0.5),
             },
