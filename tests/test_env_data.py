@@ -37,13 +37,15 @@ def _install_osediff_stub(monkeypatch: pytest.MonkeyPatch) -> _SREnvModule:
             return self
 
     class _FakeSD3Euler:
+        device: object
         text_enc_1: _FrozenPart
         text_enc_2: _FrozenPart
         text_enc_3: _FrozenPart
         transformer: _FrozenPart
         vae: _FrozenPart
 
-        def __init__(self) -> None:
+        def __init__(self, device: object = "cuda") -> None:
+            self.device = device
             self.text_enc_1 = _FrozenPart()
             self.text_enc_2 = _FrozenPart()
             self.text_enc_3 = _FrozenPart()
@@ -62,6 +64,7 @@ def _install_osediff_stub(monkeypatch: pytest.MonkeyPatch) -> _SREnvModule:
             assert prompt == "fine texture"
             assert lq.ndim == 4
             assert lq.shape[1] == 3
+            assert lq.device.type == "cpu"
             assert float(lq.amin()) >= -1.0
             assert float(lq.amax()) <= 1.0
             return torch.full_like(lq, 0.25)
