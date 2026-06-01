@@ -33,6 +33,12 @@ Exact CSV recomputation is in `results/aggregate_deltas.csv`; the headline table
 - Neural drift check (`neuron|synapse|dendrite|axon`): **PASS for no neural terms, tie vs A3** — w4v2 `0`, A3 rerun `0`; historical fail-case drift emitted those terms.
 - Cross-scale diversity check: **PASS** — A3 `34/72 = 0.4722`; w4v2 `38/55 = 0.6909`; delta `+0.2187`. Caveat: w4v2 scale 2 is terse (`dog`).
 
+## Reward-tuning ablation
+
+- One 2-GPU seed-123 ablation raised `R_rep` `1.0 -> 3.0` and `R_fb` `1.0 -> 1.25` (`R_anc=0.2`, `R_phr=0.1` unchanged) to target prompt convergence directly.
+- `tune_rrep` vs A3 (`n=30`): unique-token ratio `0.6234 -> 0.6442` (`+0.0208`), consistency `0.7808 -> 0.7841` (`+0.0033`), MUSIQ `50.27 -> 50.86` (`+0.59`), but inverted NIQE `-7.60 -> -7.74` (`-0.14`), MANIQA `-0.0036`, and CLIPIQA `-0.0100` regressed.
+- Honest verdict: diversity moved in the intended direction and beat the w4v2 3-seed mean by `+0.0168`, but it is **not robust yet** because the gain is below the prior w4v2 seed std (`0.0263`) and it trades off several IQA axes. Do not replace W4-v2 with this weight without a 3-seed follow-up or a milder `R_rep` setting.
+
 ## Caveats & next steps
 
 - Statistical defensibility is still limited: `3` seeds but only `n=30`, `100` GRPO steps, and one constrained 2-GPU seed789 run with smaller batch settings; run full DIV2K-valid before final significance claims.
