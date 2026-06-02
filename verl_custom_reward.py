@@ -25,6 +25,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import re
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
@@ -44,6 +45,29 @@ _SR_BACKBONE: Any | None = None
 _IQA_METRICS: Any | None = None
 _DUMMY_CROP = Image.new("RGB", (1, 1), (255, 255, 255))
 _ROOT = Path(__file__).resolve().parent
+_TOKENIZER: Any | None = None
+_TOKENIZER_FAILED = False
+_INVALID_TOTAL_REWARD = -2.0
+_R_REP_WORST = -1.0
+_CJK_RE = re.compile(r"[\u4e00-\u9fff\u3000-\u303f\uff00-\uffef]")
+_CONTENT_PUNCT_RE = re.compile(r"[^\w\s,]+", flags=re.UNICODE)
+_RPHR_FILLERS = [
+    "the image shows",
+    "i can see",
+    "this is a",
+    "this image",
+    "in the image",
+    "there is",
+    "there are",
+    "appears to be",
+    "it looks like",
+    "a set of words",
+    "first image",
+    "second image",
+    "third image",
+    "the first image",
+    "the second image",
+]
 
 
 def _float_env(name: str, default: float) -> float:
@@ -80,23 +104,7 @@ def _cfg(enable_rfb: bool) -> dict[str, Any]:
             "r_phr": {
                 "enabled": True,
                 "weight": _float_env("COZ_R_PHR_WEIGHT", 0.1),
-                "fillers": [
-                    "the image shows",
-                    "i can see",
-                    "this is a",
-                    "this image",
-                    "in the image",
-                    "there is",
-                    "there are",
-                    "appears to be",
-                    "it looks like",
-                    "a set of words",
-                    "first image",
-                    "second image",
-                    "third image",
-                    "the first image",
-                    "the second image",
-                ],
+                "fillers": _RPHR_FILLERS,
             },
         }
     }
@@ -229,6 +237,149 @@ def _can_use_rfb(extra: dict[str, Any]) -> bool:
     return bool(path and Path(path).is_file())
 
 
+def _validity_guard_enabled() -> bool:
+    return _bool_env("COZ_VALIDITY_GUARD", True)
+
+
+def _tokenizer_model_path() -> Path:
+    raw = os.environ.get("COZ_VALIDITY_TOKENIZER") or os.environ.get("COZ_VLM_TOKENIZER")
+    if raw:
+        return Path(raw)
+    return _ROOT / "ckpt" / "VLM_LoRA" / "qwen2_5_vl_3b_author_merged"
+
+
+def _model_token_count(text: str) -> int:
+    """Count response tokens with the local Qwen tokenizer, falling back safely.
+
+    The guard is only a training-stability tripwire; if the tokenizer cannot be
+    imported in a lightweight test env, the fallback still catches whitespace-token
+    near-empty hacks while CJK/off-language hacks are caught separately.
+    """
+
+    global _TOKENIZER, _TOKENIZER_FAILED
+    if not text:
+        return 0
+    if not _TOKENIZER_FAILED and _TOKENIZER is None:
+        model_path = _tokenizer_model_path()
+        if model_path.is_file() or model_path.is_dir():
+            try:
+                from transformers import AutoTokenizer
+
+                _TOKENIZER = AutoTokenizer.from_pretrained(
+                    str(model_path),
+                    trust_remote_code=True,
+                    local_files_only=True,
+                )
+            except Exception:
+                _TOKENIZER_FAILED = True
+        else:
+            _TOKENIZER_FAILED = True
+    if _TOKENIZER is not None:
+        try:
+            return len(_TOKENIZER.encode(text, add_special_tokens=False))
+        except Exception:
+            _TOKENIZER_FAILED = True
+    return len([token for token in re.split(r"\s+", text.strip()) if token])
+
+
+def _content_tokens(text: str) -> list[str]:
+    low = text.lower()
+    for filler in _RPHR_FILLERS:
+        low = low.replace(filler, " ")
+    low = _CONTENT_PUNCT_RE.sub(" ", low)
+    return [token.strip("_") for token in re.split(r"[\s,]+", low) if token.strip("_")]
+
+
+def _cjk_ratio(text: str) -> float:
+    chars = [ch for ch in text if not ch.isspace()]
+    if not chars:
+        return 0.0
+    cjk = sum(1 for ch in chars if _CJK_RE.match(ch))
+    return cjk / len(chars)
+
+
+def _validity_info(text: str) -> dict[str, float | int]:
+    tokens = _model_token_count(text)
+    content_tokens = _content_tokens(text)
+    unique_content = len(set(content_tokens))
+    cjk_ratio = _cjk_ratio(text)
+    invalid = tokens < 8 or unique_content < 5 or cjk_ratio > 0.30
+    return {
+        "invalid": int(invalid),
+        "token_count": int(tokens),
+        "unique_content_tokens": int(unique_content),
+        "cjk_ratio": float(cjk_ratio),
+    }
+
+
+def _r_rep_floor(raws: list[dict[str, float]]) -> float:
+    vals = [raw["r_rep"] for raw in raws if "r_rep" in raw]
+    vals.append(_R_REP_WORST)
+    return min(vals)
+
+
+def _raws_with_validity_guard(
+    scorer: RewardOrchestrator,
+    prompts: list[str],
+    ctx: RewardContext,
+) -> tuple[list[dict[str, float]], list[dict[str, float | int]]]:
+    raws = [scorer._raw_components(prompt, ctx) for prompt in prompts]
+    infos: list[dict[str, float | int]] = []
+    if not _validity_guard_enabled():
+        return raws, infos
+
+    infos = [_validity_info(prompt) for prompt in prompts]
+    if not any(info["invalid"] for info in infos):
+        return raws, infos
+
+    r_rep_floor = _r_rep_floor(raws)
+    for raw, info in zip(raws, infos):
+        if not info["invalid"]:
+            continue
+        if "r_rep" in raw:
+            raw["r_rep"] = r_rep_floor
+    return raws, infos
+
+
+def _score_guarded_group(
+    scorer: RewardOrchestrator,
+    prompts: list[str],
+    ctx: RewardContext,
+) -> list[tuple[float, dict[str, float], dict[str, float | int]]]:
+    raws, infos = _raws_with_validity_guard(scorer, prompts, ctx)
+    uses = scorer._normalized_group(raws)
+    scores = [float(scorer._weighted_total(use)) for use in uses]
+    if infos:
+        valid_scores = [score for score, info in zip(scores, infos) if not info["invalid"]]
+        invalid_score = _INVALID_TOTAL_REWARD
+        if valid_scores:
+            invalid_score = min(_INVALID_TOTAL_REWARD, min(valid_scores) - 1.0e-6)
+        for idx, info in enumerate(infos):
+            if info["invalid"]:
+                scores[idx] = invalid_score
+    else:
+        infos = [{} for _ in prompts]
+    return list(zip(scores, raws, infos))
+
+
+def _score_guarded_single(
+    scorer: RewardOrchestrator,
+    prompt: str,
+    ctx: RewardContext,
+) -> tuple[float, dict[str, float], dict[str, float | int]]:
+    raw = scorer._raw_components(prompt, ctx)
+    info = _validity_info(prompt) if _validity_guard_enabled() else {}
+    if info.get("invalid"):
+        if "r_rep" in raw:
+            raw["r_rep"] = min(raw["r_rep"], _R_REP_WORST)
+        return _INVALID_TOTAL_REWARD, raw, info
+    if scorer.normalization_mode == "running":
+        use = scorer._running_components(raw)
+    else:
+        use = dict(raw)
+    return float(scorer._weighted_total(use)), raw, info
+
+
 def _ctx(extra_info: Any, *, load_crop: bool = False) -> tuple[RewardContext, dict[str, Any]]:
     extra = _extra_dict(extra_info)
     crop = _DUMMY_CROP
@@ -263,10 +414,22 @@ def _finite(value: Any) -> float:
     return score
 
 
-def _record(score: float, raw: dict[str, float], extra: dict[str, Any]) -> dict[str, float | int]:
+def _record(
+    score: float,
+    raw: dict[str, float],
+    extra: dict[str, Any],
+    validity: dict[str, float | int] | None = None,
+) -> dict[str, float | int]:
     out: dict[str, float | int] = {"score": _finite(score)}
     for key, value in raw.items():
         out[f"raw_{key}"] = _finite(value)
+    if validity:
+        invalid = int(validity.get("invalid", 0))
+        out["validity_invalid"] = invalid
+        out["validity_token_count"] = int(validity.get("token_count", 0))
+        out["validity_unique_content_tokens"] = int(validity.get("unique_content_tokens", 0))
+        out["validity_cjk_ratio"] = _finite(validity.get("cjk_ratio", 0.0))
+        out["raw_validity_total"] = _INVALID_TOTAL_REWARD if invalid else 0.0
     if "scale" in extra:
         try:
             out["scale"] = int(extra["scale"])
@@ -305,9 +468,9 @@ def _compute_batch(
         ctx, _ = _ctx(extras[first], load_crop=use_rfb)
         prompts = [solution_strs[i] or "" for i in indices]
         scorer = _orchestrator(enable_rfb=use_rfb)
-        scored = scorer.compute_group(prompts, ctx)
-        for idx, (score, raw) in zip(indices, scored):
-            record = _record(score, raw, extras[idx])
+        scored = _score_guarded_group(scorer, prompts, ctx)
+        for idx, (score, raw, validity) in zip(indices, scored):
+            record = _record(score, raw, extras[idx], validity)
             _log_record(record, extras[idx])
             records[idx] = record
 
@@ -341,8 +504,8 @@ def compute_score(
     extra = _extra_dict(extra_info)
     use_rfb = _can_use_rfb(extra)
     ctx, extra = _ctx(extra, load_crop=use_rfb)
-    score, raw = _orchestrator(enable_rfb=use_rfb).compute(solution_str or "", ctx)
-    record = _record(score, raw, extra)
+    score, raw, validity = _score_guarded_single(_orchestrator(enable_rfb=use_rfb), solution_str or "", ctx)
+    record = _record(score, raw, extra, validity)
     _log_record(record, extra)
     return float(record["score"])
 
