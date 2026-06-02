@@ -10,6 +10,7 @@
 - `R_phr` blacklist missed prompt fillers like “the first image shows” -> added 5 first/second/third-image blacklist variants -> G0: `43 passed, 1 xfailed` in `14.96s`.
 - veRL+FSDP2 was blocked by Ray/worker and LoRA weight-sync failures -> rebuilt the train env, fixed Ray launch/temp-dir issues, used direct-controller veRL, then pivoted from broken Qwen2.5-VL LoRA+vLLM sync to full-FT on the merged author checkpoint -> G3 smoke completed `1/1` GRPO step; W4-v2 completed `100/100` full-FT GRPO steps and saved `global_step_100`.
 - Saturated `R_anc` gave near-zero GRPO advantage (`raw_r_anc≈0.99-1.0`, `raw_r_rep=0` at scale 1) -> trained scales `2-4` with populated `prev_prompt`, activated `R_rep`, and added SR-in-loop `R_fb` -> W4-v2 logged `2400` reward records, `score` std `1.2978`, `raw_r_fb` std `14.2343`, and nonzero advantages at step 1 (`-1.536..+1.667`) and step 100 (`-1.891..+1.510`).
+- A7 exposed a near-empty/off-language reward hack -> added `COZ_VALIDITY_GUARD` before reward z-norm (`<8` model tokens / `<5` unique content tokens / `>30%` CJK => raw total `-2.0` and `R_rep=-1.0`) and reran A7 against a matched W4-v2 stabilized control (`kl_loss_coef=0.02`, `lr=3e-7`, `entropy_coeff=0.005`, `grad_clip=0.5`).
 
 ## Numerical results
 
@@ -71,8 +72,30 @@ The higher-`R_rep` / higher-`R_fb` checkpoint (`ckpt/VLM_FT/coz_tune_rrep`) was 
 
 Exact operating-point recomputation is in `results/operating_points_n100.csv`. Compared with the balanced 3-seed reference (`results/aggregate_full_3seed.csv`), tuned unique-token ratio (`0.6342`, `+0.0160` vs A3) is also below the balanced 3-seed mean (`0.6495`, `+0.0313`) and below the W4-v2 seed std threshold (`0.0346`), so the higher-`R_rep` arm is **not** a larger or more-robust anti-convergence win at `n=100`. The scaled tradeoff is clearer than the `n=30` probe: tuned buys NIQE and consistency recovery, but pays in MUSIQ, MANIQA, CLIPIQA-vs-balanced, and prompt diversity-vs-balanced. Keep W4-v2 as the balanced operating point; treat `tune_rrep` as a single-seed stress point, not a replacement.
 
+## State-expansion ablation (A7) — stabilized matched rerun
+
+A7 adds text-only AR-2 expanded state: the VLM system prompt additionally receives a generated caption of `x_{i-2}` (the two-steps-back zoom state) alongside the original-image caption; the image input remains a single current crop. The first A7 seed-123 run with the old W4-v2 stability settings collapsed (`response_length/mean 45.1 -> 3.3`, `actor/entropy 2.16 -> 0.34`, `actor/kl_loss 0.003 -> 8.4`, identical `新规发育` outputs). That old run is kept only as diagnostic history: it measured a broken model, not the expanded-state hypothesis.
+
+The valid comparison below reran **both** cells under one stabilized config: validity guard on (`<8` model tokens / `<5` unique content tokens / `>30%` CJK => raw total `-2.0` and `R_rep=-1.0` before group z-norm), `kl_loss_coef=0.02`, `lr=3e-7`, `entropy_coeff=0.005`, `grad_clip=0.5`, `rollout.n=6`, `train_batch_size=2`, seed `123`, balanced rewards (`R_anc=0.2`, `R_rep=1.0`, `R_fb=1.0`, `R_phr=0.1`), `100` GRPO steps, and full-FT from the same merged author checkpoint. A 20-step A7 smoke passed before the full runs (`response_length/mean=32.5`, `actor/entropy=3.11`, `actor/kl_loss=0.169`, no >30% CJK completions; short outputs were forced to `R_rep=-1.0` / `score=-2.0`). Final health also stayed non-collapsed: A7-stable `response_length/mean=24.3`, `entropy=2.88`, `kl_loss=0.269`; W4-v2-stable `response_length/mean=48.1`, `entropy=1.89`, `kl_loss=0.094`.
+
+Matched `n=100` DIV2K-valid eval (all axes higher-is-better; NIQE is inverted; `1` seed only):
+
+| axis | A3 full | W4-v2-stable | A7-stable | A7 - W4-v2-stable | reading |
+|---|---:|---:|---:|---:|---|
+| NIQE (inverted) | -8.456 | -8.551 | -8.300 | +0.252 | A7 recovers NIQE vs matched W4-v2 and beats A3 |
+| MUSIQ | 50.107 | 50.620 | 51.224 | +0.604 | A7 improves perceptual MUSIQ most in this seed |
+| MANIQA | 0.4085 | 0.4090 | 0.4064 | -0.0026 | A7 regresses vs both controls |
+| CLIPIQA | 0.6121 | 0.6194 | 0.6034 | -0.0160 | A7 hurts CLIPIQA |
+| consistency | 0.7922 | 0.7926 | 0.7922 | -0.0004 | essentially tied / slightly below matched W4-v2 |
+| unique-token ratio | 0.6182 | 0.6160 | 0.6333 | +0.0174 | A7 improves prompt diversity in this seed |
+
+Exact recomputation is in `results/A7_stable_matched_comparison.csv`. Honest verdict: once collapse is prevented, the text-caption `x_{i-2}` state is **mixed, not a clean win**. It helps NIQE, MUSIQ, and prompt diversity versus the matched stabilized W4-v2 control, but hurts MANIQA and CLIPIQA and does not improve consistency. Treat this as a one-seed hypothesis signal, not a headline replacement for the existing 3-seed W4-v2 result. The old collapsed A7 and old W4-v2 cells remain diagnostic history only; the causal state-expansion comparison is A7-stable vs W4-v2-stable.
+
+Future-work recommendation: test composite-image state injection instead of longer text state — one VLM image containing the current crop large plus a small labeled `x_{i-2}` thumbnail, with a prompt kept close to standard W4-v2. That keeps visual trajectory context while avoiding the long free-form text prompt that destabilized the original A7 run.
+
 ## Caveats & next steps
 
-- The outstanding eval caveats are now resolved for W4-v2 (`3` seeds on all `100` DIV2K-valid images), and `tune_rrep` now has a directly comparable `n=100` eval, but the tuned arm is still only `1` seed; interpret the seed-std robustness rule as a practical filter, not a formal significance test.
+- The outstanding eval caveats are now resolved for W4-v2 (`3` seeds on all `100` DIV2K-valid images), and `tune_rrep` / A7-stable now have directly comparable `n=100` evals, but those arms are still only `1` seed; interpret the seed-std robustness rule as a practical filter, not a formal significance test.
 - For the balanced W4-v2 operating point, stabilize NIQE/consistency and reduce diversity variance: consistency regresses in `3/3` full-valid seeds, inverted NIQE regresses by mean, and the unique-token gain is seed-unanimous but below seed std.
-- Remaining arms: A7 state-expansion and A8 higher-`R_fb` weight are still unrun; both should report all `6` axes, not a single metric.
+- A7 text-caption state expansion is now a stabilized, matched one-seed result: mixed (NIQE/MUSIQ/diversity up; MANIQA/CLIPIQA down; consistency tied/slightly down). The next state-context test should use composite-image injection rather than more free-form text.
+- Remaining arm: A8 higher-`R_fb` weight is still unrun and should report all `6` axes, not a single metric.
