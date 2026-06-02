@@ -23,7 +23,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 ANCHOR_MSG = "What is in this image? Give me a set of words."
-SYSTEM_TEMPLATE = (
+STANDARD_SYSTEM_TEMPLATE = (
     "You are the Chain-of-Zoom prompt extractor for extreme super-resolution. "
     "The original image has this global caption: {x0_caption!r}. "
     "You are now inspecting a single current crop at zoom factor={zoom_factor}x "
@@ -31,6 +31,16 @@ SYSTEM_TEMPLATE = (
     "avoid hallucinating unrelated objects, avoid repeating the previous scale, "
     "and answer with a concise set of words describing new fine details visible "
     "in the current crop."
+)
+EXPANDED_SYSTEM_TEMPLATE = (
+    "You are the Chain-of-Zoom prompt extractor for extreme super-resolution. "
+    "The original image has this global caption: {x0_caption!r}. "
+    "The two-steps-back context caption is: {prev2_caption!r}. "
+    "You are now inspecting a single current crop at zoom factor={zoom_factor}x "
+    "(scale step {scale}). Stay semantically consistent with the global caption "
+    "and the two-steps-back context, avoid hallucinating unrelated objects, avoid "
+    "repeating the previous scale, and answer with a concise set of words "
+    "describing new fine details visible in the current crop."
 )
 
 
@@ -152,8 +162,8 @@ def save_caption_cache(path: Path, captions: dict[str, str]) -> None:
     path.write_text(json.dumps(captions, indent=2, sort_keys=True) + "\n")
 
 
-def caption_x0s(
-    images: list[Path],
+def caption_images(
+    items: list[tuple[str, Path]],
     cache_path: Path,
     model_id: str,
     adapter_path: Path,
@@ -161,7 +171,7 @@ def caption_x0s(
     refresh: bool = False,
 ) -> dict[str, str]:
     captions = {} if refresh else load_caption_cache(cache_path)
-    needed = [img for img in images if image_id(img) not in captions]
+    needed = [(key, path) for key, path in items if key not in captions]
     if not needed:
         return captions
 
@@ -181,8 +191,8 @@ def caption_x0s(
     model = model.merge_and_unload().eval()
     processor = AutoProcessor.from_pretrained(model_id)
 
-    for img in needed:
-        x0 = resize_and_center_crop(Image.open(img).convert("RGB"), process_size)
+    for key, path in needed:
+        x0 = resize_and_center_crop(Image.open(path).convert("RGB"), process_size)
         messages = [
             {"role": "system", "content": ANCHOR_MSG},
             {"role": "user", "content": [{"type": "image", "image": x0}]},
@@ -199,13 +209,90 @@ def caption_x0s(
         with torch.no_grad():
             generated = model.generate(**inputs, max_new_tokens=32, do_sample=False)
         trimmed = generated[0][inputs.input_ids.shape[1] :]
-        captions[image_id(img)] = processor.decode(trimmed, skip_special_tokens=True).strip()
+        captions[key] = processor.decode(trimmed, skip_special_tokens=True).strip()
         save_caption_cache(cache_path, captions)
 
     del model
     if use_cuda:
         torch.cuda.empty_cache()
     return captions
+
+
+def caption_x0s(
+    images: list[Path],
+    cache_path: Path,
+    model_id: str,
+    adapter_path: Path,
+    process_size: int,
+    refresh: bool = False,
+) -> dict[str, str]:
+    return caption_images(
+        [(image_id(img), img) for img in images],
+        cache_path,
+        model_id,
+        adapter_path,
+        process_size,
+        refresh=refresh,
+    )
+
+
+def prev2_caption_key(iid: str, scale: int) -> str:
+    return f"{iid}:prev2_scale{scale}"
+
+
+def prev2_crop_path(sample_dir: Path, scale: int) -> Path | None:
+    if scale < 2:
+        return None
+    if scale == 2:
+        return sample_dir / "0.png"
+    return sample_dir / f"{scale - 2}_input.png"
+
+
+def collect_prev2_caption_inputs(images: list[Path], baseline_dir: Path, scales: list[int]) -> list[tuple[str, Path]]:
+    items: list[tuple[str, Path]] = []
+    for img in images:
+        iid = image_id(img)
+        sample_dir = rec_dir(baseline_dir, img)
+        for scale in scales:
+            if scale <= 2:
+                continue
+            path = prev2_crop_path(sample_dir, scale)
+            if path is None:
+                continue
+            if not path.is_file():
+                raise FileNotFoundError(f"missing x_(i-2) crop for {iid} scale {scale}: {path}")
+            items.append((prev2_caption_key(iid, scale), path))
+    return items
+
+
+def validate_scales(scales: list[int]) -> list[int]:
+    unique = sorted(set(scales))
+    invalid = [scale for scale in unique if scale < 1 or scale > 4]
+    if invalid:
+        raise ValueError(f"scales must be in [1, 4], got {invalid}")
+    return unique
+
+
+def format_system_prompt(
+    state: str,
+    *,
+    x0_caption: str,
+    prev2_caption: str,
+    zoom_factor: int,
+    scale: int,
+) -> str:
+    if state == "expanded":
+        return EXPANDED_SYSTEM_TEMPLATE.format(
+            x0_caption=x0_caption,
+            prev2_caption=prev2_caption,
+            zoom_factor=zoom_factor,
+            scale=scale,
+        )
+    return STANDARD_SYSTEM_TEMPLATE.format(
+        x0_caption=x0_caption,
+        zoom_factor=zoom_factor,
+        scale=scale,
+    )
 
 
 def read_prompt(path: Path) -> str:
@@ -216,7 +303,10 @@ def build_rows(
     images: list[Path],
     baseline_dir: Path,
     captions: dict[str, str],
+    prev2_captions: dict[str, str],
     start_index: int,
+    state: str,
+    scales: list[int],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     idx = start_index
@@ -224,14 +314,20 @@ def build_rows(
         iid = image_id(img)
         sample_dir = rec_dir(baseline_dir, img)
         x0_caption = captions[iid]
-        for scale in range(1, 5):
+        for scale in scales:
             crop_path = (sample_dir / f"{scale}_input.png").resolve()
             prev_prompt = ""
             if scale > 1:
                 prev_prompt = read_prompt(sample_dir / "txt" / f"{scale - 2}.txt")
             zoom_factor = 4**scale
-            system = SYSTEM_TEMPLATE.format(
+            prev2_caption = ""
+            prev2_path = prev2_crop_path(sample_dir, scale)
+            if state == "expanded" and scale >= 2:
+                prev2_caption = x0_caption if scale == 2 else prev2_captions[prev2_caption_key(iid, scale)]
+            system = format_system_prompt(
+                state,
                 x0_caption=x0_caption,
+                prev2_caption=prev2_caption,
                 zoom_factor=zoom_factor,
                 scale=scale,
             )
@@ -246,6 +342,8 @@ def build_rows(
                     "reward_model": {"style": "model", "ground_truth": ""},
                     "extra_info": {
                         "x0_caption": x0_caption,
+                        "prev2_caption": prev2_caption,
+                        "prev2_crop_path": str(prev2_path.resolve()) if prev2_path is not None else "",
                         "prev_prompt": prev_prompt,
                         "crop_path": str(crop_path),
                         "scale": scale,
@@ -259,12 +357,22 @@ def build_rows(
     return rows
 
 
-def write_evidence(path: Path, train_rows: list[dict[str, Any]], val_rows: list[dict[str, Any]], train_out: Path, val_out: Path) -> None:
+def write_evidence(
+    path: Path,
+    train_rows: list[dict[str, Any]],
+    val_rows: list[dict[str, Any]],
+    train_out: Path,
+    val_out: Path,
+    state: str,
+    scales: list[int],
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     sample = train_rows[0] if train_rows else {}
     evidence = {
         "train_rows": len(train_rows),
         "val_rows": len(val_rows),
+        "state": state,
+        "scales": scales,
         "train_parquet": str(train_out),
         "val_parquet": str(val_out),
         "train_image_ids": len({row["extra_info"]["image_id"] for row in train_rows}),
@@ -277,6 +385,20 @@ def write_evidence(path: Path, train_rows: list[dict[str, Any]], val_rows: list[
     path.write_text(json.dumps(evidence, indent=2) + "\n")
 
 
+def scales_suffix(scales: list[int]) -> str:
+    if scales == [1, 2, 3, 4]:
+        return ""
+    if scales == list(range(scales[0], scales[-1] + 1)):
+        return f"_s{scales[0]}_{scales[-1]}"
+    return "_s" + "_".join(str(scale) for scale in scales)
+
+
+def default_out_path(out_dir: Path, split: str, state: str, scales: list[int]) -> Path:
+    suffix = scales_suffix(scales)
+    state_suffix = "_expanded" if state == "expanded" else ""
+    return out_dir / f"coz_states_{split}{suffix}{state_suffix}.parquet"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--train-manifest", type=Path, default=ROOT / "data/manifests/train50.txt")
@@ -284,7 +406,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-baseline-dir", type=Path, default=ROOT / "results/A3_train50_sr")
     parser.add_argument("--val-baseline-dir", type=Path, default=ROOT / "results/A3_sr")
     parser.add_argument("--out-dir", type=Path, default=ROOT / "data/parquet")
+    parser.add_argument("--train-out", type=Path, default=None)
+    parser.add_argument("--val-out", type=Path, default=None)
+    parser.add_argument("--state", choices=("standard", "expanded"), default="standard")
+    parser.add_argument("--scales", type=int, nargs="+", default=[1, 2, 3, 4])
     parser.add_argument("--caption-cache", type=Path, default=ROOT / "data/parquet/coz_x0_captions.json")
+    parser.add_argument("--prev2-caption-cache", type=Path, default=ROOT / "data/parquet/coz_prev2_captions.json")
     parser.add_argument("--evidence", type=Path, default=ROOT / ".sisyphus/evidence/task-w3wire-parquet.txt")
     parser.add_argument("--model-id", default="Qwen/Qwen2.5-VL-3B-Instruct")
     parser.add_argument("--adapter-path", type=Path, default=ROOT / "ckpt/VLM_LoRA/checkpoint-10000")
@@ -296,6 +423,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    scales = validate_scales(args.scales)
     train_images = read_manifest(args.train_manifest)
     val_images = list_images(args.val_input)
     train_ids = {image_id(path) for path in train_images}
@@ -315,16 +443,44 @@ def main() -> None:
         args.process_size,
         refresh=args.refresh_captions,
     )
+    prev2_captions: dict[str, str] = {}
+    if args.state == "expanded":
+        prev2_inputs = collect_prev2_caption_inputs(train_images, args.train_baseline_dir, scales)
+        prev2_inputs += collect_prev2_caption_inputs(val_images, args.val_baseline_dir, scales)
+        prev2_captions = caption_images(
+            prev2_inputs,
+            args.prev2_caption_cache,
+            args.model_id,
+            args.adapter_path,
+            args.process_size,
+            refresh=args.refresh_captions,
+        )
 
-    train_rows = build_rows(train_images, args.train_baseline_dir, captions, start_index=0)
-    val_rows = build_rows(val_images, args.val_baseline_dir, captions, start_index=len(train_rows))
+    train_rows = build_rows(
+        train_images,
+        args.train_baseline_dir,
+        captions,
+        prev2_captions,
+        start_index=0,
+        state=args.state,
+        scales=scales,
+    )
+    val_rows = build_rows(
+        val_images,
+        args.val_baseline_dir,
+        captions,
+        prev2_captions,
+        start_index=len(train_rows),
+        state=args.state,
+        scales=scales,
+    )
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    train_out = args.out_dir / "coz_states_train.parquet"
-    val_out = args.out_dir / "coz_states_val.parquet"
+    train_out = args.train_out or default_out_path(args.out_dir, "train", args.state, scales)
+    val_out = args.val_out or default_out_path(args.out_dir, "val", args.state, scales)
     Dataset.from_list(train_rows).to_parquet(str(train_out))
     Dataset.from_list(val_rows).to_parquet(str(val_out))
-    write_evidence(args.evidence, train_rows, val_rows, train_out, val_out)
+    write_evidence(args.evidence, train_rows, val_rows, train_out, val_out, args.state, scales)
     print(f"wrote {train_out} rows={len(train_rows)}")
     print(f"wrote {val_out} rows={len(val_rows)}")
     print(f"evidence {args.evidence}")

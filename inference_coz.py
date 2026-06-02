@@ -17,6 +17,17 @@ from utils.wavelet_color_fix import adain_color_fix, wavelet_color_fix
 from peft import PeftModel
 
 DEFAULT_VLM_MODEL_PATH = "Qwen/Qwen2.5-VL-3B-Instruct"
+ANCHOR_MSG = "What is in this image? Give me a set of words."
+EXPANDED_VLM_SYSTEM_TEMPLATE = (
+    "You are the Chain-of-Zoom prompt extractor for extreme super-resolution. "
+    "The original image has this global caption: {x0_caption!r}. "
+    "{prev2_sentence}"
+    "You are now inspecting a single current crop at zoom factor={zoom_factor}x "
+    "(scale step {scale}). Stay semantically consistent with the global caption "
+    "and the two-steps-back context when present, avoid hallucinating unrelated "
+    "objects, avoid repeating the previous scale, and answer with a concise set "
+    "of words describing new fine details visible in the current crop."
+)
 
 tensor_transforms = transforms.Compose([
     transforms.ToTensor(),
@@ -34,6 +45,43 @@ def resize_and_center_crop(img: Image.Image, size: int) -> Image.Image:
     left = (new_w - size) // 2
     top  = (new_h - size) // 2
     return img.crop((left, top, left + size, top + size))
+
+
+def generate_vlm_caption(vlm_model, image_path):
+    messages = [
+        {"role": "system", "content": ANCHOR_MSG},
+        {"role": "user", "content": [{"type": "image", "image": image_path}]},
+    ]
+    text = vlm_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    image_inputs, video_inputs = process_vision_info(messages)
+    inputs = vlm_processor(
+        text=[text],
+        images=image_inputs,
+        videos=video_inputs,
+        padding=True,
+        return_tensors="pt",
+    ).to("cuda")
+    with torch.no_grad():
+        generated_ids = vlm_model.generate(**inputs, max_new_tokens=32, do_sample=False)
+    generated_ids_trimmed = [
+        out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+    ]
+    return vlm_processor.batch_decode(
+        generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+    )[0].strip()
+
+
+def expanded_state_system_text(state_context):
+    prev2_caption = (state_context or {}).get("prev2_caption", "")
+    prev2_sentence = ""
+    if prev2_caption:
+        prev2_sentence = f"The two-steps-back context caption is: {prev2_caption!r}. "
+    return EXPANDED_VLM_SYSTEM_TEMPLATE.format(
+        x0_caption=(state_context or {}).get("x0_caption", ""),
+        prev2_sentence=prev2_sentence,
+        zoom_factor=(state_context or {}).get("zoom_factor", "unknown"),
+        scale=(state_context or {}).get("scale", "unknown"),
+    )
 
 
 def select_crop_top_left(img, crop_w, crop_h, strategy='center', stride=16, n_bins=32):
@@ -112,7 +160,7 @@ def select_crop_top_left(img, crop_w, crop_h, strategy='center', stride=16, n_bi
     ti, li = np.unravel_index(int(np.argmax(scores)), scores.shape)
     return lefts[li], tops[ti]
 
-def get_validation_prompt(args, image, prompt_image_path, dape_model=None, vlm_model=None, device='cuda'):
+def get_validation_prompt(args, image, prompt_image_path, dape_model=None, vlm_model=None, device='cuda', state_context=None):
     # prepare low-res tensor for SR input
     lq = tensor_transforms(image).unsqueeze(0).to(device)
     # select prompt source
@@ -152,16 +200,29 @@ def get_validation_prompt(args, image, prompt_image_path, dape_model=None, vlm_m
             input_image_path = prompt_image_path[1]
             message_text = "The second image is a zoom-in of the first image. Based on this knowledge, what is in the second image? Give me a set of words."
             print(f'START IMAGE PATH: {start_image_path}\nINPUT IMAGE PATH: {input_image_path}\nMESSAGE TEXT: {message_text}')
-            messages = [
-                {"role": "system", "content": f"{message_text}"},
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "image", "image": start_image_path},
-                        {"type": "image", "image": input_image_path}
-                    ]
-                }
-            ]
+            if args.vlm_state == "expanded_text":
+                message_text = expanded_state_system_text(state_context)
+                print(f'EXPANDED STATE CONTEXT: {state_context}\nMESSAGE TEXT: {message_text}')
+                messages = [
+                    {"role": "system", "content": f"{message_text}"},
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "image", "image": input_image_path}
+                        ]
+                    }
+                ]
+            else:
+                messages = [
+                    {"role": "system", "content": f"{message_text}"},
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "image", "image": start_image_path},
+                            {"type": "image", "image": input_image_path}
+                        ]
+                    }
+                ]
             print(f'MESSAGES\n{messages}')
 
             text = vlm_processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
@@ -233,6 +294,7 @@ if __name__ == "__main__":
     parser.add_argument('--vlm_lora_path', type=str, default=None, help='Path to the VLM LoRA adapter directory')
     parser.add_argument('--prompt', type=str, default='', help='user prompts')
     parser.add_argument('--prompt_type', type=str, choices=['null','dape','vlm_base','vlm'], default='dape', help='type of prompt to use')
+    parser.add_argument('--vlm_state', type=str, choices=['standard','expanded_text'], default='standard', help='VLM state prompt for recursive_multiscale. expanded_text uses x0/x_(i-2) text captions plus one current crop image.')
     parser.add_argument('--ram_path', type=str, default=None)
     parser.add_argument('--ram_ft_path', type=str, default=None)
     parser.add_argument('--mixed_precision', type=str, choices=['fp16', 'fp32'], default='fp16')
@@ -360,6 +422,12 @@ if __name__ == "__main__":
         first_image = resize_and_center_crop(first_image, args.process_size)
         first_image.save(f'{rec_dir}/0.png')
         first_image.save(os.path.join(args.output_dir, 'per-scale', 'scale0', bname))
+        state_caption_cache = {}
+        x0_caption = ""
+        if args.vlm_state == 'expanded_text' and args.prompt_type in ('vlm', 'vlm_base'):
+            x0_caption = generate_vlm_caption(vlm_model, f'{rec_dir}/0.png')
+            state_caption_cache[f'{rec_dir}/0.png'] = x0_caption
+            print(f'X0 CAPTION: {x0_caption}')
 
         # recursion
         for rec in range(args.rec_num):
@@ -453,7 +521,25 @@ if __name__ == "__main__":
                 raise ValueError(f"Unknown recursion_type: {args.rec_type}")
 
             # generate prompts
-            validation_prompt, lq = get_validation_prompt(args, current_sr_input_image_pil, prompt_image_path, DAPE, vlm_model)
+            state_context = None
+            if args.vlm_state == 'expanded_text' and args.rec_type == 'recursive_multiscale' and args.prompt_type in ('vlm', 'vlm_base'):
+                scale = rec + 1
+                prev2_caption = ""
+                prev2_path = ""
+                if scale >= 2:
+                    prev2_path = f'{rec_dir}/0.png' if scale == 2 else f'{rec_dir}/{scale-2}_input.png'
+                    prev2_caption = state_caption_cache.get(prev2_path, "")
+                    if not prev2_caption:
+                        prev2_caption = generate_vlm_caption(vlm_model, prev2_path)
+                        state_caption_cache[prev2_path] = prev2_caption
+                    print(f'PREV2 CAPTION scale={scale}: {prev2_caption}')
+                state_context = {
+                    "x0_caption": x0_caption,
+                    "prev2_caption": prev2_caption,
+                    "zoom_factor": pow(args.upscale, scale),
+                    "scale": scale,
+                }
+            validation_prompt, lq = get_validation_prompt(args, current_sr_input_image_pil, prompt_image_path, DAPE, vlm_model, state_context=state_context)
             if args.save_prompts:
                 with open(os.path.join(txt_path, f'{rec}.txt'), 'w', encoding='utf-8') as f:
                     f.write(validation_prompt)
