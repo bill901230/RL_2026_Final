@@ -93,6 +93,37 @@ Exact recomputation is in `results/A7_stable_matched_comparison.csv`. Honest ver
 
 Future-work recommendation: test composite-image state injection instead of longer text state — one VLM image containing the current crop large plus a small labeled `x_{i-2}` thumbnail, with a prompt kept close to standard W4-v2. That keeps visual trajectory context while avoiding the long free-form text prompt that destabilized the original A7 run.
 
+## Baseline ladder (A0/A1/A2/A3 vs ours) @ n=100
+
+To state our GRPO improvement against the *original* Chain-of-Zoom (not only the author checkpoint), three reference baselines were produced under the **identical locked protocol** used for A3 and W4-v2: `recursive_multiscale`, `crop_strategy=center`, `rec_num=4`, `upscale=4`, `process_size=512`, `align_method=nofix`, SR LoRA `model_20001.pkl` + VAE `vae_encoder_20001.pt`, SD3-medium, greedy `max_new_tokens=32`, on the same `n=100` DIV2K-valid split (`0801-0900`). Only the prompt/VLM source differs per rung:
+
+- **A0 — NN interpolation** (`--rec_type nearest`): no SR, no VLM. Each scale crops the matching region from the `512x512` source and NEAREST-upscales back to `512x512`; the deepest scale is the same `256x` (`4^4`) center zoom the SR arms reach (`results/A0_full.csv`).
+- **A1 — Direct-SR, null prompt** (`--rec_type recursive_multiscale --prompt_type null`, empty text): the frozen SR pipeline with an empty prompt, identical recursion/crop/decode to A2/A3 — only the VLM prompt is removed (`results/A1_full.csv`).
+- **A2 — original CoZ** (`--rec_type recursive_multiscale --prompt_type vlm_base`, stock Qwen2.5-VL-3B, **no VLM LoRA**): the proposal's "original Chain-of-Zoom" baseline. Differs from A3 only in the VLM weights (`results/A2_full.csv`).
+- **A3 — author checkpoint** (`ckpt/VLM_LoRA/checkpoint-10000`) and **ours** = balanced W4-v2 full-FT GRPO (3-seed mean from `results/aggregate_full_3seed.csv`).
+
+All axes are higher-is-better; NIQE is the inverted evaluator value. Means over `n=100` (exact recomputation in `results/baseline_ladder_n100.csv`):
+
+| axis | A0 NN | A1 SR null | A2 original CoZ | A3 author | ours (W4-v2, 3-seed) | ours − A2 | ours − A3 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| NIQE (inverted) | -31.924 | -9.384 | -8.872 | -8.456 | -8.482 | +0.390 | -0.026 |
+| MUSIQ | 26.469 | 48.427 | 50.072 | 50.107 | 50.502 | +0.430 | +0.395 |
+| MANIQA | 0.4453 | 0.3980 | 0.4054 | 0.4085 | 0.4093 | +0.0038 | +0.0008 |
+| CLIPIQA | 0.5170 | 0.6005 | 0.6104 | 0.6121 | 0.6151 | +0.0047 | +0.0030 |
+| consistency | 0.7491 | 0.7889 | 0.7902 | 0.7922 | 0.7910 | +0.0008 | -0.0012 |
+| unique-token ratio | 0.0000 | 0.0000 | 0.7038 | 0.6182 | 0.6495 | -0.0543 | +0.0313 |
+
+Honest, multi-axis reading (no single-metric claim):
+
+- **MUSIQ and CLIPIQA form a clean monotonic ladder** `A0 < A1 < A2 < A3 < ours`. Our GRPO is top of the ladder on both, beating original CoZ (A2) by `+0.430` MUSIQ / `+0.0047` CLIPIQA and the author (A3) by `+0.395` / `+0.0030`. MUSIQ is also the strictly-robust 3-seed win (see the definitive table above).
+- **SR matters most, then the prompt:** A0 (no SR) is far below everything (MUSIQ `26.5`, NIQE `-31.9`); adding the frozen SR with no prompt (A1) jumps MUSIQ to `48.4`; adding any VLM prompt (A2) reaches `50.1`; fine-tuning (A3 -> ours) adds the final `+0.4`.
+- **Against original CoZ (A2) our GRPO wins 5/6 axes** (NIQE `+0.390`, MUSIQ `+0.430`, MANIQA `+0.0038`, CLIPIQA `+0.0047`, consistency `+0.0008`) and loses only unique-token ratio.
+- **Against the author (A3) our GRPO wins 4/6 axes** (MUSIQ, MANIQA, CLIPIQA, unique-token ratio) and slightly regresses on NIQE (`-0.026`) and consistency (`-0.0012`), exactly as the 3-seed table reports; on NIQE/consistency ours sits **between A2 and A3** (above original CoZ, just below the author).
+- **Caveat — MANIQA is not monotonic:** A0 (degenerate NN) scores the *highest* MANIQA (`0.4453`), above every SR arm. A `2x2 -> 512` NEAREST image is near-flat, which MANIQA rewards; MUSIQ/CLIPIQA/NIQE all correctly rank A0 last. Treat A0's MANIQA as a no-reference-metric artifact, not real quality. (NIQE itself is ill-conditioned on `2/100` A0 images; those two are excluded from the A0 NIQE mean, which is computed over `98/100`.)
+- **Caveat — unique-token ratio favors the un-tuned base VLM:** A2 (stock Qwen) has the highest token diversity (`0.7038`), above both A3 (`0.6182`) and ours (`0.6495`). Base Qwen emits long, free-form captions (high raw token variety) — the same verbosity that drives the semantic-drift failure case — so this axis should not be read as "original CoZ has better prompts". A0/A1 are `0.0` by construction (no prompt / empty prompt). Our anti-convergence gain (`+0.0313`) is therefore claimed **only vs the author checkpoint (A3)**, which is the fine-tuned regime; we do **not** claim to beat raw base-Qwen verbosity on this metric.
+
+Net: on the locked protocol our GRPO finetune is at the top of the ladder for the two cleanest perceptual axes (MUSIQ, CLIPIQA), beats original CoZ (A2) on 5/6 axes, and beats the author (A3) on 4/6 — with the two honest exceptions called out above (MANIQA's A0 artifact and base-Qwen's raw token diversity).
+
 ## Caveats & next steps
 
 - The outstanding eval caveats are now resolved for W4-v2 (`3` seeds on all `100` DIV2K-valid images), and `tune_rrep` / A7-stable now have directly comparable `n=100` evals, but those arms are still only `1` seed; interpret the seed-std robustness rule as a practical filter, not a formal significance test.
