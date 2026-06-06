@@ -12,7 +12,7 @@ REWARD_KEYS = ("r_anc", "r_rep", "r_fb", "r_crit", "r_phr")
 EPS = 1.0e-6
 
 
-def _cfg(*, normalize=True, normalization_mode=None, weights=None) -> dict[str, Any]:
+def _cfg(*, normalize=True, normalization_mode=None, weights=None, r_anc_mode=None) -> dict[str, Any]:
     weights = weights or {}
     rewards: dict[str, Any] = {"normalize": normalize}
     if normalization_mode is not None:
@@ -22,6 +22,8 @@ def _cfg(*, normalize=True, normalization_mode=None, weights=None) -> dict[str, 
         rewards[key] = {"enabled": True, "weight": weights.get(key, 1.0)}
 
     rewards["r_rep"]["ngram"] = 2
+    if r_anc_mode is not None:
+        rewards["r_anc"]["mode"] = r_anc_mode
     rewards["r_fb"].update({"quality_metric": "musiq", "consistency_weight": 0.0})
     rewards["r_phr"]["fillers"] = []
     return {"rewards": rewards, "generation": {"group_size": 4}}
@@ -31,9 +33,14 @@ def _ctx():
     return RewardContext(Image.new("RGB", (1, 1)), x0_caption="anchor")
 
 
-def _orchestrator(values, *, normalize=True, normalization_mode=None, weights=None):
+def _orchestrator(values, *, normalize=True, normalization_mode=None, weights=None, r_anc_mode=None):
     orchestrator = RewardOrchestrator(
-        _cfg(normalize=normalize, normalization_mode=normalization_mode, weights=weights)
+        _cfg(
+            normalize=normalize,
+            normalization_mode=normalization_mode,
+            weights=weights,
+            r_anc_mode=r_anc_mode,
+        )
     )
     for key, fn_name in RewardOrchestrator._FNS.items():
         setattr(orchestrator, fn_name, lambda prompt, ctx, key=key: values[prompt][key])
@@ -99,6 +106,46 @@ def test_per_group_normalization_balances_mixed_scale_components():
         contributions = [abs(use[key]) for key in REWARD_KEYS]
         total_abs = sum(contributions)
         assert max(contributions) / total_abs < 0.5
+
+
+def test_r_anc_margin_ranks_and_skips_flat():
+    prompts = ["lowest", "highest", "middle_high", "middle_low"]
+    weights = {key: 0.0 for key in REWARD_KEYS}
+    weights["r_anc"] = 1.0
+    distinct = {
+        "lowest": {key: 0.0 for key in REWARD_KEYS},
+        "highest": {key: 0.0 for key in REWARD_KEYS},
+        "middle_high": {key: 0.0 for key in REWARD_KEYS},
+        "middle_low": {key: 0.0 for key in REWARD_KEYS},
+    }
+    distinct["lowest"]["r_anc"] = 0.9700
+    distinct["middle_low"]["r_anc"] = 0.9750
+    distinct["middle_high"]["r_anc"] = 0.9825
+    distinct["highest"]["r_anc"] = 0.9950
+
+    default = _orchestrator(distinct, weights=weights)
+    default_totals = [total for total, _ in default.compute_group(prompts, _ctx())]
+    assert default_totals == pytest.approx(
+        _expected_totals(distinct, prompts, weights), abs=1e-12
+    )
+
+    margin = _orchestrator(distinct, weights=weights, r_anc_mode="margin")
+    margin_totals = [total for total, _ in margin.compute_group(prompts, _ctx())]
+    by_prompt = dict(zip(prompts, margin_totals))
+    ordered = sorted(prompts, key=lambda prompt: distinct[prompt]["r_anc"])
+
+    assert [by_prompt[prompt] for prompt in ordered] == pytest.approx(
+        [-1.0, -1.0 / 3.0, 1.0 / 3.0, 1.0], abs=1e-12
+    )
+    assert sum(margin_totals) == pytest.approx(0.0, abs=1e-12)
+
+    flat = {
+        prompt: {**values, "r_anc": 0.9910}
+        for prompt, values in distinct.items()
+    }
+    flat_margin = _orchestrator(flat, weights=weights, r_anc_mode="margin")
+    flat_totals = [total for total, _ in flat_margin.compute_group(prompts, _ctx())]
+    assert flat_totals == pytest.approx([0.0, 0.0, 0.0, 0.0], abs=1e-12)
 
 
 def test_global_norm_is_order_dependent():

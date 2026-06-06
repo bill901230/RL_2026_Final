@@ -2,6 +2,7 @@ import importlib
 import sys
 from pathlib import Path
 
+import pytest
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -120,3 +121,27 @@ def test_validity_guard_makes_short_and_cjk_completions_worst(monkeypatch):
     assert healthy_rec["raw_r_rep"] == unguarded[0]["raw_r_rep"]
     assert healthy_rec["raw_r_anc"] == unguarded[0]["raw_r_anc"]
     assert healthy_rec["raw_r_phr"] == unguarded[0]["raw_r_phr"]
+
+
+def test_anc_margin_env(monkeypatch):
+    monkeypatch.setenv("COZ_R_ANC_MODE", "margin")
+    reward = _fresh_reward(monkeypatch)
+    extra = {"x0_caption": "red bird", "scale": 2, "image_id": "anchor-rank"}
+    low = "blue sky mountain ridge cloud valley horizon bright detail texture"
+    mid = "stone leaf meadow creek bark moss grain shadow detail texture"
+    high = "red bird feather wing beak perch crimson plumage sharp texture"
+
+    records = reward.compute_score(
+        data_sources=["coz", "coz", "coz"],
+        solution_strs=[low, mid, high],
+        ground_truths=["", "", ""],
+        extra_infos=[extra, extra, extra],
+    )
+
+    assert isinstance(records, list)
+    low_rec, mid_rec, high_rec = records
+    assert high_rec["raw_r_anc"] > mid_rec["raw_r_anc"] > low_rec["raw_r_anc"]
+    assert high_rec["score"] == max(record["score"] for record in records)
+    assert high_rec["score"] > 0.15
+    assert mid_rec["score"] == pytest.approx(0.0, abs=1e-12)
+    assert low_rec["score"] < -0.15

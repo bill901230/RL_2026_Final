@@ -92,7 +92,11 @@ def _cfg(enable_rfb: bool) -> dict[str, Any]:
         "rewards": {
             "normalize": True,
             "normalization_mode": "per_group",
-            "r_anc": {"enabled": True, "weight": _float_env("COZ_R_ANC_WEIGHT", 0.2)},
+            "r_anc": {
+                "enabled": True,
+                "weight": _float_env("COZ_R_ANC_WEIGHT", 0.2),
+                "mode": os.environ.get("COZ_R_ANC_MODE", "cosine"),
+            },
             "r_rep": {"enabled": True, "weight": _float_env("COZ_R_REP_WEIGHT", 3.0), "ngram": 2},
             "r_fb": {
                 "enabled": enable_rfb,

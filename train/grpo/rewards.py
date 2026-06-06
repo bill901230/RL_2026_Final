@@ -79,6 +79,7 @@ class RewardOrchestrator:
         self.enabled = {k: self.cfg[k]["enabled"] for k in
                         ("r_anc", "r_rep", "r_fb", "r_crit", "r_phr")}
         self.weights = {k: self.cfg[k]["weight"] for k in self.enabled}
+        self.r_anc_mode = str(self.cfg["r_anc"].get("mode", "cosine")).lower()
         self.norms = {k: _RunningNorm() for k in self.enabled}
 
     def _normalization_mode(self):
@@ -191,6 +192,30 @@ class RewardOrchestrator:
             return uses
         for key in raws[0]:
             vals = [raw[key] for raw in raws]
+            if key == "r_anc" and self.r_anc_mode == "margin":
+                if max(vals) - min(vals) <= _EPS:
+                    continue
+
+                center = (len(vals) - 1) / 2.0
+                if center <= _EPS:
+                    continue
+
+                ranks = [0.0 for _ in vals]
+                ordered = sorted(enumerate(vals), key=lambda item: item[1])
+                start = 0
+                while start < len(ordered):
+                    end = start + 1
+                    while end < len(ordered) and ordered[end][1] == ordered[start][1]:
+                        end += 1
+                    rank = (start + end - 1) / 2.0
+                    for idx, _ in ordered[start:end]:
+                        ranks[idx] = rank
+                    start = end
+
+                for use, rank in zip(uses, ranks):
+                    use[key] = (rank - center) / center
+                continue
+
             mean = sum(vals) / len(vals)
             var = sum((val - mean) ** 2 for val in vals) / len(vals)
             std = math.sqrt(var)
