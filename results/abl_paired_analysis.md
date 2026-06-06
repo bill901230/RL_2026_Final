@@ -6,14 +6,16 @@ Pure data analysis over the already-scored ablation CSVs (no API / GPU / inferen
 
 Progression: A2 (orig CoZ) -> w4v2 (prior balanced ours) -> BASE (A3) -> +R_anc -> +R_rep -> ALL.
 
-| arm | grounding_deep ↑ | grounding_all ↑ | uniqtok ↑ | MUSIQ ↑ | NIQE ↓ | CLIPIQA ↑ |
+| arm | grounding_deep ↑ | grounding_all ↑ | uniqtok ↑ | MUSIQ ↑ | NIQE (inv) ↑ | CLIPIQA ↑ |
 |---|---:|---:|---:|---:|---:|---:|
-| A2 | 6.567 | 6.792 | 0.698 | 51.01 | -7.79 | 0.597 |
+| A2 | 6.567 | 6.792 | _0.698_ | 51.01 | -7.79 | 0.597 |
 | w4v2 | 7.283 | 7.525 | 0.672 | 51.03 | -7.78 | 0.605 |
 | BASE | 7.917 | 8.067 | 0.609 | 50.93 | -7.61 | 0.616 |
-| +R_anc | 7.700 | 7.958 | 0.629 | 50.89 | -7.55 | 0.599 |
-| +R_rep | 7.900 | 7.925 | 0.594 | 52.02 | -7.42 | 0.623 |
-| ALL | 8.183 | 8.192 | 0.611 | 51.85 | -7.38 | 0.621 |
+| +R_anc | 7.700 | 7.958 | **0.629** | 50.89 | -7.55 | 0.599 |
+| +R_rep | 7.900 | 7.925 | 0.594 | **52.02** | -7.42 | **0.623** |
+| ALL | **8.183** | **8.192** | 0.611 | 51.85 | **-7.38** | 0.621 |
+
+(Bold = best among the trainable arms (BASE/+R_anc/+R_rep/ALL); higher better all cols incl. inverted NIQE. _Italic_ A2 uniqtok 0.698 is the highest raw number but is the un-tuned base's verbose drift, not a real diversity win — see verdict.)
 
 ## 2. Per-image PAIRED stats vs BASE
 

@@ -4,12 +4,14 @@ Eval set: `data/eval_subset` (30 images, ids 0801-0830). Judge: InternVL3-8B via
 
 ## Core comparison (mean over n=30; deltas vs BASE)
 
-| arm | deep ↑ | Δdeep | grounding_all ↑ | Δall | unique_token_ratio ↑ | Δuniq | MUSIQ ↑ | NIQE ↓ | CLIPIQA ↑ | vlm_quality ↑ |
+| arm | deep ↑ | Δdeep | grounding_all ↑ | Δall | unique_token_ratio ↑ | Δuniq | MUSIQ ↑ | NIQE (inv) ↑ | CLIPIQA ↑ | vlm_quality ↑ |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | BASE | 7.917 | +0.000 | 8.067 | +0.000 | 0.609 | +0.000 | 50.93 | -7.61 | 0.616 | 5.60 |
-| +R_anc | 7.700 | -0.217 | 7.958 | -0.108 | 0.629 | +0.020 | 50.89 | -7.55 | 0.599 | 5.47 |
-| +R_rep | 7.900 | -0.017 | 7.925 | -0.142 | 0.594 | -0.015 | 52.02 | -7.42 | 0.623 | 5.43 |
-| ALL | 8.183 | +0.267 | 8.192 | +0.125 | 0.611 | +0.002 | 51.85 | -7.38 | 0.621 | 5.70 |
+| +R_anc | 7.700 | -0.217 | 7.958 | -0.108 | **0.629** | **+0.020** | 50.89 | -7.55 | 0.599 | 5.47 |
+| +R_rep | 7.900 | -0.017 | 7.925 | -0.142 | 0.594 | -0.015 | **52.02** | -7.42 | **0.623** | 5.43 |
+| ALL | **8.183** | **+0.267** | **8.192** | **+0.125** | 0.611 | +0.002 | 51.85 | **-7.38** | 0.621 | **5.70** |
+
+(Bold = best arm per axis. Higher is better on every column shown, including NIQE which is stored inverted.)
 
 ## Optional reference rows (same n=30)
 
@@ -30,9 +32,9 @@ Eval set: `data/eval_subset` (30 images, ids 0801-0830). Judge: InternVL3-8B via
 
 | image | BASE deep | +R_anc | +R_rep | ALL | note |
 |---|---:|---:|---:|---:|---|
-| 0812 | 5.5 | 5.0 | 9.5 | 9.0 | statue crop: baseline/anchor drift to medical mammogram terms; +R_rep/ALL score much higher on deep grounding |
-| 0827 | 5.0 | 5.0 | 8.5 | 8.5 | highway crop: +R_rep and ALL keep road/car vocabulary and recover +3.5 to +4.0 deep points |
-| 0824 | 8.0 | 1.0 | 4.5 | 5.5 | ship wheel crop: persistent drift/failure case; all variants wander through propeller/camera/ring/space |
+| 0812 | 5.5 | 5.0 | **9.5** | 9.0 | statue crop: baseline/anchor drift to medical mammogram terms; +R_rep/ALL score much higher on deep grounding |
+| 0827 | 5.0 | 5.0 | **8.5** | **8.5** | highway crop: +R_rep and ALL keep road/car vocabulary and recover +3.5 to +4.0 deep points |
+| 0824 | **8.0** | 1.0 | 4.5 | 5.5 | ship wheel crop: persistent drift/failure case; all variants wander through propeller/camera/ring/space |
 
 ## Prompt trajectory examples (txt/*.txt)
 
