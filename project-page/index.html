@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="Chain-of-Zoom"/>
+  <meta property="og:description" content="Project Page for Chain-of-Zoom"/>
+  <meta property="og:url" content="chain-of-zoom.github.io"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/images/coz_teaser.jpg" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="Chain-of-Zoom">
+  <meta name="twitter:description" content="Project Page for Chain-of-Zoom">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/coz_teaser.jpg">
+  <meta name="twitter:card" content="Project Page for Chain-of-Zoom">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Chain-of-Zoom</title>
+  <link rel="icon" type="image/x-icon" href="">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+  </script>
+
+  <script
+  defer
+  src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"
+  ></script>
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"
+  />
+
+  <style>
+  .eps_null {
+    color: rgb(53, 144, 243);
+  }
+  .eps_cfg {
+    color: rgb(231, 111, 81);
+  }
+  .coz{
+    color: rgb(42, 157, 143);
+  }
+
+  hr.solid {
+  border-top: 2px solid #bbb;
+  }
+
+  table, td, th {
+  border: 1px solid black;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  </style>
+
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span class="coz">Chain-of-Zoom</span>: Extreme Super-Resolution via Scale Autoregression and Preference Alignment</h1>
+          <div class="is-size-4 publication-authors">
+            <!-- Paper authors -->
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=ndWU-84AAAAJ&hl=en" target="_blank">Bryan Sangwoo Kim</a>,</span>
+            <span class="author-block"><a href="https://jeongsol.dev/" target="_blank">Jeongsol Kim</a>,</span>
+            <span class="author-block"><a href="https://scholar.google.com/citations?user=HNMjoNEAAAAJ&hl=en" target="_blank">Jong Chul Ye</a></span>
+          </div> 
+          <div class="is-size-4 publication-authors">
+            <span class="author-block" style="color:black"> KAIST AI </span>
+              <br>NeurIPS 2025 Spotlight</span>
+          </div>
+        
+          <!-- PDF Link -->
+          <!-- <span class="link-block">
+            <a href="static/pdfs/CoZ.pdf" target="_blank"
+            class="external-link button is-normal is-rounded is-dark">
+            </ARXIV>
+            <span class="icon">
+              <i class="fas fa-file-pdf "></i>
+            </span>
+            <span>PDF</span>
+          </a>
+          </span> -->
+
+          <span class="link-block">
+            <a href="https://arxiv.org/abs/2505.18600" target="_blank"
+            class="external-link button is-normal is-rounded is-dark">
+            </ARXIV>
+            <span class="icon">
+              <i class="ai ai-arxiv"></i>
+            </span>
+            <span>arXiv</span>
+            </a>
+          </span>
+      
+          <!-- Github link -->
+          <span class="link-block">
+            <a href="https://github.com/bryanswkim/Chain-of-Zoom" target="_blank"
+            class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>Code</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser Carousel-->
+<!-- <section class="hero teaser">
+
+  <div class="columns is-centered" style="margin-top:-20px">
+    <h1 class="is-size-3"> 
+      <mark style="background: rgb(255, 255, 102)"> CoZ enables SR models to explore extreme resolutions,</mark>
+    </h1>
+  </div>
+  <div class="columns is-centered" style="margin-top:-10px">
+    <h1 class="is-size-3"> 
+      <mark style="background: rgb(255, 255, 102)"> much higher than what they were originally trained for.</mark>
+    </h1>
+  </div> 
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered" style="margin-top:20px">
+        <h1 class="is-size-4"> 16x ~ 64x Magnification Results</h1>
+      </div>  
+
+      <div id="results-carousel" class="carousel results-carousel" style="margin-top:-25px">
+        <div class="item">
+          <img src="static/images/coz_teaser_1.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_teaser_2.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_teaser_3.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_teaser_4.jpg" alt="MY ALT TEXT"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End Teaser Carousel -->
+
+<!-- Teaser Carousel-->
+<section class="hero teaser">
+
+  <div class="columns is-centered" style="margin-top:-20px">
+    <h1 class="is-size-3"> 
+      <mark style="background: rgb(255, 255, 102)"> CoZ enables SR models to explore extreme resolutions,</mark>
+    </h1>
+  </div>
+  <div class="columns is-centered" style="margin-top:-10px">
+    <h1 class="is-size-3"> 
+      <mark style="background: rgb(255, 255, 102)"> much higher than what they were originally trained for.</mark>
+    </h1>
+  </div> 
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered" style="margin-top:20px">
+        <h1 class="is-size-4"> 16x ~ 64x Magnification Results</h1>
+        <!-- <h1 class="is-size-5", style="margin-top:4px"> &nbsp;(SD v3) </h1> -->
+      </div>  
+
+      <div id="results-carousel" class="carousel results-carousel" style="margin-top:-25px">
+        <div class="item">
+          <!-- <img src="static/images/coz_teaser_1.jpg" alt="MY ALT TEXT"/> -->
+          <div class="before-after-slider">
+            <img src="static/images/coz_teaser_1.jpg" class="ba-before-img" alt="Teaser 1 Version">
+            <div class="ba-after-wrapper">
+              <img src="static/images/coz_teaser_1_lr.jpg" class="ba-after-img" alt="Teaser 1 LR Version">
+            </div>
+            <div class="ba-slider-handle"></div>
+          </div>
+        </div>
+        <div class="item">
+          <!-- <img src="static/images/coz_teaser_1.jpg" alt="MY ALT TEXT"/> -->
+          <div class="before-after-slider">
+            <img src="static/images/coz_teaser_2.jpg" class="ba-before-img" alt="Teaser 1 Version">
+            <div class="ba-after-wrapper">
+              <img src="static/images/coz_teaser_2_lr.jpg" class="ba-after-img" alt="Teaser 1 LR Version">
+            </div>
+            <div class="ba-slider-handle"></div>
+          </div>
+        </div>
+        <div class="item">
+          <!-- <img src="static/images/coz_teaser_1.jpg" alt="MY ALT TEXT"/> -->
+          <div class="before-after-slider">
+            <img src="static/images/coz_teaser_3.jpg" class="ba-before-img" alt="Teaser 1 Version">
+            <div class="ba-after-wrapper">
+              <img src="static/images/coz_teaser_3_lr.jpg" class="ba-after-img" alt="Teaser 1 LR Version">
+            </div>
+            <div class="ba-slider-handle"></div>
+          </div>
+        </div>
+        <div class="item">
+          <!-- <img src="static/images/coz_teaser_1.jpg" alt="MY ALT TEXT"/> -->
+          <div class="before-after-slider">
+            <img src="static/images/coz_teaser_4.jpg" class="ba-before-img" alt="Teaser 1 Version">
+            <div class="ba-after-wrapper">
+              <img src="static/images/coz_teaser_4_lr.jpg" class="ba-after-img" alt="Teaser 1 LR Version">
+            </div>
+            <div class="ba-slider-handle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Teaser Carousel -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-sixths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+
+          <p style="font-size:18px;">
+            Modern single-image super-resolution (SISR) models deliver photo-realistic results at the scale factors on which they are trained, but collapse when asked to magnify far beyond that regime.
+            We address this scalability bottleneck with <strong>Chain-of-Zoom (CoZ)</strong>,
+            a model-agnostic framework that factorizes SISR into an autoregressive chain of intermediate scale-states with multi-scale-aware prompts.
+            CoZ repeatedly re-uses a backbone SR model, decomposing the conditional probability into tractable sub-problems to achieve extreme resolutions without additional training.
+            Because visual cues diminish at high magnifications, we augment each zoom step with multi-scale-aware text prompts generated by a vision-language model (VLM).
+            The prompt extractor itself is fine-tuned using Generalized Reward Policy Optimization (GRPO) with a critic VLM, aligning text guidance towards human preference.
+            Experiments show that a standard 4x diffusion SR model wrapped in CoZ attains beyond 256x enlargement with high perceptual quality and fidelity.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Method -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-sixths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <img src="static/images/coz_method_main.jpg" alt="coz_method_main"/>
+          <p style=" font-size:18px; margin-bottom: 20px;">
+            <br>
+            <strong>(a) Conventional SR.</strong> When an SR backbone trained for a fixed up-scale factor (e.g., 4x) is pushed to much larger magnifications beyond its training regime, blur and artifacts are produced. <br>
+            <strong>(b) Chain-of-Zoom (ours).</strong> Starting from an LR input, a pretrained VLM generates a descriptive prompt, which—together with the image—is fed to the same SR backbone to yield the next HR scale-state. This prompt-and-upscale cycle is repeated, allowing a single off-the-shelf model to climb to extreme resolutions (16x-256x) while preserving sharp detail and semantic fidelity.
+          </p>
+          <img src="static/images/coz_method_grpo.jpg" alt="coz_method_grpo"/>
+          <p style=" font-size:18px; margin-top: -5px;">
+            <br>
+            To obtain text prompts that further align with human preference, we fine-tune the prompt-extraction VLM under a <strong>novel RLHF pipeline leveraging GRPO</strong>.
+            A critic VLM is used to score the prompt for semantic quality, while phrase-exclusion and repetition penalties enforce conciseness and relevance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Method -->
+
+
+<!-- Experimental Results 1 -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-sixths">
+        <h2 class="title is-3">Experimental Results</h2>
+        <h2 class="title is-4" style="margin-bottom: 30px;">1. Comparison Results</h2>
+
+        <div class="content has-text-justified" style="margin-top:-15px; margin-bottom: 30px;">
+          <img src="static/images/coz_results_comparison.png" alt="coz_results_comparison"/>
+          <p style="margin-top:5px; margin-bottom: 10px; font-size:18px;">
+            Super-resolution with various methods:
+            <strong>(a) Nearest neighbor interpolation;</strong>
+            <strong>(b) One-step direct SR with the backbone SR model;</strong>
+            <strong>(c-e) Variants of CoZ with different text prompts.</strong>
+            Nearest neighbor interpolation and one-step direct SR fall off at higher scales, while CoZ variants produce images of better quality.
+            Incorporating VLM prompts helps overcome the sparsity of the original input signal, leading to generation of more realistic images.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experimental Results 2 -->
+<section class="section hero">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-sixths">
+        <h2 class="title is-3">Experimental Results</h2>
+        <h2 class="title is-4 " style="margin-bottom: 30px;"">2. GRPO for VLM</h2>
+
+        <div class="content has-text-justified" style="margin-top:-15px; margin-bottom: 30px;">
+          <img src="static/images/coz_results_reward.png" alt="coz_results_reward"/>
+          <p style="margin-top:5px; margin-bottom: 20px; font-size:18px;">
+            Phrase exclusion reward and repetition penalty converge to 1.00 and 0.00, respectively, in the early stages of training, while the critic reward increases gradually throughout the training process.
+          </p>
+          <img src="static/images/coz_results_vlmprompt.jpg" alt="coz_results_vlmprompt"/>
+          <p style="margin-top:5px; margin-bottom: 20px; font-size:18px;">
+            RLHF training with GRPO assists the prompt-extraction VLM in creating meaningful prompts for accurate guidance.
+            (Top) <strong>Base VLM</strong>: generating prompts only from the LR input causes unwanted hallucinations as shown by the incorrect prompts;
+            (Middle) <strong>Multi-scale image prompts</strong> are helpful at low scales (e.g., accurate prompt of "dog, stick, water, ...") but fail at high scales;
+            (Bottom) <strong>VLM aligned with human preference</strong> guides samples with improved text guidance.
+          </p>
+          <img src="static/images/coz_results_userstudy.png" alt="coz_results_userstudy"/>
+          <p style="margin-top:5px; font-size:18px;">
+            Mean-opinion-score (MOS) tests for <strong>human-preferred image generation</strong> and <strong>human-preferred text generation</strong> validate how GRPO fine-tuning of the VLM enhances human preference alignment.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="hero teaser is-light">
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered" style="margin-top:50px">
+        <h2 class="title is-3">Gallery</h2>
+      </div>
+      <div class="columns is-centered" style="margin-top:20px" "margin-bottom:20px">
+        <h1 class="is-size-4"> 4x ~ 256x Magnification Results</h1>
+      </div> 
+
+      <div id="results-carousel" class="carousel results-carousel" style="margin-top:-25px">
+        <div class="item">
+          <img src="static/images/coz_gallery_1.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_gallery_2.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_gallery_3.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_gallery_4.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_gallery_5.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_gallery_6.jpg" alt="MY ALT TEXT"/>
+        </div>
+        <div class="item">
+          <img src="static/images/coz_gallery_7.jpg" alt="MY ALT TEXT"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--BibTex citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section> -->
+<!--End BibTex citation -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Slider Start -->
+<script>
+function initBeforeAfterSlider(sliderElement, options = {}) {
+  const afterWrapper = sliderElement.querySelector('.ba-after-wrapper');
+  const handle = sliderElement.querySelector('.ba-slider-handle');
+
+  if (!afterWrapper || !handle) {
+    // console.warn("Before-after slider elements not found in:", sliderElement);
+    return;
+  }
+
+  // --- Configuration with new defaults ---
+  const config = {
+    // Default initial position set to 75%
+    initialPosPercent: options.initialPosPercent !== undefined ? options.initialPosPercent : 60,
+    // Default draggable range: 60% to 100%
+    minDragPercent: options.minDragPercent !== undefined ? options.minDragPercent : 60,
+    maxDragPercent: options.maxDragPercent !== undefined ? options.maxDragPercent : 100
+  };
+
+  // Validate and clamp configuration percentages
+  config.initialPosPercent = Math.max(0, Math.min(100, config.initialPosPercent));
+  config.minDragPercent = Math.max(0, Math.min(100, config.minDragPercent));
+  config.maxDragPercent = Math.max(0, Math.min(100, config.maxDragPercent));
+
+  // Ensure minDragPercent is not greater than maxDragPercent
+  if (config.minDragPercent > config.maxDragPercent) {
+    // If so, swap them or reset to a valid full range as a fallback
+    // For simplicity, we'll swap them here.
+    [config.minDragPercent, config.maxDragPercent] = [config.maxDragPercent, config.minDragPercent];
+    // console.warn("minDragPercent was greater than maxDragPercent. They have been swapped.");
+  }
+
+  // Ensure initial position is within the now defined draggable range
+  config.initialPosPercent = Math.max(config.minDragPercent, Math.min(config.maxDragPercent, config.initialPosPercent));
+
+  // Set initial state based on validated configuration
+  afterWrapper.style.width = config.initialPosPercent + '%';
+  handle.style.left = config.initialPosPercent + '%';
+
+  let isDragging = false;
+
+  const moveSliderTo = (xPosition) => {
+    const sliderRect = sliderElement.getBoundingClientRect();
+    const containerWidth = sliderRect.width;
+
+    if (containerWidth === 0) return; // Avoid division by zero if not rendered
+
+    // Define pixel limits based on percentage constraints
+    const minX = (config.minDragPercent / 100) * containerWidth;
+    const maxX = (config.maxDragPercent / 100) * containerWidth;
+
+    let newLeft = xPosition - sliderRect.left; // Raw position relative to slider container
+
+    // Apply new constraints
+    newLeft = Math.max(minX, Math.min(newLeft, maxX));
+
+    const newWidthPercent = (newLeft / containerWidth) * 100;
+    afterWrapper.style.width = newWidthPercent + '%';
+    handle.style.left = newWidthPercent + '%';
+  };
+
+  // --- Mouse event handlers ---
+  const onMouseDown = (e) => {
+    e.preventDefault();
+    isDragging = true;
+    sliderElement.classList.add('dragging');
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDragging) return;
+    moveSliderTo(e.clientX);
+  };
+
+  const onMouseUp = () => {
+    if (isDragging) {
+      isDragging = false;
+      sliderElement.classList.remove('dragging');
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+  };
+
+  handle.addEventListener('mousedown', onMouseDown);
+
+  // --- Touch event handlers ---
+  const onTouchStart = (e) => {
+    isDragging = true;
+    sliderElement.classList.add('dragging');
+    moveSliderTo(e.touches[0].clientX); // Apply constraints from initial touch
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd);
+  };
+
+  const onTouchMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    moveSliderTo(e.touches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (isDragging) {
+      isDragging = false;
+      sliderElement.classList.remove('dragging');
+      document.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchend', onTouchEnd);
+    }
+  };
+
+  handle.addEventListener('touchstart', onTouchStart, { passive: true });
+
+  // Click on image to move slider (will also respect constraints via moveSliderTo)
+  sliderElement.addEventListener('click', (e) => {
+    if (e.target === handle || (handle && handle.contains(e.target))) {
+      return;
+    }
+    if (!isDragging) {
+      moveSliderTo(e.clientX);
+    }
+  });
+}
+
+// Initialize sliders when the DOM is ready and for carousel items
+document.addEventListener('DOMContentLoaded', () => {
+  const carouselElement = document.getElementById('results-carousel');
+
+  const initializeSlidersWithin = (parentElement) => {
+    parentElement.querySelectorAll('.before-after-slider:not(.ba-slider-initialized)').forEach(sliderEl => {
+      initBeforeAfterSlider(sliderEl);
+      sliderEl.classList.add('ba-slider-initialized'); // Mark as initialized
+    });
+  };
+
+  if (carouselElement) {
+    // If using Bulma Carousel (or similar that might re-render/clone slides)
+    if (typeof bulmaCarousel !== 'undefined') {
+      const carouselInstances = bulmaCarousel.attach('#results-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        // IMPORTANT: Add other existing carousel options here
+        on: {
+          // Initialize/re-initialize sliders when carousel is ready or slides change
+          ready: (bulmaCarouselInstance) => {
+            initializeSlidersWithin(bulmaCarouselInstance.element);
+          },
+          // You might also need to hook into 'slide' or 'after' events if slides are cloned dynamically
+          // and the 'ready' event is not sufficient.
+          // Example:
+          // after: (bulmaCarouselInstance, slideIdx) => {
+          //   initializeSlidersWithin(bulmaCarouselInstance.element);
+          // }
+        }
+      });
+      // Initial pass in case 'ready' doesn't fire immediately or for some setups
+      if (carouselInstances && carouselInstances.length > 0) {
+        carouselInstances.forEach(inst => initializeSlidersWithin(inst.element));
+      } else {
+         initializeSlidersWithin(carouselElement); // Fallback
+      }
+    } else {
+      // If not using Bulma Carousel, or it's not detected, initialize directly
+      initializeSlidersWithin(carouselElement);
+    }
+  } else {
+    // If no #results-carousel, initialize any other sliders on the page
+    initializeSlidersWithin(document.body); // Or a more specific container
+  }
+});
+
+window.addEventListener('load', function() {
+      // Double-check scrollRestoration here too, though early setting is better.
+      if ('scrollRestoration' in history && history.scrollRestoration !== 'manual') {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    });
+
+</script>
+<!-- Slider End -->
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+</body>
+</html> 
