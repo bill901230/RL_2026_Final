@@ -1,0 +1,5 @@
+=== ablation g0_smoke g0_smoke seed123 2gpu real-coz grpo start 2026-06-07T02:28:19+08:00 ===
+hgpn45
+TOTAL_STEPS=3 SAVE_FREQ=3 CHECKPOINT_DIR=checkpoints/g0_smoke
+PROJECT_NAME=coz_ablation EXPERIMENT_NAME=coz_grpo_g0_smoke_seed123_2gpu_g0_smoke
+chmod: changing permissions of '/tmp': Operation not permitted

@@ -1,0 +1,17 @@
+2026-05-29 21:41:04,665	INFO worker.py:1852 -- Started a local Ray instance.
+Traceback (most recent call last):
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/ray_gpu_smoke.py", line 45, in <module>
+    main()
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/ray_gpu_smoke.py", line 33, in main
+    results = ray.get([actor.probe.remote() for actor in actors], timeout=30)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/worker.py", line 2782, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/worker.py", line 903, in get_objects
+    ] = self.core_worker.get_objects(
+  File "python/ray/_raylet.pyx", line 3211, in ray._raylet.CoreWorker.get_objects
+  File "python/ray/includes/common.pxi", line 85, in ray._raylet.check_status
+ray.exceptions.GetTimeoutError: Get timed out: some object(s) not ready.

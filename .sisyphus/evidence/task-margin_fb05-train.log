@@ -1,0 +1,948 @@
+=== ablation margin_fb05 margin_fb05 seed123 2gpu real-coz grpo start 2026-06-07T16:40:09+08:00 ===
+hgpn45
+TOTAL_STEPS=30 SAVE_FREQ=30 CHECKPOINT_DIR=checkpoints/margin_fb05
+PROJECT_NAME=coz_ablation EXPERIMENT_NAME=coz_grpo_margin_fb05_seed123_2gpu_margin_fb05
+CUDA_VISIBLE_DEVICES=0,1 COZ_NGPU=2 RAY_TMPDIR=/tmp/seanma0627/ray-margin_fb05 TMPDIR=/tmp/seanma0627/tmp-margin_fb05
+REWARD_CFG COZ_R_ANC_WEIGHT=1.0 COZ_R_REP_WEIGHT=1.0 COZ_R_FB_WEIGHT=0.5 COZ_ENABLE_RFB=1 COZ_R_PHR_WEIGHT=0.1 COZ_VALIDITY_GUARD=1 COZ_RFB_METRIC=musiq COZ_RFB_CONSISTENCY_WEIGHT=0.5
+REWARD_DEVICES COZ_REWARD_DEVICE=cuda:0 COZ_REWARD_SR_DEVICE=cuda:0 COZ_REWARD_IQA_DEVICE=cuda:0 COZ_REWARD_CLIP_DEVICE=cuda:0
+0, 0 %, 4 MiB, 143069 MiB
+1, 0 %, 4 MiB, 143069 MiB
+2026-06-07 16:40:19,831	INFO worker.py:1852 -- Started a local Ray instance.
+DirectController hostname: hgpn45, PID: 2986788
+{'data': {'tokenizer': None,
+          'use_shm': False,
+          'train_files': 'data/parquet/coz_states_train_s2_4.parquet',
+          'val_files': 'data/parquet/coz_states_val_s2_4.parquet',
+          'prompt_key': 'prompt',
+          'reward_fn_key': 'data_source',
+          'max_prompt_length': 2048,
+          'max_response_length': 64,
+          'train_batch_size': 2,
+          'val_batch_size': None,
+          'return_raw_input_ids': False,
+          'return_raw_chat': False,
+          'return_full_prompt': False,
+          'shuffle': False,
+          'validation_shuffle': False,
+          'filter_overlong_prompts': False,
+          'filter_overlong_prompts_workers': 1,
+          'truncation': 'error',
+          'image_key': 'images',
+          'video_key': 'videos',
+          'trust_remote_code': True,
+          'custom_cls': {'path': None, 'name': None},
+          'seed': 123},
+ 'actor_rollout_ref': {'hybrid_engine': True,
+                       'model': {'path': '/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged',
+                                 'custom_chat_template': None,
+                                 'use_shm': False,
+                                 'external_lib': None,
+                                 'override_config': {},
+                                 'enable_gradient_checkpointing': True,
+                                 'enable_activation_offload': False,
+                                 'use_remove_padding': False,
+                                 'lora_rank': 0,
+                                 'lora_alpha': 16,
+                                 'target_modules': 'all-linear',
+                                 'use_liger': False,
+                                 'use_fused_kernels': False,
+                                 'fused_kernel_options': {'impl_backend': 'torch'},
+                                 'trust_remote_code': True},
+                       'actor': {'strategy': 'fsdp2',
+                                 'ppo_mini_batch_size': 2,
+                                 'ppo_micro_batch_size': None,
+                                 'ppo_micro_batch_size_per_gpu': 1,
+                                 'use_dynamic_bsz': False,
+                                 'ppo_max_token_len_per_gpu': 16384,
+                                 'grad_clip': 0.5,
+                                 'clip_ratio': 0.2,
+                                 'clip_ratio_low': 0.2,
+                                 'clip_ratio_high': 0.2,
+                                 'policy_loss': {'loss_mode': 'vanilla',
+                                                 'clip_cov_ratio': 0.0002,
+                                                 'clip_cov_lb': 1.0,
+                                                 'clip_cov_ub': 5.0,
+                                                 'kl_cov_ratio': 0.0002,
+                                                 'ppo_kl_coef': 0.1},
+                                 'clip_ratio_c': 3.0,
+                                 'loss_agg_mode': 'token-mean',
+                                 'entropy_coeff': 0.005,
+                                 'use_kl_loss': True,
+                                 'use_torch_compile': False,
+                                 'kl_loss_coef': 0.02,
+                                 'kl_loss_type': 'low_var_kl',
+                                 'ppo_epochs': 1,
+                                 'shuffle': False,
+                                 'ulysses_sequence_parallel_size': 1,
+                                 'entropy_from_logits_with_chunking': False,
+                                 'entropy_checkpointing': False,
+                                 'checkpoint': {'save_contents': ['model',
+                                                                  'optimizer',
+                                                                  'extra'],
+                                                'load_contents': ['model',
+                                                                  'optimizer',
+                                                                  'extra']},
+                                 'optim': {'lr': 3e-07,
+                                           'lr_warmup_steps': -1,
+                                           'lr_warmup_steps_ratio': 0.0,
+                                           'min_lr_ratio': 0.0,
+                                           'num_cycles': 0.5,
+                                           'warmup_style': 'constant',
+                                           'total_training_steps': -1,
+                                           'weight_decay': 0.01},
+                                 'fsdp_config': {'wrap_policy': {'min_num_params': 0},
+                                                 'param_offload': False,
+                                                 'optimizer_offload': False,
+                                                 'offload_policy': False,
+                                                 'reshard_after_forward': True,
+                                                 'fsdp_size': -1,
+                                                 'forward_prefetch': False},
+                                 'profiler': {'discrete': False,
+                                              'all_ranks': False,
+                                              'ranks': None}},
+                       'ref': {'strategy': 'fsdp2',
+                               'fsdp_config': {'param_offload': False,
+                                               'reshard_after_forward': True,
+                                               'forward_prefetch': False,
+                                               'wrap_policy': {'min_num_params': 0}},
+                               'use_torch_compile': False,
+                               'log_prob_micro_batch_size': None,
+                               'log_prob_micro_batch_size_per_gpu': 1,
+                               'log_prob_use_dynamic_bsz': False,
+                               'log_prob_max_token_len_per_gpu': 16384,
+                               'ulysses_sequence_parallel_size': 1,
+                               'entropy_from_logits_with_chunking': False,
+                               'entropy_checkpointing': False,
+                               'profiler': {'discrete': False,
+                                            'all_ranks': False,
+                                            'ranks': None}},
+                       'rollout': {'name': 'vllm',
+                                   'mode': 'sync',
+                                   'temperature': 1.0,
+                                   'top_k': -1,
+                                   'top_p': 1,
+                                   'use_fire_sampling': False,
+                                   'prompt_length': 2048,
+                                   'response_length': 64,
+                                   'dtype': 'bfloat16',
+                                   'gpu_memory_utilization': 0.5,
+                                   'ignore_eos': False,
+                                   'enforce_eager': True,
+                                   'free_cache_engine': True,
+                                   'load_format': 'dummy_dtensor',
+                                   'layered_summon': False,
+                                   'tensor_model_parallel_size': 1,
+                                   'max_num_batched_tokens': 4096,
+                                   'max_model_len': 4096,
+                                   'max_num_seqs': 24,
+                                   'log_prob_micro_batch_size': None,
+                                   'log_prob_micro_batch_size_per_gpu': 1,
+                                   'log_prob_use_dynamic_bsz': False,
+                                   'log_prob_max_token_len_per_gpu': 16384,
+                                   'disable_log_stats': True,
+                                   'enable_chunked_prefill': True,
+                                   'do_sample': True,
+                                   'n': 6,
+                                   'multi_stage_wake_up': False,
+                                   'engine_kwargs': {'vllm': {'swap_space': None,
+                                                              'disable_mm_preprocessor_cache': False,
+                                                              'limit_mm_per_prompt': {'image': 1,
+                                                                                      'video': 0},
+                                                              'mm_processor_kwargs': {'max_pixels': 200704}},
+                                                     'sglang': {'attention_backend': None}},
+                                   'val_kwargs': {'top_k': -1,
+                                                  'top_p': 1.0,
+                                                  'temperature': 0,
+                                                  'n': 1,
+                                                  'do_sample': False},
+                                   'multi_turn': {'enable': False,
+                                                  'max_assistant_turns': None,
+                                                  'tool_config_path': None,
+                                                  'max_user_turns': None,
+                                                  'interaction_config_path': None,
+                                                  'completion_callback': None,
+                                                  'use_inference_chat_template': False,
+                                                  'tokenization_sanity_check_mode': 'strict',
+                                                  'format': 'hermes'},
+                                   'calculate_log_probs': False,
+                                   'profiler': {'discrete': False,
+                                                'all_ranks': False,
+                                                'ranks': None},
+                                   'seed': 123}},
+ 'critic': {'rollout_n': 6,
+            'strategy': 'fsdp2',
+            'optim': {'lr': 1e-05,
+                      'lr_warmup_steps_ratio': 0.0,
+                      'min_lr_ratio': None,
+                      'warmup_style': 'constant',
+                      'total_training_steps': -1,
+                      'weight_decay': 0.01},
+            'model': {'path': '~/models/deepseek-llm-7b-chat',
+                      'use_shm': False,
+                      'tokenizer_path': '/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged',
+                      'override_config': {},
+                      'external_lib': None,
+                      'enable_gradient_checkpointing': True,
+                      'enable_activation_offload': False,
+                      'use_remove_padding': False,
+                      'trust_remote_code': True,
+                      'fsdp_config': {'param_offload': False,
+                                      'optimizer_offload': False,
+                                      'offload_policy': False,
+                                      'reshard_after_forward': True,
+                                      'wrap_policy': {'min_num_params': 0},
+                                      'fsdp_size': -1,
+                                      'forward_prefetch': False},
+                      'lora_rank': 0,
+                      'lora_alpha': 16,
+                      'target_modules': 'all-linear'},
+            'ppo_mini_batch_size': 2,
+            'ppo_micro_batch_size': None,
+            'ppo_micro_batch_size_per_gpu': None,
+            'forward_micro_batch_size': None,
+            'forward_micro_batch_size_per_gpu': None,
+            'use_dynamic_bsz': False,
+            'ppo_max_token_len_per_gpu': 32768,
+            'forward_max_token_len_per_gpu': 32768,
+            'ulysses_sequence_parallel_size': 1,
+            'ppo_epochs': 1,
+            'shuffle': False,
+            'grad_clip': 1.0,
+            'cliprange_value': 0.5,
+            'loss_agg_mode': 'token-mean',
+            'checkpoint': {'save_contents': ['model', 'optimizer', 'extra'],
+                           'load_contents': ['model', 'optimizer', 'extra']},
+            'profiler': {'discrete': False, 'all_ranks': False, 'ranks': None}},
+ 'reward_model': {'enable': False,
+                  'strategy': 'fsdp2',
+                  'model': {'input_tokenizer': '/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged',
+                            'path': '~/models/FsfairX-LLaMA3-RM-v0.1',
+                            'use_shm': False,
+                            'external_lib': None,
+                            'use_remove_padding': False,
+                            'use_fused_kernels': False,
+                            'trust_remote_code': False,
+                            'fsdp_config': {'wrap_policy': {'min_num_params': 0},
+                                            'param_offload': False,
+                                            'reshard_after_forward': True,
+                                            'fsdp_size': -1,
+                                            'forward_prefetch': False}},
+                  'micro_batch_size': None,
+                  'micro_batch_size_per_gpu': None,
+                  'max_length': None,
+                  'ulysses_sequence_parallel_size': 1,
+                  'use_dynamic_bsz': False,
+                  'forward_max_token_len_per_gpu': 32768,
+                  'reward_manager': 'batch',
+                  'launch_reward_fn_async': False,
+                  'sandbox_fusion': {'url': None,
+                                     'max_concurrent': 64,
+                                     'memory_limit_mb': 1024},
+                  'profiler': {'discrete': False,
+                               'all_ranks': False,
+                               'ranks': None}},
+ 'custom_reward_function': {'path': '/work/seanma0627/RL_2026_Final/verl_custom_reward.py',
+                            'name': 'compute_score'},
+ 'algorithm': {'gamma': 1.0,
+               'lam': 1.0,
+               'adv_estimator': 'grpo',
+               'norm_adv_by_std_in_grpo': True,
+               'use_kl_in_reward': False,
+               'kl_penalty': 'kl',
+               'kl_ctrl': {'type': 'fixed',
+                           'kl_coef': 0.001,
+                           'horizon': 10000,
+                           'target_kl': 0.1},
+               'use_pf_ppo': False,
+               'pf_ppo': {'reweight_method': 'pow', 'weight_pow': 2.0}},
+ 'trainer': {'balance_batch': False,
+             'total_epochs': 10,
+             'total_training_steps': 30,
+             'profile_steps': None,
+             'controller_nsight_options': {'trace': 'cuda,nvtx,cublas,ucx',
+                                           'cuda-memory-usage': 'true',
+                                           'cuda-graph-trace': 'graph'},
+             'worker_nsight_options': {'trace': 'cuda,nvtx,cublas,ucx',
+                                       'cuda-memory-usage': 'true',
+                                       'cuda-graph-trace': 'graph',
+                                       'capture-range': 'cudaProfilerApi',
+                                       'capture-range-end': None,
+                                       'kill': 'none'},
+             'project_name': 'coz_ablation',
+             'experiment_name': 'coz_grpo_margin_fb05_seed123_2gpu_margin_fb05',
+             'logger': ['console'],
+             'log_val_generations': 0,
+             'rollout_data_dir': None,
+             'validation_data_dir': None,
+             'nnodes': 1,
+             'n_gpus_per_node': 2,
+             'save_freq': 30,
+             'resume_mode': 'disable',
+             'resume_from_path': None,
+             'val_before_train': False,
+             'val_only': False,
+             'test_freq': -1,
+             'critic_warmup': 0,
+             'default_hdfs_dir': None,
+             'del_local_ckpt_after_load': False,
+             'default_local_dir': 'checkpoints/margin_fb05',
+             'max_actor_ckpt_to_keep': 1,
+             'max_critic_ckpt_to_keep': None,
+             'ray_wait_register_center_timeout': 300,
+             'device': 'cuda'},
+ 'ray_init': {'num_cpus': 8, 'timeline_json_file': None}}
+INFO 06-07 16:40:26 [importing.py:53] Triton module has been replaced with a placeholder.
+INFO 06-07 16:40:27 [__init__.py:239] Automatically detected platform cuda.
+/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/utils/data/dataloader.py:624: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(
+2026-06-07 16:40:35,650	WARNING __init__.py:161 -- DeprecationWarning: `ray.state.available_resources_per_node` is a private attribute and access will be removed in a future Ray version.
+[36m(WorkerDict pid=2990524)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=2990524)[0m WARNING:2026-06-07 16:40:57,245:Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=2990525)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=2990525)[0m WARNING:2026-06-07 16:40:57,245:Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=2990524)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=2990524)[0m WARNING:2026-06-07 16:40:59,766:You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=2990525)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=2990525)[0m WARNING:2026-06-07 16:40:59,763:You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=2990525)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2990524)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2990524)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:13<00:13, 13.28s/it]
+[36m(WorkerDict pid=2990525)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:13<00:13, 13.91s/it]
+[36m(WorkerDict pid=2990525)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:26<00:00, 13.10s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:26<00:00, 13.22s/it]
+[36m(WorkerDict pid=2990524)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:26<00:00, 13.25s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:26<00:00, 13.25s/it]
+using customized reward function 'compute_score' from '/work/seanma0627/RL_2026_Final/verl_custom_reward.py'
+using customized reward function 'compute_score' from '/work/seanma0627/RL_2026_Final/verl_custom_reward.py'
+Using dataset class: RLHFDataset
+dataset len: 150
+Using dataset class: RLHFDataset
+dataset len: 90
+[validate_config] All configuration checks passed successfully!
+Size of train dataloader: 75, Size of val dataloader: 1
+Total training steps: 30
+colocated worker base class <class 'verl.single_controller.base.worker.Worker'>
+[36m(WorkerDict pid=2990524)[0m Model config after override: Qwen2_5_VLConfig {
+[36m(WorkerDict pid=2990524)[0m   "architectures": [
+[36m(WorkerDict pid=2990524)[0m     "Qwen2_5_VLForConditionalGeneration"
+[36m(WorkerDict pid=2990524)[0m   ],
+[36m(WorkerDict pid=2990524)[0m   "attention_dropout": 0.0,
+[36m(WorkerDict pid=2990524)[0m   "eos_token_id": 151645,
+[36m(WorkerDict pid=2990524)[0m   "hidden_act": "silu",
+[36m(WorkerDict pid=2990524)[0m   "hidden_size": 2048,
+[36m(WorkerDict pid=2990524)[0m   "image_token_id": 151655,
+[36m(WorkerDict pid=2990524)[0m   "initializer_range": 0.02,
+[36m(WorkerDict pid=2990524)[0m   "intermediate_size": 11008,
+[36m(WorkerDict pid=2990524)[0m   "max_position_embeddings": 128000,
+[36m(WorkerDict pid=2990524)[0m   "max_window_layers": 70,
+[36m(WorkerDict pid=2990524)[0m   "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=2990524)[0m   "num_attention_heads": 16,
+[36m(WorkerDict pid=2990524)[0m   "num_hidden_layers": 36,
+[36m(WorkerDict pid=2990524)[0m   "num_key_value_heads": 2,
+[36m(WorkerDict pid=2990524)[0m   "pad_token_id": 151643,
+[36m(WorkerDict pid=2990524)[0m   "rms_norm_eps": 1e-06,
+[36m(WorkerDict pid=2990524)[0m   "rope_scaling": {
+[36m(WorkerDict pid=2990524)[0m     "mrope_section": [
+[36m(WorkerDict pid=2990524)[0m       16,
+[36m(WorkerDict pid=2990524)[0m       24,
+[36m(WorkerDict pid=2990524)[0m       24
+[36m(WorkerDict pid=2990524)[0m     ],
+[36m(WorkerDict pid=2990524)[0m     "rope_type": "default",
+[36m(WorkerDict pid=2990524)[0m     "type": "default"
+[36m(WorkerDict pid=2990524)[0m   },
+[36m(WorkerDict pid=2990524)[0m   "rope_theta": 1000000.0,
+[36m(WorkerDict pid=2990524)[0m   "sliding_window": 32768,
+[36m(WorkerDict pid=2990524)[0m   "tie_word_embeddings": true,
+[36m(WorkerDict pid=2990524)[0m   "torch_dtype": "float16",
+[36m(WorkerDict pid=2990524)[0m   "transformers_version": "4.51.3",
+[36m(WorkerDict pid=2990524)[0m   "use_cache": true,
+[36m(WorkerDict pid=2990524)[0m   "use_sliding_window": false,
+[36m(WorkerDict pid=2990524)[0m   "video_token_id": 151656,
+[36m(WorkerDict pid=2990524)[0m   "vision_config": {
+[36m(WorkerDict pid=2990524)[0m     "depth": 32,
+[36m(WorkerDict pid=2990524)[0m     "fullatt_block_indexes": [
+[36m(WorkerDict pid=2990524)[0m       7,
+[36m(WorkerDict pid=2990524)[0m       15,
+[36m(WorkerDict pid=2990524)[0m       23,
+[36m(WorkerDict pid=2990524)[0m       31
+[36m(WorkerDict pid=2990524)[0m     ],
+[36m(WorkerDict pid=2990524)[0m     "hidden_act": "silu",
+[36m(WorkerDict pid=2990524)[0m     "hidden_size": 1280,
+[36m(WorkerDict pid=2990524)[0m     "in_channels": 3,
+[36m(WorkerDict pid=2990524)[0m     "in_chans": 3,
+[36m(WorkerDict pid=2990524)[0m     "intermediate_size": 3420,
+[36m(WorkerDict pid=2990524)[0m     "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=2990524)[0m     "num_heads": 16,
+[36m(WorkerDict pid=2990524)[0m     "out_hidden_size": 2048,
+[36m(WorkerDict pid=2990524)[0m     "patch_size": 14,
+[36m(WorkerDict pid=2990524)[0m     "spatial_merge_size": 2,
+[36m(WorkerDict pid=2990524)[0m     "spatial_patch_size": 14,
+[36m(WorkerDict pid=2990524)[0m     "temporal_patch_size": 2,
+[36m(WorkerDict pid=2990524)[0m     "tokens_per_second": 2,
+[36m(WorkerDict pid=2990524)[0m     "torch_dtype": "float16",
+[36m(WorkerDict pid=2990524)[0m     "window_size": 112
+[36m(WorkerDict pid=2990524)[0m   },
+[36m(WorkerDict pid=2990524)[0m   "vision_end_token_id": 151653,
+[36m(WorkerDict pid=2990524)[0m   "vision_start_token_id": 151652,
+[36m(WorkerDict pid=2990524)[0m   "vision_token_id": 151654,
+[36m(WorkerDict pid=2990524)[0m   "vocab_size": 151936
+[36m(WorkerDict pid=2990524)[0m }
+[36m(WorkerDict pid=2990524)[0m 
+[36m(WorkerDict pid=2990524)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=2990524)[0m Qwen2_5_VLForConditionalGeneration contains 3.75B parameters
+[36m(WorkerDict pid=2990524)[0m wrap_policy: functools.partial(<function _or_policy at 0x149d82bf2290>, policies=[functools.partial(<function transformer_auto_wrap_policy at 0x149d82bf2170>, transformer_layer_cls={<class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLVisionBlock'>, <class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLDecoderLayer'>})])
+[36m(WorkerDict pid=2990525)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=2990524)[0m Actor use_remove_padding=False
+[36m(WorkerDict pid=2990524)[0m Actor use_fused_kernels=False
+[36m(WorkerDict pid=2990524)[0m Model config after override: Qwen2_5_VLConfig {
+[36m(WorkerDict pid=2990524)[0m   "architectures": [
+[36m(WorkerDict pid=2990524)[0m     "Qwen2_5_VLForConditionalGeneration"
+[36m(WorkerDict pid=2990524)[0m   ],
+[36m(WorkerDict pid=2990524)[0m   "attention_dropout": 0.0,
+[36m(WorkerDict pid=2990524)[0m   "eos_token_id": 151645,
+[36m(WorkerDict pid=2990524)[0m   "hidden_act": "silu",
+[36m(WorkerDict pid=2990524)[0m   "hidden_size": 2048,
+[36m(WorkerDict pid=2990524)[0m   "image_token_id": 151655,
+[36m(WorkerDict pid=2990524)[0m   "initializer_range": 0.02,
+[36m(WorkerDict pid=2990524)[0m   "intermediate_size": 11008,
+[36m(WorkerDict pid=2990524)[0m   "max_position_embeddings": 128000,
+[36m(WorkerDict pid=2990524)[0m   "max_window_layers": 70,
+[36m(WorkerDict pid=2990524)[0m   "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=2990524)[0m   "num_attention_heads": 16,
+[36m(WorkerDict pid=2990524)[0m   "num_hidden_layers": 36,
+[36m(WorkerDict pid=2990524)[0m   "num_key_value_heads": 2,
+[36m(WorkerDict pid=2990524)[0m   "pad_token_id": 151643,
+[36m(WorkerDict pid=2990524)[0m   "rms_norm_eps": 1e-06,
+[36m(WorkerDict pid=2990524)[0m   "rope_scaling": {
+[36m(WorkerDict pid=2990524)[0m     "mrope_section": [
+[36m(WorkerDict pid=2990524)[0m       16,
+[36m(WorkerDict pid=2990524)[0m       24,
+[36m(WorkerDict pid=2990524)[0m       24
+[36m(WorkerDict pid=2990524)[0m     ],
+[36m(WorkerDict pid=2990524)[0m     "rope_type": "default",
+[36m(WorkerDict pid=2990524)[0m     "type": "default"
+[36m(WorkerDict pid=2990524)[0m   },
+[36m(WorkerDict pid=2990524)[0m   "rope_theta": 1000000.0,
+[36m(WorkerDict pid=2990524)[0m   "sliding_window": 32768,
+[36m(WorkerDict pid=2990524)[0m   "tie_word_embeddings": true,
+[36m(WorkerDict pid=2990524)[0m   "torch_dtype": "float16",
+[36m(WorkerDict pid=2990524)[0m   "transformers_version": "4.51.3",
+[36m(WorkerDict pid=2990524)[0m   "use_cache": true,
+[36m(WorkerDict pid=2990524)[0m   "use_sliding_window": false,
+[36m(WorkerDict pid=2990524)[0m   "video_token_id": 151656,
+[36m(WorkerDict pid=2990524)[0m   "vision_config": {
+[36m(WorkerDict pid=2990524)[0m     "depth": 32,
+[36m(WorkerDict pid=2990524)[0m     "fullatt_block_indexes": [
+[36m(WorkerDict pid=2990524)[0m       7,
+[36m(WorkerDict pid=2990524)[0m       15,
+[36m(WorkerDict pid=2990524)[0m       23,
+[36m(WorkerDict pid=2990524)[0m       31
+[36m(WorkerDict pid=2990524)[0m     ],
+[36m(WorkerDict pid=2990524)[0m     "hidden_act": "silu",
+[36m(WorkerDict pid=2990524)[0m     "hidden_size": 1280,
+[36m(WorkerDict pid=2990524)[0m     "in_channels": 3,
+[36m(WorkerDict pid=2990524)[0m     "in_chans": 3,
+[36m(WorkerDict pid=2990524)[0m     "intermediate_size": 3420,
+[36m(WorkerDict pid=2990524)[0m     "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=2990524)[0m     "num_heads": 16,
+[36m(WorkerDict pid=2990524)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990524)[0m WARNING:2026-06-07 16:42:25,529:Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990524)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990524)[0m WARNING:2026-06-07 16:42:25,540:Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990525)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990525)[0m WARNING:2026-06-07 16:42:25,532:Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990525)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990525)[0m WARNING:2026-06-07 16:42:25,564:Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=2990525)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2990524)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=2990524)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:10<00:10, 10.01s/it]
+[36m(WorkerDict pid=2990525)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:10<00:10, 10.10s/it]
+[36m(WorkerDict pid=2990525)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:21<00:00, 11.13s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:21<00:00, 10.98s/it]
+[36m(WorkerDict pid=2990524)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:22<00:00, 11.20s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:22<00:00, 11.02s/it]
+[36m(WorkerDict pid=2990524)[0m     "out_hidden_size": 2048,
+[36m(WorkerDict pid=2990524)[0m     "patch_size": 14,
+[36m(WorkerDict pid=2990524)[0m     "spatial_merge_size": 2,
+[36m(WorkerDict pid=2990524)[0m     "spatial_patch_size": 14,
+[36m(WorkerDict pid=2990524)[0m     "temporal_patch_size": 2,
+[36m(WorkerDict pid=2990524)[0m     "tokens_per_second": 2,
+[36m(WorkerDict pid=2990524)[0m     "torch_dtype": "float16",
+[36m(WorkerDict pid=2990524)[0m     "window_size": 112
+[36m(WorkerDict pid=2990524)[0m   },
+[36m(WorkerDict pid=2990524)[0m   "vision_end_token_id": 151653,
+[36m(WorkerDict pid=2990524)[0m   "vision_start_token_id": 151652,
+[36m(WorkerDict pid=2990524)[0m   "vision_token_id": 151654,
+[36m(WorkerDict pid=2990524)[0m   "vocab_size": 151936
+[36m(WorkerDict pid=2990524)[0m }
+[36m(WorkerDict pid=2990524)[0m 
+[36m(WorkerDict pid=2990525)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=2990524)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=2990524)[0m Qwen2_5_VLForConditionalGeneration contains 3.75B parameters
+[36m(WorkerDict pid=2990524)[0m wrap_policy: functools.partial(<function _or_policy at 0x149d82bf2290>, policies=[functools.partial(<function transformer_auto_wrap_policy at 0x149d82bf2170>, transformer_layer_cls={<class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLVisionBlock'>, <class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLDecoderLayer'>})])
+[36m(WorkerDict pid=2990524)[0m Total steps: 30, num_warmup_steps: 0
+[36m(WorkerDict pid=2990524)[0m Actor use_remove_padding=False
+[36m(WorkerDict pid=2990524)[0m Actor use_fused_kernels=False
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:04 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:04 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:04 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:04 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=2990524)[0m WARNING 06-07 16:43:14 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=2990525)[0m WARNING 06-07 16:43:14 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:41 [config.py:717] This model supports multiple tasks: {'reward', 'score', 'classify', 'generate', 'embed'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=2990524)[0m WARNING 06-07 16:43:41 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:41 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:41 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=2990524)[0m WARNING 06-07 16:43:41 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:41 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=123, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:41 [config.py:717] This model supports multiple tasks: {'score', 'reward', 'generate', 'embed', 'classify'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=2990525)[0m WARNING 06-07 16:43:41 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:41 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:41 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=2990525)[0m WARNING 06-07 16:43:41 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:41 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=123, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:43 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:43 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:43 [parallel_state.py:1004] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:43 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:43 [parallel_state.py:1004] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:43 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:44 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:44 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:43:45 [model_runner.py:1140] Model loading took 7.1557 GiB and 0.995682 seconds
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:43:45 [model_runner.py:1140] Model loading took 7.1557 GiB and 1.135011 seconds
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:00 [worker.py:287] Memory profiling takes 13.86 seconds
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:00 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.50) = 69.86GiB
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:00 [worker.py:287] model weights take 7.16GiB; non_torch_memory takes 0.07GiB; PyTorch activation peak memory takes 0.74GiB; the rest of the memory reserved for KV Cache is 61.89GiB.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:00 [worker.py:287] Memory profiling takes 13.88 seconds
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:00 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.50) = 69.86GiB
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:00 [worker.py:287] model weights take 7.16GiB; non_torch_memory takes 0.07GiB; PyTorch activation peak memory takes 0.74GiB; the rest of the memory reserved for KV Cache is 61.89GiB.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:01 [executor_base.py:112] # cuda blocks: 112661, # CPU blocks: 7281
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:01 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 440.08x
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:01 [executor_base.py:112] # cuda blocks: 112661, # CPU blocks: 7281
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:01 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 440.08x
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:10 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 24.52 seconds
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:10 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 24.74 seconds
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:35 [worker.py:145] Sleep mode freed 69.23 GiB memory, 10.08 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:35 [executor_base.py:210] It took 18.905813 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False, 'seed': 123}
+Training Progress:   0%|          | 0/30 [00:00<?, ?it/s][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:35 [worker.py:145] Sleep mode freed 69.23 GiB memory, 9.50 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:35 [executor_base.py:210] It took 18.981525 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False, 'seed': 123}
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+WARNING:2026-06-07 16:45:00,349:Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:40 [executor_base.py:226] It took 0.517117 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:40 [executor_base.py:226] It took 0.595026 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:40 [executor_base.py:226] It took 0.018545 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:40 [executor_base.py:226] It took 0.013706 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:56 [worker.py:145] Sleep mode freed 69.26 GiB memory, 9.50 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:44:56 [executor_base.py:210] It took 2.039930 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:56 [worker.py:145] Sleep mode freed 69.26 GiB memory, 10.08 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:44:56 [executor_base.py:210] It took 2.030247 seconds to fall asleep.
+[coz_reward] loading IQAMetrics(musiq) on cuda:0
+Loading pretrained model MUSIQ from /work/seanma0627/RL_2026_Final/.torch_cache/hub/pyiqa/musiq_koniq_ckpt-e95806b9.pth
+[coz_reward] loading FrozenSRBackbone on cuda:0
+
+Loading pipeline components...:   0%|          | 0/9 [00:00<?, ?it/s][A
+Loading pipeline components...:  22%|██▏       | 2/9 [00:00<00:00, 17.46it/s][A
+Loading pipeline components...:  44%|████▍     | 4/9 [00:00<00:00, 18.63it/s][A
+Loading pipeline components...:  67%|██████▋   | 6/9 [00:00<00:00, 10.50it/s][A
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A[A
+
+Loading checkpoint shards:  50%|█████     | 1/2 [00:01<00:01,  1.42s/it][A[A
+
+Loading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.28s/it][A[ALoading checkpoint shards: 100%|██████████| 2/2 [00:02<00:00,  1.30s/it]
+
+Loading pipeline components...:  89%|████████▉ | 8/9 [00:05<00:01,  1.07s/it][AYou set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
+WARNING:2026-06-07 16:45:13,417:You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
+
+Loading pipeline components...: 100%|██████████| 9/9 [00:06<00:00,  1.06it/s][ALoading pipeline components...: 100%|██████████| 9/9 [00:06<00:00,  1.46it/s]
+Loading LoRA to Transformer from /work/seanma0627/RL_2026_Final/ckpt/SR_LoRA/model_20001.pkl
+Loading LoRA to VAE from /work/seanma0627/RL_2026_Final/ckpt/SR_VAE/vae_encoder_20001.pt
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.6996794939041138, "raw_r_fb": 62.34336394071579, "raw_r_phr": -0.0, "raw_r_rep": -0.3622295631552642, "raw_validity_total": 0.0, "scale": 2, "score": 0.9431656398493438, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 28}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.8097831606864929, "raw_r_fb": 59.439895153045654, "raw_r_phr": -0.0, "raw_r_rep": -0.4133955469498268, "raw_validity_total": 0.0, "scale": 2, "score": -0.3527360133917978, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 36}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.733437716960907, "raw_r_fb": 60.24709177017212, "raw_r_phr": -0.0, "raw_r_rep": -0.3664120137691498, "raw_validity_total": 0.0, "scale": 2, "score": 0.33258026716681155, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 59, "validity_unique_content_tokens": 37}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7610306739807129, "raw_r_fb": 59.51019108295441, "raw_r_phr": -0.0, "raw_r_rep": -0.3854925036430359, "raw_validity_total": 0.0, "scale": 2, "score": 0.19663183563896697, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 43, "validity_unique_content_tokens": 26}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7485103607177734, "raw_r_fb": 60.817687928676605, "raw_r_phr": -0.0, "raw_r_rep": -0.38327956199645996, "raw_validity_total": 0.0, "scale": 2, "score": 0.4139088685401037, "validity_cjk_ratio": 0.03137254901960784, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 29}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.8271474838256836, "raw_r_fb": 58.57649689912796, "raw_r_phr": -0.0, "raw_r_rep": -0.45043525009444263, "raw_validity_total": 0.0, "scale": 2, "score": -1.5335505978034227, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 31, "validity_unique_content_tokens": 17}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.736815869808197, "raw_r_fb": 60.88375622034073, "raw_r_phr": -0.0, "raw_r_rep": -0.4338212013244629, "raw_validity_total": 0.0, "scale": 3, "score": 0.1907031239148803, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 33, "validity_unique_content_tokens": 21}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7822484970092773, "raw_r_fb": 61.20086786150932, "raw_r_phr": -0.0, "raw_r_rep": -0.44186341762542725, "raw_validity_total": 0.0, "scale": 3, "score": -0.16764512277023697, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 40}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.6667158603668213, "raw_r_fb": 63.38556897640228, "raw_r_phr": -0.0, "raw_r_rep": -0.42775142192840576, "raw_validity_total": 0.0, "scale": 3, "score": 0.6463387996612837, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 34}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7970565557479858, "raw_r_fb": 62.865146428346634, "raw_r_phr": -0.0, "raw_r_rep": -0.45569825977892486, "raw_validity_total": 0.0, "scale": 3, "score": -0.630090006531871, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 43, "validity_unique_content_tokens": 26}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7013216018676758, "raw_r_fb": 61.26456654071808, "raw_r_phr": -0.0, "raw_r_rep": -0.432084412044949, "raw_validity_total": 0.0, "scale": 3, "score": -0.26796756915972136, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 61, "validity_unique_content_tokens": 29}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7109163999557495, "raw_r_fb": 64.25478380918503, "raw_r_phr": -0.0, "raw_r_rep": -0.4419596791267395, "raw_validity_total": 0.0, "scale": 3, "score": 0.22866077488567682, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 57, "validity_unique_content_tokens": 31}
+step:1 - actor/entropy:1.997 - actor/kl_loss:0.002 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:24.995 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:269.819 - actor/lr:0.000 - training/global_step:1.000 - training/epoch:0.000 - critic/score/mean:-0.000 - critic/score/max:0.943 - critic/score/min:-1.534 - critic/rewards/mean:-0.000 - critic/rewards/max:0.943 - critic/rewards/min:-1.534 - critic/advantages/mean:0.099 - critic/advantages/max:1.443 - critic/advantages/min:-1.786 - critic/returns/mean:0.099 - critic/returns/max:1.443 - critic/returns/min:-1.786 - response_length/mean:54.500 - response_length/max:64.000 - response_length/min:32.000 - response_length/clip_ratio:0.417 - prompt_length/mean:456.000 - prompt_length/max:456.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:13.996 - timing_s/reshard:2.228 - timing_s/gen:19.006 - timing_s/reward:33.185 - timing_s/old_log_prob:19.562 - timing_s/ref:19.787 - timing_s/adv:0.001 - timing_s/update_actor:40.149 - timing_s/step:131.691 - timing_per_token_ms/update_actor:6.554 - timing_per_token_ms/gen:29.061 - timing_per_token_ms/ref:3.230 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:6126.000 - perf/time_per_step:131.691 - perf/throughput:23.259
+Training Progress:   3%|▎         | 1/30 [02:13<1:04:42, 133.88s/it][36m(WorkerDict pid=2990525)[0m INFO 06-07 16:46:51 [executor_base.py:226] It took 0.382532 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:46:51 [executor_base.py:226] It took 0.456011 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:46:51 [executor_base.py:226] It took 0.014440 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:46:51 [executor_base.py:226] It took 0.013235 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:47:01 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:47:01 [executor_base.py:210] It took 2.146051 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:47:01 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:47:01 [executor_base.py:210] It took 1.884911 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.6720997095108032, "raw_r_fb": 60.54077899456024, "raw_r_phr": -0.0, "raw_r_rep": -0.4372546374797821, "raw_validity_total": 0.0, "scale": 4, "score": -1.5779969868907218, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 19, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.7033926248550415, "raw_r_fb": 60.40686857700348, "raw_r_phr": -0.0, "raw_r_rep": -0.41408681869506836, "raw_validity_total": 0.0, "scale": 4, "score": 1.6480840274263764, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 30}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.6476479768753052, "raw_r_fb": 61.158102571964264, "raw_r_phr": -1.0, "raw_r_rep": -0.4058038890361786, "raw_validity_total": 0.0, "scale": 4, "score": 1.0110460814900204, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 40}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.8274770975112915, "raw_r_fb": 58.59682655334473, "raw_r_phr": -0.0, "raw_r_rep": -0.4337345361709595, "raw_validity_total": 0.0, "scale": 4, "score": -0.8904252560309417, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 27, "validity_unique_content_tokens": 18}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.6866133213043213, "raw_r_fb": 59.981206595897675, "raw_r_phr": -0.0, "raw_r_rep": -0.4217867851257324, "raw_validity_total": 0.0, "scale": 4, "score": 0.27644525383367835, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 31, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0001", "raw_r_anc": 0.6766214370727539, "raw_r_fb": 60.38780254125595, "raw_r_phr": -0.0, "raw_r_rep": -0.4283883571624756, "raw_validity_total": 0.0, "scale": 4, "score": -0.467153119828413, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8328558206558228, "raw_r_fb": 60.48282480239868, "raw_r_phr": -0.0, "raw_r_rep": -0.3998895585536957, "raw_validity_total": 0.0, "scale": 2, "score": -0.9075281780967033, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 45, "validity_unique_content_tokens": 28}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.7994122505187988, "raw_r_fb": 61.64810645580292, "raw_r_phr": -0.0, "raw_r_rep": -0.41396125463339, "raw_validity_total": 0.0, "scale": 2, "score": -1.6309319618015625, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 37}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.720225989818573, "raw_r_fb": 61.904119431972504, "raw_r_phr": -0.0, "raw_r_rep": -0.34601807594299316, "raw_validity_total": 0.0, "scale": 2, "score": 0.6489221635636423, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 14, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8074333071708679, "raw_r_fb": 62.199132800102234, "raw_r_phr": -0.0, "raw_r_rep": -0.377493679523468, "raw_validity_total": 0.0, "scale": 2, "score": 0.5576786999093934, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 25, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.6749173402786255, "raw_r_fb": 62.26286846399307, "raw_r_phr": -0.0, "raw_r_rep": -0.3357067108154297, "raw_validity_total": 0.0, "scale": 2, "score": 0.9265058548013574, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 31, "validity_unique_content_tokens": 20}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8125483989715576, "raw_r_fb": 61.71388578414917, "raw_r_phr": -0.0, "raw_r_rep": -0.3813951015472412, "raw_validity_total": 0.0, "scale": 2, "score": 0.40535342162385857, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 22, "validity_unique_content_tokens": 12}
+step:2 - actor/entropy:2.392 - actor/kl_loss:0.205 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:20.491 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:269.972 - actor/lr:0.000 - training/global_step:2.000 - training/epoch:0.000 - critic/score/mean:-0.000 - critic/score/max:1.648 - critic/score/min:-1.631 - critic/rewards/mean:-0.000 - critic/rewards/max:1.648 - critic/rewards/min:-1.631 - critic/advantages/mean:0.032 - critic/advantages/max:1.362 - critic/advantages/min:-1.593 - critic/returns/mean:0.032 - critic/returns/max:1.362 - critic/returns/min:-1.593 - response_length/mean:35.917 - response_length/max:64.000 - response_length/min:15.000 - response_length/clip_ratio:0.250 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:7.555 - timing_s/reshard:2.249 - timing_s/gen:12.171 - timing_s/reward:3.208 - timing_s/old_log_prob:20.205 - timing_s/ref:20.497 - timing_s/adv:0.001 - timing_s/update_actor:33.180 - timing_s/step:89.263 - timing_per_token_ms/update_actor:5.615 - timing_per_token_ms/gen:28.239 - timing_per_token_ms/ref:3.469 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5909.000 - perf/time_per_step:89.263 - perf/throughput:33.099
+Training Progress:   7%|▋         | 2/30 [03:43<50:14, 107.67s/it]  [36m(WorkerDict pid=2990525)[0m INFO 06-07 16:48:19 [executor_base.py:226] It took 0.552749 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:48:19 [executor_base.py:226] It took 0.664484 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:48:21 [executor_base.py:226] It took 0.106318 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:48:21 [executor_base.py:226] It took 0.014464 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:48:31 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:48:31 [executor_base.py:210] It took 2.241778 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:48:31 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:48:31 [executor_base.py:210] It took 2.272678 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.7204185724258423, "raw_r_fb": 59.40006810426712, "raw_r_phr": -0.0, "raw_r_rep": -0.4213132586168206, "raw_validity_total": 0.0, "scale": 3, "score": -0.5109554073490682, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 35}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.78249192237854, "raw_r_fb": 60.08529567718506, "raw_r_phr": -0.0, "raw_r_rep": -0.414008766412735, "raw_validity_total": 0.0, "scale": 3, "score": 0.9366441732288118, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 39}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.6832091808319092, "raw_r_fb": 57.32523316144943, "raw_r_phr": -0.0, "raw_r_rep": -0.3956150412559509, "raw_validity_total": 0.0, "scale": 3, "score": -1.206086577985873, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 50}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8329511880874634, "raw_r_fb": 58.73589903116226, "raw_r_phr": -0.0, "raw_r_rep": -0.3728000819683075, "raw_validity_total": 0.0, "scale": 3, "score": 2.463115915111941, "validity_cjk_ratio": 0.1, "validity_invalid": 0, "validity_token_count": 11, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.7201470732688904, "raw_r_fb": 60.068976402282715, "raw_r_phr": -0.0, "raw_r_rep": -0.4350840309086968, "raw_validity_total": 0.0, "scale": 3, "score": -1.1817690158710692, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 34, "validity_unique_content_tokens": 20}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.7347800135612488, "raw_r_fb": 60.27683216333389, "raw_r_phr": -0.0, "raw_r_rep": -0.4401739239692688, "raw_validity_total": 0.0, "scale": 3, "score": -0.5009490871347326, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8352997303009033, "raw_r_fb": 60.372060775756836, "raw_r_phr": -0.0, "raw_r_rep": -0.34354132413864136, "raw_validity_total": 0.0, "scale": 4, "score": 2.9447507938378124, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 28, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.7871989607810974, "raw_r_fb": 58.087682604789734, "raw_r_phr": -0.0, "raw_r_rep": -0.37690097093582153, "raw_validity_total": 0.0, "scale": 4, "score": -1.1707360820804302, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 63, "validity_unique_content_tokens": 35}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8026033639907837, "raw_r_fb": 60.06759488582611, "raw_r_phr": -0.0, "raw_r_rep": -0.36595577001571655, "raw_validity_total": 0.0, "scale": 4, "score": 0.49192604706303, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 36, "validity_unique_content_tokens": 26}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8544329404830933, "raw_r_fb": 56.80950170755386, "raw_r_phr": -0.0, "raw_r_rep": -0.3772052228450775, "raw_validity_total": 0.0, "scale": 4, "score": 0.08987401415085444, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 23, "validity_unique_content_tokens": 17}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.6652909517288208, "raw_r_fb": 54.8123534321785, "raw_r_phr": -0.0, "raw_r_rep": -0.3892877697944641, "raw_validity_total": 0.0, "scale": 4, "score": -3.2570997129710944, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 53, "validity_unique_content_tokens": 38}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0002", "raw_r_anc": 0.8037822246551514, "raw_r_fb": 59.84747916460037, "raw_r_phr": -0.0, "raw_r_rep": -0.3650444746017456, "raw_validity_total": 0.0, "scale": 4, "score": 0.9012849399998315, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 7}
+step:3 - actor/entropy:2.502 - actor/kl_loss:0.063 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:26.850 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:270.131 - actor/lr:0.000 - training/global_step:3.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:2.945 - critic/score/min:-3.257 - critic/rewards/mean:0.000 - critic/rewards/max:2.945 - critic/rewards/min:-3.257 - critic/advantages/mean:-0.240 - critic/advantages/max:1.716 - critic/advantages/min:-1.563 - critic/returns/mean:-0.240 - critic/returns/max:1.716 - critic/returns/min:-1.563 - response_length/mean:39.583 - response_length/max:64.000 - response_length/min:11.000 - response_length/clip_ratio:0.333 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:7.641 - timing_s/reshard:2.475 - timing_s/gen:12.527 - timing_s/reward:3.234 - timing_s/old_log_prob:20.780 - timing_s/ref:19.730 - timing_s/adv:0.001 - timing_s/update_actor:31.846 - timing_s/step:88.119 - timing_per_token_ms/update_actor:5.350 - timing_per_token_ms/gen:26.373 - timing_per_token_ms/ref:3.314 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5953.000 - perf/time_per_step:88.119 - perf/throughput:33.778
+Training Progress:  10%|█         | 3/30 [05:11<44:26, 98.77s/it] [36m(WorkerDict pid=2990524)[0m INFO 06-07 16:49:47 [executor_base.py:226] It took 0.354210 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:49:47 [executor_base.py:226] It took 0.373438 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:49:48 [executor_base.py:226] It took 0.014907 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:49:48 [executor_base.py:226] It took 0.058674 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:49:55 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:49:55 [executor_base.py:210] It took 2.854754 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:49:56 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:49:56 [executor_base.py:210] It took 2.239811 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7431516051292419, "raw_r_fb": 62.73452562093735, "raw_r_phr": -0.0, "raw_r_rep": -0.3804246783256531, "raw_validity_total": 0.0, "scale": 2, "score": -0.9569271615831473, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7752459049224854, "raw_r_fb": 64.56240051984787, "raw_r_phr": -0.0, "raw_r_rep": -0.39544355869293213, "raw_validity_total": 0.0, "scale": 2, "score": 0.467491435677473, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.6655459403991699, "raw_r_fb": 64.40529578924179, "raw_r_phr": -0.0, "raw_r_rep": -0.3521312475204468, "raw_validity_total": 0.0, "scale": 2, "score": 0.8240043166414072, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 47, "validity_unique_content_tokens": 32}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7621403336524963, "raw_r_fb": 63.79416197538376, "raw_r_phr": -0.0, "raw_r_rep": -0.4086818839564468, "raw_validity_total": 0.0, "scale": 2, "score": -1.1301893478393317, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 25, "validity_unique_content_tokens": 18}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7006183862686157, "raw_r_fb": 63.09213933348656, "raw_r_phr": -0.0, "raw_r_rep": -0.3556061089038849, "raw_validity_total": 0.0, "scale": 2, "score": 0.09304608228414135, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 15, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7855256795883179, "raw_r_fb": 64.2419501543045, "raw_r_phr": -0.0, "raw_r_rep": -0.39396965503692627, "raw_validity_total": 0.0, "scale": 2, "score": 0.7025746748194469, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.773283839225769, "raw_r_fb": 60.928780406713486, "raw_r_phr": -0.0, "raw_r_rep": -0.40679115056991577, "raw_validity_total": 0.0, "scale": 3, "score": -1.4992804955415115, "validity_cjk_ratio": 0.02857142857142857, "validity_invalid": 0, "validity_token_count": 17, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7588649392127991, "raw_r_fb": 62.63235852122307, "raw_r_phr": -0.0, "raw_r_rep": -0.3813164234161377, "raw_validity_total": 0.0, "scale": 3, "score": 0.5692053609461565, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7800838351249695, "raw_r_fb": 62.046154141426086, "raw_r_phr": -0.0, "raw_r_rep": -0.3962095379829407, "raw_validity_total": 0.0, "scale": 3, "score": 0.39005807727642516, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 35, "validity_unique_content_tokens": 25}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7507925629615784, "raw_r_fb": 61.81137463450432, "raw_r_phr": -0.0, "raw_r_rep": -0.37932997941970825, "raw_validity_total": 0.0, "scale": 3, "score": -0.3004320795640967, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 11, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7379236221313477, "raw_r_fb": 62.15162265300751, "raw_r_phr": -0.0, "raw_r_rep": -0.3761172294616699, "raw_validity_total": 0.0, "scale": 3, "score": -0.2475212743953717, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7602369785308838, "raw_r_fb": 60.68059799075127, "raw_r_phr": -0.0, "raw_r_rep": -0.3572908639907837, "raw_validity_total": 0.0, "scale": 3, "score": 1.0879704112783806, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 6}
+step:4 - actor/entropy:2.023 - actor/kl_loss:0.325 - actor/kl_coef:0.020 - actor/pg_loss:0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:35.098 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:271.554 - actor/lr:0.000 - training/global_step:4.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:1.088 - critic/score/min:-1.499 - critic/rewards/mean:0.000 - critic/rewards/max:1.088 - critic/rewards/min:-1.499 - critic/advantages/mean:0.079 - critic/advantages/max:1.207 - critic/advantages/min:-1.664 - critic/returns/mean:0.079 - critic/returns/max:1.207 - critic/returns/min:-1.664 - response_length/mean:19.333 - response_length/max:48.000 - response_length/min:9.000 - response_length/clip_ratio:0.000 - prompt_length/mean:456.000 - prompt_length/max:456.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:5.151 - timing_s/reshard:1.069 - timing_s/gen:9.078 - timing_s/reward:3.233 - timing_s/old_log_prob:19.753 - timing_s/ref:19.466 - timing_s/adv:0.001 - timing_s/update_actor:32.084 - timing_s/step:83.616 - timing_per_token_ms/update_actor:5.625 - timing_per_token_ms/gen:39.129 - timing_per_token_ms/ref:3.413 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5704.000 - perf/time_per_step:83.616 - perf/throughput:34.108
+Training Progress:  13%|█▎        | 4/30 [06:34<40:12, 92.79s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:51:11 [executor_base.py:226] It took 0.533151 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:51:11 [executor_base.py:226] It took 0.539162 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:51:12 [executor_base.py:226] It took 0.018021 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:51:12 [executor_base.py:226] It took 0.062913 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:51:21 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:51:21 [executor_base.py:210] It took 3.273423 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:51:22 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:51:22 [executor_base.py:210] It took 3.612395 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.8098565340042114, "raw_r_fb": 35.45784878730774, "raw_r_phr": -0.0, "raw_r_rep": -0.33111363649368286, "raw_validity_total": 0.0, "scale": 4, "score": 2.020488919920482, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 19, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.8212551474571228, "raw_r_fb": 29.450302243232727, "raw_r_phr": -0.0, "raw_r_rep": -0.33819812536239624, "raw_validity_total": 0.0, "scale": 4, "score": 0.7775873103897633, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 59, "validity_unique_content_tokens": 38}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7573246955871582, "raw_r_fb": 26.911361545324326, "raw_r_phr": -0.0, "raw_r_rep": -0.3466690480709076, "raw_validity_total": 0.0, "scale": 4, "score": -2.0264789631522313, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.8312729597091675, "raw_r_fb": 28.198924869298935, "raw_r_phr": -0.0, "raw_r_rep": -0.3585236668586731, "raw_validity_total": 0.0, "scale": 4, "score": -0.9190027423172771, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 37, "validity_unique_content_tokens": 24}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.8042346239089966, "raw_r_fb": 29.52494651079178, "raw_r_phr": -0.0, "raw_r_rep": -0.33894659116350373, "raw_validity_total": 0.0, "scale": 4, "score": -0.07985252805688045, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 53, "validity_unique_content_tokens": 36}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0003", "raw_r_anc": 0.7789684534072876, "raw_r_fb": 25.9734448492527, "raw_r_phr": -0.0, "raw_r_rep": -0.32510173320770264, "raw_validity_total": 0.0, "scale": 4, "score": 0.22725800321616962, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 32, "validity_unique_content_tokens": 24}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7879893779754639, "raw_r_fb": 41.272984623909, "raw_r_phr": -0.0, "raw_r_rep": -0.3788973093032837, "raw_validity_total": 0.0, "scale": 2, "score": -0.2700051204039472, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.764275074005127, "raw_r_fb": 41.55531305074692, "raw_r_phr": -0.0, "raw_r_rep": -0.372346967458725, "raw_validity_total": 0.0, "scale": 2, "score": -0.21644650041391478, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 18, "validity_unique_content_tokens": 14}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.761504054069519, "raw_r_fb": 39.43018978834152, "raw_r_phr": -0.0, "raw_r_rep": -0.37267836928367615, "raw_validity_total": 0.0, "scale": 2, "score": -0.7999122840841075, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 49, "validity_unique_content_tokens": 30}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7493137121200562, "raw_r_fb": 52.470855712890625, "raw_r_phr": -0.0, "raw_r_rep": -0.3675430417060852, "raw_validity_total": 0.0, "scale": 2, "score": 0.13051414127420813, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 35, "validity_unique_content_tokens": 23}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.6755832433700562, "raw_r_fb": 56.942513316869736, "raw_r_phr": -0.0, "raw_r_rep": -0.332344114780426, "raw_validity_total": 0.0, "scale": 2, "score": 1.9924353271428838, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7458629608154297, "raw_r_fb": 42.37349146604538, "raw_r_phr": -0.0, "raw_r_rep": -0.36449965834617615, "raw_validity_total": 0.0, "scale": 2, "score": -0.8365855635151224, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 10}
+step:5 - actor/entropy:2.130 - actor/kl_loss:0.165 - actor/kl_coef:0.020 - actor/pg_loss:0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:22.478 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:270.141 - actor/lr:0.000 - training/global_step:5.000 - training/epoch:0.000 - critic/score/mean:-0.000 - critic/score/max:2.020 - critic/score/min:-2.026 - critic/rewards/mean:-0.000 - critic/rewards/max:2.020 - critic/rewards/min:-2.026 - critic/advantages/mean:-0.073 - critic/advantages/max:1.909 - critic/advantages/min:-1.455 - critic/returns/mean:-0.073 - critic/returns/max:1.909 - critic/returns/min:-1.455 - response_length/mean:31.167 - response_length/max:60.000 - response_length/min:9.000 - response_length/clip_ratio:0.000 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:6.763 - timing_s/reshard:1.217 - timing_s/gen:12.127 - timing_s/reward:2.194 - timing_s/old_log_prob:19.518 - timing_s/ref:20.571 - timing_s/adv:0.001 - timing_s/update_actor:32.223 - timing_s/step:86.634 - timing_per_token_ms/update_actor:5.506 - timing_per_token_ms/gen:32.426 - timing_per_token_ms/ref:3.515 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5852.000 - perf/time_per_step:86.634 - perf/throughput:33.774
+Training Progress:  17%|█▋        | 5/30 [08:01<37:44, 90.58s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:52:38 [executor_base.py:226] It took 0.463703 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:52:38 [executor_base.py:226] It took 0.734354 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:52:38 [executor_base.py:226] It took 0.010233 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:52:38 [executor_base.py:226] It took 0.013438 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:52:46 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:52:46 [executor_base.py:210] It took 2.457956 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:52:46 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:52:46 [executor_base.py:210] It took 2.490382 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7791047096252441, "raw_r_fb": 45.449729919433594, "raw_r_phr": -0.0, "raw_r_rep": -0.3495670258998871, "raw_validity_total": 0.0, "scale": 3, "score": 0.7835884266563677, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7524437308311462, "raw_r_fb": 38.18326783180237, "raw_r_phr": -0.0, "raw_r_rep": -0.35056358575820923, "raw_validity_total": 0.0, "scale": 3, "score": -0.590343242002649, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 27, "validity_unique_content_tokens": 21}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.8272764682769775, "raw_r_fb": 40.91956436634064, "raw_r_phr": -0.0, "raw_r_rep": -0.3730977773666382, "raw_validity_total": 0.0, "scale": 3, "score": -0.2518836167954198, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 41, "validity_unique_content_tokens": 28}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.8328357338905334, "raw_r_fb": 44.67529624700546, "raw_r_phr": -0.0, "raw_r_rep": -0.38837456703186035, "raw_validity_total": 0.0, "scale": 3, "score": -0.29809315562462335, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 18, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.6755832433700562, "raw_r_fb": 57.931712090969086, "raw_r_phr": -0.0, "raw_r_rep": -0.3234148621559143, "raw_validity_total": 0.0, "scale": 3, "score": 1.7191356968244196, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7673972845077515, "raw_r_fb": 37.278516948223114, "raw_r_phr": -0.0, "raw_r_rep": -0.3740847408771515, "raw_validity_total": 0.0, "scale": 3, "score": -1.3624041090580994, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7598211169242859, "raw_r_fb": 30.565559148788452, "raw_r_phr": -0.0, "raw_r_rep": -0.4165278971195221, "raw_validity_total": 0.0, "scale": 4, "score": 1.2212477069391245, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 15, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.737865686416626, "raw_r_fb": 29.45894980430603, "raw_r_phr": -0.0, "raw_r_rep": -0.4595605731010437, "raw_validity_total": 0.0, "scale": 4, "score": -1.9965087144076574, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.788884162902832, "raw_r_fb": 29.97056245803833, "raw_r_phr": -0.0, "raw_r_rep": -0.42943423986434937, "raw_validity_total": 0.0, "scale": 4, "score": 0.7552124942711474, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 35, "validity_unique_content_tokens": 23}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.7896281480789185, "raw_r_fb": 28.073980391025543, "raw_r_phr": -0.0, "raw_r_rep": -0.4199519157409668, "raw_validity_total": 0.0, "scale": 4, "score": 1.605798326326226, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 19, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.6897110939025879, "raw_r_fb": 46.502501249313354, "raw_r_phr": -0.0, "raw_r_rep": -0.43373456597328186, "raw_validity_total": 0.0, "scale": 4, "score": 0.19785950945541209, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0004", "raw_r_anc": 0.6984223127365112, "raw_r_fb": 31.104017198085785, "raw_r_phr": -0.0, "raw_r_rep": -0.4519619941711426, "raw_validity_total": 0.0, "scale": 4, "score": -1.7836093225842613, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 8}
+step:6 - actor/entropy:2.418 - actor/kl_loss:0.432 - actor/kl_coef:0.020 - actor/pg_loss:0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:24.443 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:274.985 - actor/lr:0.000 - training/global_step:6.000 - training/epoch:0.000 - critic/score/mean:-0.000 - critic/score/max:1.719 - critic/score/min:-1.997 - critic/rewards/mean:-0.000 - critic/rewards/max:1.719 - critic/rewards/min:-1.997 - critic/advantages/mean:0.041 - critic/advantages/max:1.579 - critic/advantages/min:-1.297 - critic/returns/mean:0.041 - critic/returns/max:1.579 - critic/returns/min:-1.297 - response_length/mean:19.500 - response_length/max:42.000 - response_length/min:9.000 - response_length/clip_ratio:0.000 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:5.105 - timing_s/reshard:1.395 - timing_s/gen:9.334 - timing_s/reward:2.533 - timing_s/old_log_prob:20.680 - timing_s/ref:19.998 - timing_s/adv:0.001 - timing_s/update_actor:32.951 - timing_s/step:85.498 - timing_per_token_ms/update_actor:5.769 - timing_per_token_ms/gen:39.891 - timing_per_token_ms/ref:3.501 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5712.000 - perf/time_per_step:85.498 - perf/throughput:33.404
+Training Progress:  20%|██        | 6/30 [09:27<35:32, 88.85s/it][36m(WorkerDict pid=2990525)[0m INFO 06-07 16:54:03 [executor_base.py:226] It took 0.638116 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:54:03 [executor_base.py:226] It took 0.621045 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:54:04 [executor_base.py:226] It took 0.018311 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:54:04 [executor_base.py:226] It took 0.013724 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:54:10 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:54:10 [executor_base.py:210] It took 2.439798 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:54:15 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:54:15 [executor_base.py:210] It took 2.732404 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7707202434539795, "raw_r_fb": 66.04452741146088, "raw_r_phr": -0.0, "raw_r_rep": -0.410697340965271, "raw_validity_total": 0.0, "scale": 2, "score": 0.5210665794871285, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 11, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7632604837417603, "raw_r_fb": 65.00811195373535, "raw_r_phr": -0.0, "raw_r_rep": -0.40247708559036255, "raw_validity_total": 0.0, "scale": 2, "score": 0.28900660144130147, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 25, "validity_unique_content_tokens": 18}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.8110157251358032, "raw_r_fb": 65.75820297002792, "raw_r_phr": -0.0, "raw_r_rep": -0.4202321171760559, "raw_validity_total": 0.0, "scale": 2, "score": 0.43697515329534076, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 40}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7761887907981873, "raw_r_fb": 64.48607462644577, "raw_r_phr": -0.0, "raw_r_rep": -0.4128028154373169, "raw_validity_total": 0.0, "scale": 2, "score": -0.45672332185355086, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.8042879104614258, "raw_r_fb": 66.27357685565948, "raw_r_phr": -0.0, "raw_r_rep": -0.4303513169288635, "raw_validity_total": 0.0, "scale": 2, "score": -0.7262812407834253, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 31, "validity_unique_content_tokens": 18}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.8236030340194702, "raw_r_fb": 64.68691536784172, "raw_r_phr": -0.0, "raw_r_rep": -0.42127054929733276, "raw_validity_total": 0.0, "scale": 2, "score": -0.06404377158678631, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 18, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7795608043670654, "raw_r_fb": 62.10438710451126, "raw_r_phr": -0.0, "raw_r_rep": -0.43617868423461914, "raw_validity_total": 0.0, "scale": 3, "score": -0.9546229807793329, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7993661165237427, "raw_r_fb": 61.85616412758827, "raw_r_phr": -0.0, "raw_r_rep": -0.439950168132782, "raw_validity_total": 0.0, "scale": 3, "score": -0.25162115611632085, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 14}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7817224860191345, "raw_r_fb": 62.657318234443665, "raw_r_phr": -0.0, "raw_r_rep": -0.4365230202674866, "raw_validity_total": 0.0, "scale": 3, "score": -0.19641929100889444, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 22, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.783389687538147, "raw_r_fb": 63.21968734264374, "raw_r_phr": -0.0, "raw_r_rep": -0.43887245655059814, "raw_validity_total": 0.0, "scale": 3, "score": 0.39670320120022134, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7027886509895325, "raw_r_fb": 62.25835192203522, "raw_r_phr": -0.0, "raw_r_rep": -0.40660426020622253, "raw_validity_total": 0.0, "scale": 3, "score": 1.285816411631711, "validity_cjk_ratio": 0.04081632653061224, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.8236030340194702, "raw_r_fb": 60.904579132795334, "raw_r_phr": -0.0, "raw_r_rep": -0.4371594488620758, "raw_validity_total": 0.0, "scale": 3, "score": -0.27985618492740394, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 18, "validity_unique_content_tokens": 13}
+step:7 - actor/entropy:2.236 - actor/kl_loss:0.338 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:35.320 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:274.832 - actor/lr:0.000 - training/global_step:7.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:1.286 - critic/score/min:-0.955 - critic/rewards/mean:0.000 - critic/rewards/max:1.286 - critic/rewards/min:-0.955 - critic/advantages/mean:0.066 - critic/advantages/max:1.688 - critic/advantages/min:-1.432 - critic/returns/mean:0.066 - critic/returns/max:1.688 - critic/returns/min:-1.432 - response_length/mean:21.917 - response_length/max:64.000 - response_length/min:9.000 - response_length/clip_ratio:0.083 - prompt_length/mean:456.000 - prompt_length/max:456.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:6.005 - timing_s/reshard:1.304 - timing_s/gen:12.638 - timing_s/reward:2.062 - timing_s/old_log_prob:21.491 - timing_s/ref:19.547 - timing_s/adv:0.001 - timing_s/update_actor:32.647 - timing_s/step:88.387 - timing_per_token_ms/update_actor:5.693 - timing_per_token_ms/gen:48.052 - timing_per_token_ms/ref:3.408 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5735.000 - perf/time_per_step:88.387 - perf/throughput:32.443
+Training Progress:  23%|██▎       | 7/30 [10:55<34:00, 88.71s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:55:32 [executor_base.py:226] It took 0.521171 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:55:32 [executor_base.py:226] It took 0.553128 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:55:32 [executor_base.py:226] It took 0.037593 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:55:32 [executor_base.py:226] It took 0.014021 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:55:40 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:55:40 [executor_base.py:210] It took 2.322821 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:55:44 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:55:44 [executor_base.py:210] It took 3.940227 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7734802961349487, "raw_r_fb": 64.30876702070236, "raw_r_phr": -0.0, "raw_r_rep": -0.3980230689048767, "raw_validity_total": 0.0, "scale": 4, "score": -1.0944881910150597, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 25, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7797852754592896, "raw_r_fb": 64.45096698403358, "raw_r_phr": -0.0, "raw_r_rep": -0.3848050832748413, "raw_validity_total": 0.0, "scale": 4, "score": 0.6849680649376259, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 57, "validity_unique_content_tokens": 32}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.8252125978469849, "raw_r_fb": 64.50524920225143, "raw_r_phr": -0.0, "raw_r_rep": -0.4143370985984802, "raw_validity_total": 0.0, "scale": 4, "score": -0.24162597809684622, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 48}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7757906913757324, "raw_r_fb": 64.72521165013313, "raw_r_phr": -0.0, "raw_r_rep": -0.3815319836139679, "raw_validity_total": 0.0, "scale": 4, "score": 0.8242072626559969, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 11, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.8174053430557251, "raw_r_fb": 63.446454644203186, "raw_r_phr": -0.0, "raw_r_rep": -0.39681473440594145, "raw_validity_total": 0.0, "scale": 4, "score": -0.8914405498010736, "validity_cjk_ratio": 0.007722007722007722, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 33}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0005", "raw_r_anc": 0.7362838983535767, "raw_r_fb": 64.29262068867683, "raw_r_phr": -0.0, "raw_r_rep": -0.3612653613090515, "raw_validity_total": 0.0, "scale": 4, "score": 0.7183793913193249, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.8375540971755981, "raw_r_fb": 62.15924656391144, "raw_r_phr": -0.0, "raw_r_rep": -0.40075188875198364, "raw_validity_total": 0.0, "scale": 2, "score": -0.6755418537744131, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 14, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.8968303799629211, "raw_r_fb": 62.79656797647476, "raw_r_phr": -0.0, "raw_r_rep": -0.4039510190486908, "raw_validity_total": 0.0, "scale": 2, "score": 0.11175907347498787, "validity_cjk_ratio": 0.023255813953488372, "validity_invalid": 0, "validity_token_count": 39, "validity_unique_content_tokens": 24}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7685654759407043, "raw_r_fb": 66.37037527561188, "raw_r_phr": -0.0, "raw_r_rep": -0.37466153502464294, "raw_validity_total": 0.0, "scale": 2, "score": 0.5284488553549864, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 34, "validity_unique_content_tokens": 24}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.8434805870056152, "raw_r_fb": 62.05490893125534, "raw_r_phr": -0.0, "raw_r_rep": -0.40301525592803955, "raw_validity_total": 0.0, "scale": 2, "score": -0.4202810881032545, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7893083095550537, "raw_r_fb": 66.4615336060524, "raw_r_phr": -0.0, "raw_r_rep": -0.4061400890350342, "raw_validity_total": 0.0, "scale": 2, "score": -0.3074801035846233, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7862118482589722, "raw_r_fb": 61.56866228580475, "raw_r_phr": -0.0, "raw_r_rep": -0.35551387071609497, "raw_validity_total": 0.0, "scale": 2, "score": 0.7630951166323261, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 32, "validity_unique_content_tokens": 21}
+step:8 - actor/entropy:2.200 - actor/kl_loss:0.381 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:16.709 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:274.881 - actor/lr:0.000 - training/global_step:8.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:0.824 - critic/score/min:-1.094 - critic/rewards/mean:0.000 - critic/rewards/max:0.824 - critic/rewards/min:-1.094 - critic/advantages/mean:-0.005 - critic/advantages/max:1.348 - critic/advantages/min:-1.270 - critic/returns/mean:-0.005 - critic/returns/max:1.348 - critic/returns/min:-1.270 - response_length/mean:34.167 - response_length/max:64.000 - response_length/min:12.000 - response_length/clip_ratio:0.167 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:6.304 - timing_s/reshard:1.309 - timing_s/gen:12.779 - timing_s/reward:2.110 - timing_s/old_log_prob:20.085 - timing_s/ref:21.104 - timing_s/adv:0.001 - timing_s/update_actor:32.587 - timing_s/step:88.666 - timing_per_token_ms/update_actor:5.534 - timing_per_token_ms/gen:31.168 - timing_per_token_ms/ref:3.584 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5888.000 - perf/time_per_step:88.666 - perf/throughput:33.203
+Training Progress:  27%|██▋       | 8/30 [12:24<32:31, 88.70s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:57:00 [executor_base.py:226] It took 0.528717 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:57:00 [executor_base.py:226] It took 0.441715 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:57:01 [executor_base.py:226] It took 0.012022 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:57:01 [executor_base.py:226] It took 0.021984 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:57:08 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:57:08 [executor_base.py:210] It took 2.764038 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:57:09 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:57:09 [executor_base.py:210] It took 2.284509 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7647526264190674, "raw_r_fb": 65.7967454791069, "raw_r_phr": -0.0, "raw_r_rep": -0.3204500079154968, "raw_validity_total": 0.0, "scale": 3, "score": 0.25633426318576713, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.806545078754425, "raw_r_fb": 65.34361398220062, "raw_r_phr": -0.0, "raw_r_rep": -0.4179331461588542, "raw_validity_total": 0.0, "scale": 3, "score": -0.8008189838306123, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7679710388183594, "raw_r_fb": 66.6723560988903, "raw_r_phr": -0.0, "raw_r_rep": -0.33100903034210205, "raw_validity_total": 0.0, "scale": 3, "score": 0.8554609108699968, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 26, "validity_unique_content_tokens": 21}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.8234452605247498, "raw_r_fb": 66.32425054907799, "raw_r_phr": -0.0, "raw_r_rep": -0.4304444873332977, "raw_validity_total": 0.0, "scale": 3, "score": -0.1921579334922967, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7994291186332703, "raw_r_fb": 66.17814978957176, "raw_r_phr": -0.0, "raw_r_rep": -0.33526766300201416, "raw_validity_total": 0.0, "scale": 3, "score": 0.9292606197565543, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7507458329200745, "raw_r_fb": 63.49954488873482, "raw_r_phr": -0.0, "raw_r_rep": -0.31100407242774963, "raw_validity_total": 0.0, "scale": 3, "score": -1.0480788764894138, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 32, "validity_unique_content_tokens": 21}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7435410022735596, "raw_r_fb": 61.69221258163452, "raw_r_phr": -0.0, "raw_r_rep": -0.4272308349609375, "raw_validity_total": 0.0, "scale": 4, "score": 0.01007644771544447, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7790944576263428, "raw_r_fb": 63.877643406391144, "raw_r_phr": -0.0, "raw_r_rep": -0.4096766710281372, "raw_validity_total": 0.0, "scale": 4, "score": 3.2866497392663967, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7409529685974121, "raw_r_fb": 62.49399757385254, "raw_r_phr": -0.0, "raw_r_rep": -0.47030362486839294, "raw_validity_total": 0.0, "scale": 4, "score": -1.9542612793485474, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 17}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7327373623847961, "raw_r_fb": 61.79417818784714, "raw_r_phr": -0.0, "raw_r_rep": -0.46679553389549255, "raw_validity_total": 0.0, "scale": 4, "score": -2.590316380060474, "validity_cjk_ratio": 0.022988505747126436, "validity_invalid": 0, "validity_token_count": 50, "validity_unique_content_tokens": 30}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.775759220123291, "raw_r_fb": 63.468948900699615, "raw_r_phr": -0.0, "raw_r_rep": -0.44828853011131287, "raw_validity_total": 0.0, "scale": 4, "score": 0.838506813522539, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 22, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0006", "raw_r_anc": 0.7500801086425781, "raw_r_fb": 63.595391392707825, "raw_r_phr": -0.0, "raw_r_rep": -0.4504508972167969, "raw_validity_total": 0.0, "scale": 4, "score": 0.40934465890463295, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 11}
+step:9 - actor/entropy:2.259 - actor/kl_loss:0.261 - actor/kl_coef:0.020 - actor/pg_loss:0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:40.859 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:271.883 - actor/lr:0.000 - training/global_step:9.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:3.287 - critic/score/min:-2.590 - critic/rewards/mean:0.000 - critic/rewards/max:3.287 - critic/rewards/min:-2.590 - critic/advantages/mean:-0.248 - critic/advantages/max:1.560 - critic/advantages/min:-1.264 - critic/returns/mean:-0.248 - critic/returns/max:1.560 - critic/returns/min:-1.264 - response_length/mean:20.167 - response_length/max:51.000 - response_length/min:9.000 - response_length/clip_ratio:0.000 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:5.083 - timing_s/reshard:1.210 - timing_s/gen:9.322 - timing_s/reward:3.148 - timing_s/old_log_prob:19.370 - timing_s/ref:20.019 - timing_s/adv:0.001 - timing_s/update_actor:32.565 - timing_s/step:84.425 - timing_per_token_ms/update_actor:5.693 - timing_per_token_ms/gen:38.521 - timing_per_token_ms/ref:3.500 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5720.000 - perf/time_per_step:84.425 - perf/throughput:33.876
+Training Progress:  30%|███       | 9/30 [13:48<30:34, 87.36s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:58:25 [executor_base.py:226] It took 0.600027 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:58:25 [executor_base.py:226] It took 0.546697 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:58:25 [executor_base.py:226] It took 0.015941 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:58:25 [executor_base.py:226] It took 0.063467 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:58:33 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:58:33 [executor_base.py:210] It took 2.303512 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:58:33 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:58:33 [executor_base.py:210] It took 2.292916 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7613970041275024, "raw_r_fb": 54.80496588349342, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 2, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 6, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7569591999053955, "raw_r_fb": 56.79431599378586, "raw_r_phr": -0.0, "raw_r_rep": -0.3857641816139221, "raw_validity_total": 0.0, "scale": 2, "score": 0.3378175419470776, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 34, "validity_unique_content_tokens": 20}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7507879734039307, "raw_r_fb": 56.95971029996872, "raw_r_phr": -1.0, "raw_r_rep": -0.38070595264434814, "raw_validity_total": 0.0, "scale": 2, "score": -0.2539769103241396, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 44, "validity_unique_content_tokens": 30}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7658966779708862, "raw_r_fb": 57.67308896780014, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 2, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 6, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7620556950569153, "raw_r_fb": 58.70258718729019, "raw_r_phr": -0.0, "raw_r_rep": -0.3897128999233246, "raw_validity_total": 0.0, "scale": 2, "score": 1.8080601684710262, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7137914896011353, "raw_r_fb": 59.02789828181267, "raw_r_phr": -0.0, "raw_r_rep": -0.3602125346660614, "raw_validity_total": 0.0, "scale": 2, "score": 0.42535558432522225, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7438372373580933, "raw_r_fb": 56.683521151542664, "raw_r_phr": -0.0, "raw_r_rep": -0.44250738620758057, "raw_validity_total": 0.0, "scale": 3, "score": -0.08510746018853557, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.8205561637878418, "raw_r_fb": 57.799523413181305, "raw_r_phr": -0.0, "raw_r_rep": -0.42356643080711365, "raw_validity_total": 0.0, "scale": 3, "score": 2.0653973177647633, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 27, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7310655117034912, "raw_r_fb": 54.12499803304672, "raw_r_phr": -1.0, "raw_r_rep": -0.427844375371933, "raw_validity_total": 0.0, "scale": 3, "score": -1.7380850557654202, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 41, "validity_unique_content_tokens": 29}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7658966779708862, "raw_r_fb": 56.812300860881805, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 3, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 6, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7620556950569153, "raw_r_fb": 57.68300861120224, "raw_r_phr": -0.0, "raw_r_rep": -0.4503890872001648, "raw_validity_total": 0.0, "scale": 3, "score": 0.689260582938665, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.780854344367981, "raw_r_fb": 56.40168645977974, "raw_r_phr": -0.0, "raw_r_rep": -0.4499483108520508, "raw_validity_total": 0.0, "scale": 3, "score": 0.9631755301727656, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 17, "validity_unique_content_tokens": 13}
+step:10 - actor/entropy:2.348 - actor/kl_loss:0.118 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:70.861 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:270.416 - actor/lr:0.000 - training/global_step:10.000 - training/epoch:0.000 - critic/score/mean:-0.149 - critic/score/max:2.065 - critic/score/min:-2.000 - critic/rewards/mean:-0.149 - critic/rewards/max:2.065 - critic/rewards/min:-2.000 - critic/advantages/mean:0.073 - critic/advantages/max:1.398 - critic/advantages/min:-1.244 - critic/returns/mean:0.073 - critic/returns/max:1.398 - critic/returns/min:-1.244 - response_length/mean:19.500 - response_length/max:45.000 - response_length/min:7.000 - response_length/clip_ratio:0.000 - prompt_length/mean:456.000 - prompt_length/max:456.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:5.562 - timing_s/reshard:1.309 - timing_s/gen:9.337 - timing_s/reward:3.344 - timing_s/old_log_prob:20.173 - timing_s/ref:19.985 - timing_s/adv:0.001 - timing_s/update_actor:32.663 - timing_s/step:85.505 - timing_per_token_ms/update_actor:5.724 - timing_per_token_ms/gen:39.904 - timing_per_token_ms/ref:3.502 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5706.000 - perf/time_per_step:85.505 - perf/throughput:33.367
+Training Progress:  33%|███▎      | 10/30 [15:14<28:55, 86.79s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 16:59:50 [executor_base.py:226] It took 0.306240 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:59:50 [executor_base.py:226] It took 0.417911 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 16:59:50 [executor_base.py:226] It took 0.054694 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 16:59:51 [executor_base.py:226] It took 0.114824 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:00:01 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:00:01 [executor_base.py:210] It took 2.147541 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:00:01 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:00:01 [executor_base.py:210] It took 2.160825 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7438372373580933, "raw_r_fb": 59.74074351787567, "raw_r_phr": -0.0, "raw_r_rep": -0.4176211357116699, "raw_validity_total": 0.0, "scale": 4, "score": 0.27247990821981105, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.8105997443199158, "raw_r_fb": 58.09210583567619, "raw_r_phr": -0.0, "raw_r_rep": -0.4170735478401184, "raw_validity_total": 0.0, "scale": 4, "score": 1.3821623924952926, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 27, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7442628741264343, "raw_r_fb": 57.75386717915535, "raw_r_phr": -1.0, "raw_r_rep": -0.42877060174942017, "raw_validity_total": 0.0, "scale": 4, "score": -0.7241509892077577, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 42}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7658966779708862, "raw_r_fb": 57.81362250447273, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 4, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 6, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.7620556950569153, "raw_r_fb": 59.57162770628929, "raw_r_phr": -0.0, "raw_r_rep": -0.42683523893356323, "raw_validity_total": 0.0, "scale": 4, "score": 0.9377213636368311, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0007", "raw_r_anc": 0.780854344367981, "raw_r_fb": 57.35677874088287, "raw_r_phr": -0.0, "raw_r_rep": -0.4496251940727234, "raw_validity_total": 0.0, "scale": 4, "score": 0.4314157557226107, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 17, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7410492897033691, "raw_r_fb": 60.70360153913498, "raw_r_phr": -0.0, "raw_r_rep": -0.34432077407836914, "raw_validity_total": 0.0, "scale": 2, "score": -0.732108049199901, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 39}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7266889810562134, "raw_r_fb": 65.0657252073288, "raw_r_phr": -0.0, "raw_r_rep": -0.3690568208694458, "raw_validity_total": 0.0, "scale": 2, "score": 0.009216103949745258, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 24, "validity_unique_content_tokens": 21}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7988079786300659, "raw_r_fb": 64.92833006381989, "raw_r_phr": -0.0, "raw_r_rep": -0.3931245067540337, "raw_validity_total": 0.0, "scale": 2, "score": 1.4892787265719043, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 22, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7928355932235718, "raw_r_fb": 64.54954797029495, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 2, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 2, "validity_unique_content_tokens": 2}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7557476758956909, "raw_r_fb": 62.84768357872963, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 2, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 7, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.8385969400405884, "raw_r_fb": 66.12999272346497, "raw_r_phr": -0.0, "raw_r_rep": -0.3866838216781616, "raw_validity_total": 0.0, "scale": 2, "score": 2.248491737258244, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}
+step:11 - actor/entropy:2.105 - actor/kl_loss:0.367 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:90.598 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:274.142 - actor/lr:0.000 - training/global_step:11.000 - training/epoch:0.000 - critic/score/mean:-0.057 - critic/score/max:2.248 - critic/score/min:-2.000 - critic/rewards/mean:-0.057 - critic/rewards/max:2.248 - critic/rewards/min:-2.000 - critic/advantages/mean:0.027 - critic/advantages/max:1.364 - critic/advantages/min:-1.667 - critic/returns/mean:0.027 - critic/returns/max:1.364 - critic/returns/min:-1.667 - response_length/mean:23.000 - response_length/max:64.000 - response_length/min:3.000 - response_length/clip_ratio:0.167 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:8.264 - timing_s/reshard:1.021 - timing_s/gen:11.549 - timing_s/reward:2.134 - timing_s/old_log_prob:20.578 - timing_s/ref:19.702 - timing_s/adv:0.001 - timing_s/update_actor:32.415 - timing_s/step:86.380 - timing_per_token_ms/update_actor:5.633 - timing_per_token_ms/gen:41.845 - timing_per_token_ms/ref:3.424 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5754.000 - perf/time_per_step:86.380 - perf/throughput:33.306
+Training Progress:  37%|███▋      | 11/30 [16:40<27:26, 86.67s/it][36m(WorkerDict pid=2990525)[0m INFO 06-07 17:01:17 [executor_base.py:226] It took 0.430025 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:01:17 [executor_base.py:226] It took 0.448302 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:01:17 [executor_base.py:226] It took 0.017404 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:01:17 [executor_base.py:226] It took 0.067053 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:01:23 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:01:23 [executor_base.py:210] It took 2.478581 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:01:28 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:01:28 [executor_base.py:210] It took 3.437987 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7812562584877014, "raw_r_fb": 52.18685203790665, "raw_r_phr": -0.0, "raw_r_rep": -0.39066454768180847, "raw_validity_total": 0.0, "scale": 3, "score": 0.05016844050492075, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7266889810562134, "raw_r_fb": 55.63035047054291, "raw_r_phr": -0.0, "raw_r_rep": -0.4103326201438904, "raw_validity_total": 0.0, "scale": 3, "score": -0.03276071626137733, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 24, "validity_unique_content_tokens": 21}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7542224526405334, "raw_r_fb": 54.03478789329529, "raw_r_phr": -0.0, "raw_r_rep": -0.421239972114563, "raw_validity_total": 0.0, "scale": 3, "score": -0.24203672487380368, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 15, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.8259648680686951, "raw_r_fb": 54.73624214529991, "raw_r_phr": -0.0, "raw_r_rep": -0.42476627230644226, "raw_validity_total": 0.0, "scale": 3, "score": 1.5877137184097554, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 25, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7557476758956909, "raw_r_fb": 52.623647809028625, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 3, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 7, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.8178012371063232, "raw_r_fb": 56.018781661987305, "raw_r_phr": -0.0, "raw_r_rep": -0.42771676182746887, "raw_validity_total": 0.0, "scale": 3, "score": 1.6238025459632315, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 14, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7774094939231873, "raw_r_fb": 53.10452288389206, "raw_r_phr": -0.0, "raw_r_rep": -0.38228148221969604, "raw_validity_total": 0.0, "scale": 4, "score": -0.2418356257785676, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 38}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7563222646713257, "raw_r_fb": 53.39344668388367, "raw_r_phr": -0.0, "raw_r_rep": -0.3660081624984741, "raw_validity_total": 0.0, "scale": 4, "score": 0.21006492624604578, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 26, "validity_unique_content_tokens": 18}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7880450487136841, "raw_r_fb": 53.319371581077576, "raw_r_phr": -0.0, "raw_r_rep": -0.3833388686180115, "raw_validity_total": 0.0, "scale": 4, "score": 0.19081263062113218, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 36, "validity_unique_content_tokens": 26}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7984935641288757, "raw_r_fb": 55.288445472717285, "raw_r_phr": -0.0, "raw_r_rep": -0.4118136763572693, "raw_validity_total": 0.0, "scale": 4, "score": -0.3922834851065984, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.7716618180274963, "raw_r_fb": 54.80513656139374, "raw_r_phr": -0.0, "raw_r_rep": -0.3979218006134033, "raw_validity_total": 0.0, "scale": 4, "score": -0.8797562164137753, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0008", "raw_r_anc": 0.8306986689567566, "raw_r_fb": 55.66523802280426, "raw_r_phr": -0.0, "raw_r_rep": -0.3983161449432373, "raw_validity_total": 0.0, "scale": 4, "score": 1.1129977704317626, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}
+step:12 - actor/entropy:2.610 - actor/kl_loss:0.070 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:32.961 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:272.019 - actor/lr:0.000 - training/global_step:12.000 - training/epoch:0.000 - critic/score/mean:0.082 - critic/score/max:1.624 - critic/score/min:-2.000 - critic/rewards/mean:0.082 - critic/rewards/max:1.624 - critic/rewards/min:-2.000 - critic/advantages/mean:0.096 - critic/advantages/max:1.639 - critic/advantages/min:-1.608 - critic/returns/mean:0.096 - critic/returns/max:1.639 - critic/returns/min:-1.608 - response_length/mean:22.500 - response_length/max:64.000 - response_length/min:8.000 - response_length/clip_ratio:0.083 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:5.619 - timing_s/reshard:1.221 - timing_s/gen:12.124 - timing_s/reward:2.098 - timing_s/old_log_prob:19.507 - timing_s/ref:19.301 - timing_s/adv:0.001 - timing_s/update_actor:33.869 - timing_s/step:86.901 - timing_per_token_ms/update_actor:5.892 - timing_per_token_ms/gen:44.902 - timing_per_token_ms/ref:3.358 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5748.000 - perf/time_per_step:86.901 - perf/throughput:33.072
+Training Progress:  40%|████      | 12/30 [18:07<26:01, 86.75s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 17:02:44 [executor_base.py:226] It took 0.553190 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:02:44 [executor_base.py:226] It took 0.612313 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:02:45 [executor_base.py:226] It took 0.017208 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:02:45 [executor_base.py:226] It took 0.060558 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:02:53 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:02:53 [executor_base.py:210] It took 2.048413 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:02:55 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:02:55 [executor_base.py:210] It took 2.692764 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.5873830914497375, "raw_r_fb": 68.99472945928574, "raw_r_phr": -0.0, "raw_r_rep": -0.28522545099258423, "raw_validity_total": 0.0, "scale": 2, "score": 0.8147892718543569, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 43, "validity_unique_content_tokens": 15}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6652102470397949, "raw_r_fb": 68.20628818869591, "raw_r_phr": -0.0, "raw_r_rep": -0.3419085741043091, "raw_validity_total": 0.0, "scale": 2, "score": -1.230514642076373, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6766423583030701, "raw_r_fb": 69.71103304624557, "raw_r_phr": -0.0, "raw_r_rep": -0.34064167737960815, "raw_validity_total": 0.0, "scale": 2, "score": 1.2224656967159122, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 42}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6692615151405334, "raw_r_fb": 69.31589847803116, "raw_r_phr": -0.0, "raw_r_rep": -0.33304563164711, "raw_validity_total": 0.0, "scale": 2, "score": 0.7251458103054569, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6246901750564575, "raw_r_fb": 68.69367426633835, "raw_r_phr": -0.0, "raw_r_rep": -0.30932551622390747, "raw_validity_total": 0.0, "scale": 2, "score": -0.12871044642793056, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6644630432128906, "raw_r_fb": 68.97308167815208, "raw_r_phr": -0.0, "raw_r_rep": -0.3557433128356934, "raw_validity_total": 0.0, "scale": 2, "score": -1.4031756903714572, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 14, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.5859061479568481, "raw_r_fb": 66.90250819921494, "raw_r_phr": -0.0, "raw_r_rep": -0.3505885601043701, "raw_validity_total": 0.0, "scale": 3, "score": -0.23714341357556362, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 46, "validity_unique_content_tokens": 14}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6469299793243408, "raw_r_fb": 66.1266587972641, "raw_r_phr": -0.0, "raw_r_rep": -0.380574107170105, "raw_validity_total": 0.0, "scale": 3, "score": 0.09750765969824549, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6072065830230713, "raw_r_fb": 66.71940749883652, "raw_r_phr": -0.0, "raw_r_rep": -0.38287389278411865, "raw_validity_total": 0.0, "scale": 3, "score": -0.24486540349100822, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6386394500732422, "raw_r_fb": 66.75949141383171, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 3, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 6, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6701415181159973, "raw_r_fb": 67.27405148744583, "raw_r_phr": -0.0, "raw_r_rep": -0.39839309453964233, "raw_validity_total": 0.0, "scale": 3, "score": 2.099777896556707, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6420440077781677, "raw_r_fb": 66.88093465566635, "raw_r_phr": -0.0, "raw_r_rep": -0.3943842649459839, "raw_validity_total": 0.0, "scale": 3, "score": 0.7417397495425404, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 7}
+step:13 - actor/entropy:2.091 - actor/kl_loss:0.231 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:32.556 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:272.278 - actor/lr:0.000 - training/global_step:13.000 - training/epoch:0.000 - critic/score/mean:0.038 - critic/score/max:2.100 - critic/score/min:-2.000 - critic/rewards/mean:0.038 - critic/rewards/max:2.100 - critic/rewards/min:-2.000 - critic/advantages/mean:0.237 - critic/advantages/max:1.504 - critic/advantages/min:-1.543 - critic/returns/mean:0.237 - critic/returns/max:1.504 - critic/returns/min:-1.543 - response_length/mean:22.333 - response_length/max:64.000 - response_length/min:7.000 - response_length/clip_ratio:0.083 - prompt_length/mean:456.000 - prompt_length/max:456.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:6.439 - timing_s/reshard:1.741 - timing_s/gen:12.010 - timing_s/reward:3.254 - timing_s/old_log_prob:20.069 - timing_s/ref:20.123 - timing_s/adv:0.001 - timing_s/update_actor:32.276 - timing_s/step:87.732 - timing_per_token_ms/update_actor:5.623 - timing_per_token_ms/gen:44.812 - timing_per_token_ms/ref:3.506 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5740.000 - perf/time_per_step:87.732 - perf/throughput:32.713
+Training Progress:  43%|████▎     | 13/30 [19:35<24:39, 87.05s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 17:04:11 [executor_base.py:226] It took 0.467228 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:04:11 [executor_base.py:226] It took 0.380938 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:04:12 [executor_base.py:226] It took 0.039062 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:04:12 [executor_base.py:226] It took 0.021411 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:04:21 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:04:21 [executor_base.py:210] It took 3.094344 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:04:23 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:04:23 [executor_base.py:210] It took 3.801409 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.586607038974762, "raw_r_fb": 62.44594657421112, "raw_r_phr": -0.0, "raw_r_rep": -0.37958624958992004, "raw_validity_total": 0.0, "scale": 4, "score": -0.29560148583481416, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 38, "validity_unique_content_tokens": 14}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6772738695144653, "raw_r_fb": 62.14033383131027, "raw_r_phr": -0.0, "raw_r_rep": -0.40793484449386597, "raw_validity_total": 0.0, "scale": 4, "score": 1.2501436490116664, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 62, "validity_unique_content_tokens": 27}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6072065830230713, "raw_r_fb": 61.868125796318054, "raw_r_phr": -0.0, "raw_r_rep": -0.43845194578170776, "raw_validity_total": 0.0, "scale": 4, "score": -0.7784244621909391, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6386394500732422, "raw_r_fb": 61.78665894269943, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 4, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 6, "validity_unique_content_tokens": 5}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.6701415181159973, "raw_r_fb": 63.120678663253784, "raw_r_phr": -0.0, "raw_r_rep": -0.4003288745880127, "raw_validity_total": 0.0, "scale": 4, "score": 1.9281524706453097, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 6}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0009", "raw_r_anc": 0.627353310585022, "raw_r_fb": 62.70729911327362, "raw_r_phr": -0.0, "raw_r_rep": -0.43819907307624817, "raw_validity_total": 0.0, "scale": 4, "score": 0.5158762681773801, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8327654600143433, "raw_r_fb": 62.33892089128494, "raw_r_phr": -0.0, "raw_r_rep": -0.3847106099128723, "raw_validity_total": 0.0, "scale": 2, "score": -0.21686531453921004, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 15, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8124212026596069, "raw_r_fb": 63.10849732160568, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 2, "score": -2.0, "validity_cjk_ratio": 0.0, "validity_invalid": 1, "validity_token_count": 5, "validity_unique_content_tokens": 3}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.9133373498916626, "raw_r_fb": 63.90759468078613, "raw_r_phr": -0.0, "raw_r_rep": -0.4611286532645132, "raw_validity_total": 0.0, "scale": 2, "score": 2.0366662112532534, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 53, "validity_unique_content_tokens": 34}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8826248645782471, "raw_r_fb": 63.41330000758171, "raw_r_phr": -0.0, "raw_r_rep": -0.41675782203674316, "raw_validity_total": 0.0, "scale": 2, "score": 1.3959738958655117, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 19, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8281718492507935, "raw_r_fb": 62.633503675460815, "raw_r_phr": -0.0, "raw_r_rep": -0.38222840428352356, "raw_validity_total": 0.0, "scale": 2, "score": -0.3432998974759712, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8441224098205566, "raw_r_fb": 62.436804831027985, "raw_r_phr": -0.0, "raw_r_rep": -0.39439886808395386, "raw_validity_total": 0.0, "scale": 2, "score": 0.22674251700252523, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 9}
+step:14 - actor/entropy:2.375 - actor/kl_loss:0.131 - actor/kl_coef:0.020 - actor/pg_loss:0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:46.576 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:271.993 - actor/lr:0.000 - training/global_step:14.000 - training/epoch:0.000 - critic/score/mean:0.143 - critic/score/max:2.037 - critic/score/min:-2.000 - critic/rewards/mean:0.143 - critic/rewards/max:2.037 - critic/rewards/min:-2.000 - critic/advantages/mean:0.374 - critic/advantages/max:1.303 - critic/advantages/min:-1.535 - critic/returns/mean:0.374 - critic/returns/max:1.303 - critic/returns/min:-1.535 - response_length/mean:23.000 - response_length/max:63.000 - response_length/min:6.000 - response_length/clip_ratio:0.000 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:6.894 - timing_s/reshard:1.210 - timing_s/gen:12.514 - timing_s/reward:2.170 - timing_s/old_log_prob:20.716 - timing_s/ref:20.218 - timing_s/adv:0.002 - timing_s/update_actor:32.392 - timing_s/step:88.012 - timing_per_token_ms/update_actor:5.629 - timing_per_token_ms/gen:45.340 - timing_per_token_ms/ref:3.514 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5754.000 - perf/time_per_step:88.012 - perf/throughput:32.689
+Training Progress:  47%|████▋     | 14/30 [21:03<23:17, 87.34s/it][36m(WorkerDict pid=2990525)[0m INFO 06-07 17:05:39 [executor_base.py:226] It took 0.497379 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:05:40 [executor_base.py:226] It took 0.635826 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:05:40 [executor_base.py:226] It took 0.015813 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:05:40 [executor_base.py:226] It took 0.014161 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:05:49 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:05:49 [executor_base.py:210] It took 2.615088 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:05:51 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:05:51 [executor_base.py:210] It took 3.636826 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.7752257585525513, "raw_r_fb": 60.48083132505417, "raw_r_phr": -0.0, "raw_r_rep": -0.3910866975784302, "raw_validity_total": 0.0, "scale": 3, "score": 0.20570081722397077, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 15, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8456884622573853, "raw_r_fb": 60.53734391927719, "raw_r_phr": -0.0, "raw_r_rep": -0.4120240011176125, "raw_validity_total": 0.0, "scale": 3, "score": 0.1859853157458166, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 39}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.7817569971084595, "raw_r_fb": 58.53564518690109, "raw_r_phr": -0.0, "raw_r_rep": -0.38705530762672424, "raw_validity_total": 0.0, "scale": 3, "score": -0.253170401255718, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8791383504867554, "raw_r_fb": 61.16223222017288, "raw_r_phr": -0.0, "raw_r_rep": -0.45014025319007134, "raw_validity_total": 0.0, "scale": 3, "score": -0.6319263859599941, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 23, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.76407390832901, "raw_r_fb": 59.09472367167473, "raw_r_phr": -0.0, "raw_r_rep": -0.37621209025382996, "raw_validity_total": 0.0, "scale": 3, "score": -0.3194033577761666, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8817046880722046, "raw_r_fb": 60.81207603216171, "raw_r_phr": -0.0, "raw_r_rep": -0.4198518991470337, "raw_validity_total": 0.0, "scale": 3, "score": 0.8128140120220988, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 19, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8109241724014282, "raw_r_fb": 63.91962844133377, "raw_r_phr": -0.0, "raw_r_rep": -0.39733901619911194, "raw_validity_total": 0.0, "scale": 4, "score": 0.05795614692537582, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8215066194534302, "raw_r_fb": 58.80318337678909, "raw_r_phr": -0.0, "raw_r_rep": -0.4015105366706848, "raw_validity_total": 0.0, "scale": 4, "score": -1.3769293492656507, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 48, "validity_unique_content_tokens": 36}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.87006014585495, "raw_r_fb": 63.26448994874954, "raw_r_phr": -0.0, "raw_r_rep": -0.4011080861091614, "raw_validity_total": 0.0, "scale": 4, "score": 0.2502576270890186, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 27, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8791383504867554, "raw_r_fb": 61.82553547620773, "raw_r_phr": -0.0, "raw_r_rep": -0.4094932973384857, "raw_validity_total": 0.0, "scale": 4, "score": -0.6968028023035893, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 23, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.7733147144317627, "raw_r_fb": 64.23869702219963, "raw_r_phr": -0.0, "raw_r_rep": -0.38141193985939026, "raw_validity_total": 0.0, "scale": 4, "score": 1.5776298972342278, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 25, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0010", "raw_r_anc": 0.8906586170196533, "raw_r_fb": 60.97876822948456, "raw_r_phr": -0.0, "raw_r_rep": -0.4033418297767639, "raw_validity_total": 0.0, "scale": 4, "score": 0.18788848032060113, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 33, "validity_unique_content_tokens": 25}
+step:15 - actor/entropy:2.629 - actor/kl_loss:0.209 - actor/kl_coef:0.020 - actor/pg_loss:0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:52.466 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:271.089 - actor/lr:0.000 - training/global_step:15.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:1.578 - critic/score/min:-1.377 - critic/rewards/mean:0.000 - critic/rewards/max:1.578 - critic/rewards/min:-1.377 - critic/advantages/mean:-0.023 - critic/advantages/max:1.592 - critic/advantages/min:-1.381 - critic/returns/mean:-0.023 - critic/returns/max:1.592 - critic/returns/min:-1.381 - response_length/mean:26.333 - response_length/max:64.000 - response_length/min:9.000 - response_length/clip_ratio:0.083 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:6.722 - timing_s/reshard:1.290 - timing_s/gen:12.391 - timing_s/reward:2.187 - timing_s/old_log_prob:19.420 - timing_s/ref:19.642 - timing_s/adv:0.001 - timing_s/update_actor:33.375 - timing_s/step:87.017 - timing_per_token_ms/update_actor:5.760 - timing_per_token_ms/gen:39.211 - timing_per_token_ms/ref:3.390 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5794.000 - perf/time_per_step:87.017 - perf/throughput:33.292
+Training Progress:  50%|█████     | 15/30 [22:30<21:48, 87.24s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 17:07:06 [executor_base.py:226] It took 0.363331 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:07:06 [executor_base.py:226] It took 0.426238 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:07:07 [executor_base.py:226] It took 0.048322 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:07:07 [executor_base.py:226] It took 0.099387 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:07:16 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:07:16 [executor_base.py:210] It took 2.217416 seconds to fall asleep.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:07:17 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:07:17 [executor_base.py:210] It took 2.273421 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.8421086072921753, "raw_r_fb": 68.31425595283508, "raw_r_phr": -0.0, "raw_r_rep": -0.4191218912601471, "raw_validity_total": 0.0, "scale": 2, "score": 1.1518576730861012, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 21, "validity_unique_content_tokens": 14}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.855725884437561, "raw_r_fb": 66.42431139945984, "raw_r_phr": -0.0, "raw_r_rep": -0.4050459861755371, "raw_validity_total": 0.0, "scale": 2, "score": 0.6156122272690887, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 14}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.8324280977249146, "raw_r_fb": 69.26101052761078, "raw_r_phr": -0.0, "raw_r_rep": -0.4107748866081238, "raw_validity_total": 0.0, "scale": 2, "score": 1.2897629779403146, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 41}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.8246735334396362, "raw_r_fb": 67.6524647474289, "raw_r_phr": -0.0, "raw_r_rep": -0.4041212797164917, "raw_validity_total": 0.0, "scale": 2, "score": 0.0690840383522302, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 43}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.6550104022026062, "raw_r_fb": 67.34496766328812, "raw_r_phr": -0.0, "raw_r_rep": -1.0, "raw_validity_total": -2.0, "scale": 2, "score": -2.0, "validity_cjk_ratio": 0.15, "validity_invalid": 1, "validity_token_count": 8, "validity_unique_content_tokens": 4}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7713302969932556, "raw_r_fb": 68.80682653188705, "raw_r_phr": -0.0, "raw_r_rep": -0.3696949779987335, "raw_validity_total": 0.0, "scale": 2, "score": 0.4334451671406466, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.6941719651222229, "raw_r_fb": 59.40178990364075, "raw_r_phr": -0.0, "raw_r_rep": -0.3327401280403137, "raw_validity_total": 0.0, "scale": 3, "score": 0.300375820484838, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7219727039337158, "raw_r_fb": 60.2986726462841, "raw_r_phr": -0.0, "raw_r_rep": -0.3689258098602295, "raw_validity_total": 0.0, "scale": 3, "score": 0.41785323415961284, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7715593576431274, "raw_r_fb": 59.848972856998444, "raw_r_phr": -0.0, "raw_r_rep": -0.3973740339279175, "raw_validity_total": 0.0, "scale": 3, "score": -0.4848732084693633, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 40}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7675995826721191, "raw_r_fb": 59.797511637210846, "raw_r_phr": -0.0, "raw_r_rep": -0.3707396984100342, "raw_validity_total": 0.0, "scale": 3, "score": 0.31432913663215845, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 36, "validity_unique_content_tokens": 29}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.6802054047584534, "raw_r_fb": 59.41879963874817, "raw_r_phr": -0.0, "raw_r_rep": -0.3431769609451294, "raw_validity_total": 0.0, "scale": 3, "score": -0.574678253534972, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 54, "validity_unique_content_tokens": 33}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7668968439102173, "raw_r_fb": 59.59212666749954, "raw_r_phr": -0.0, "raw_r_rep": -0.3614574670791626, "raw_validity_total": 0.0, "scale": 3, "score": 0.026993270727702773, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 11}
+step:16 - actor/entropy:2.376 - actor/kl_loss:0.109 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:27.632 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:270.558 - actor/lr:0.000 - training/global_step:16.000 - training/epoch:0.000 - critic/score/mean:0.130 - critic/score/max:1.290 - critic/score/min:-2.000 - critic/rewards/mean:0.130 - critic/rewards/max:1.290 - critic/rewards/min:-2.000 - critic/advantages/mean:-0.108 - critic/advantages/max:0.969 - critic/advantages/min:-1.889 - critic/returns/mean:-0.108 - critic/returns/max:0.969 - critic/returns/min:-1.889 - response_length/mean:33.000 - response_length/max:64.000 - response_length/min:9.000 - response_length/clip_ratio:0.250 - prompt_length/mean:456.000 - prompt_length/max:456.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:7.628 - timing_s/reshard:1.104 - timing_s/gen:11.086 - timing_s/reward:3.297 - timing_s/old_log_prob:19.848 - timing_s/ref:20.159 - timing_s/adv:0.001 - timing_s/update_actor:32.799 - timing_s/step:87.191 - timing_per_token_ms/update_actor:5.589 - timing_per_token_ms/gen:27.994 - timing_per_token_ms/ref:3.435 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5868.000 - perf/time_per_step:87.191 - perf/throughput:33.650
+Training Progress:  53%|█████▎    | 16/30 [23:57<20:21, 87.23s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 17:08:33 [executor_base.py:226] It took 0.407160 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:08:33 [executor_base.py:226] It took 0.361608 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:08:34 [executor_base.py:226] It took 0.018384 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:08:34 [executor_base.py:226] It took 0.066466 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:08:44 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:08:44 [executor_base.py:210] It took 3.020396 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:08:45 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:08:45 [executor_base.py:210] It took 2.374530 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7186756134033203, "raw_r_fb": 60.51625591516495, "raw_r_phr": -0.0, "raw_r_rep": -0.34757840633392334, "raw_validity_total": 0.0, "scale": 4, "score": -0.20755660900252793, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 15, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7219727039337158, "raw_r_fb": 62.45656806230545, "raw_r_phr": -0.0, "raw_r_rep": -0.3796311318874359, "raw_validity_total": 0.0, "scale": 4, "score": 0.1309161961421884, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 12, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.6945315599441528, "raw_r_fb": 61.816306352615356, "raw_r_phr": -0.0, "raw_r_rep": -0.3342970609664917, "raw_validity_total": 0.0, "scale": 4, "score": 0.5817301619230402, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 9, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7199302315711975, "raw_r_fb": 62.83105593919754, "raw_r_phr": -0.0, "raw_r_rep": -0.3710693120956421, "raw_validity_total": 0.0, "scale": 4, "score": 0.4474130914281173, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 44, "validity_unique_content_tokens": 28}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7147427201271057, "raw_r_fb": 61.90417343378067, "raw_r_phr": -0.0, "raw_r_rep": -0.38504767417907715, "raw_validity_total": 0.0, "scale": 4, "score": -1.7319909723828373, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 31}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0011", "raw_r_anc": 0.7700558304786682, "raw_r_fb": 62.50403028726578, "raw_r_phr": -0.0, "raw_r_rep": -0.37565773725509644, "raw_validity_total": 0.0, "scale": 4, "score": 0.7794881318920226, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 17, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7491185069084167, "raw_r_fb": 61.88946598768234, "raw_r_phr": -0.0, "raw_r_rep": -0.33572816848754883, "raw_validity_total": 0.0, "scale": 2, "score": 1.06772696900615, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7139057517051697, "raw_r_fb": 61.74816054105759, "raw_r_phr": -0.0, "raw_r_rep": -0.32635918259620667, "raw_validity_total": 0.0, "scale": 2, "score": 1.0433791805242063, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 57, "validity_unique_content_tokens": 39}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7107774019241333, "raw_r_fb": 60.74840974807739, "raw_r_phr": -0.0, "raw_r_rep": -0.3358438014984131, "raw_validity_total": 0.0, "scale": 2, "score": -0.4452605425990369, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 41, "validity_unique_content_tokens": 30}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.8383064270019531, "raw_r_fb": 60.32982212305069, "raw_r_phr": -0.0, "raw_r_rep": -0.38481777906417847, "raw_validity_total": 0.0, "scale": 2, "score": -1.1261790260726778, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 38, "validity_unique_content_tokens": 24}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7905664443969727, "raw_r_fb": 59.84872314333916, "raw_r_phr": -0.0, "raw_r_rep": -0.36208799481391907, "raw_validity_total": 0.0, "scale": 2, "score": -1.1005345186452402, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.8163766860961914, "raw_r_fb": 61.86372438073158, "raw_r_phr": -0.0, "raw_r_rep": -0.36183664202690125, "raw_validity_total": 0.0, "scale": 2, "score": 0.5608679377866078, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}
+step:17 - actor/entropy:2.685 - actor/kl_loss:0.116 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:105.231 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:88.185 - actor/lr:0.000 - training/global_step:17.000 - training/epoch:0.000 - critic/score/mean:0.000 - critic/score/max:1.068 - critic/score/min:-1.732 - critic/rewards/mean:0.000 - critic/rewards/max:1.068 - critic/rewards/min:-1.732 - critic/advantages/mean:-0.169 - critic/advantages/max:1.045 - critic/advantages/min:-1.888 - critic/returns/mean:-0.169 - critic/returns/max:1.045 - critic/returns/min:-1.888 - response_length/mean:29.333 - response_length/max:64.000 - response_length/min:9.000 - response_length/clip_ratio:0.083 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:7.811 - timing_s/reshard:1.065 - timing_s/gen:12.322 - timing_s/reward:2.078 - timing_s/old_log_prob:22.502 - timing_s/ref:18.291 - timing_s/adv:0.001 - timing_s/update_actor:28.306 - timing_s/step:83.501 - timing_per_token_ms/update_actor:4.855 - timing_per_token_ms/gen:35.005 - timing_per_token_ms/ref:3.137 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5830.000 - perf/time_per_step:83.501 - perf/throughput:34.910
+Training Progress:  57%|█████▋    | 17/30 [25:20<18:39, 86.11s/it][36m(WorkerDict pid=2990524)[0m INFO 06-07 17:09:57 [executor_base.py:226] It took 0.511954 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:09:57 [executor_base.py:226] It took 0.418566 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:09:58 [executor_base.py:226] It took 0.021800 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:09:59 [executor_base.py:226] It took 0.193548 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:10:05 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:10:05 [executor_base.py:210] It took 3.094820 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:10:07 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:10:07 [executor_base.py:210] It took 1.973835 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7112058997154236, "raw_r_fb": 51.77110427618027, "raw_r_phr": -0.0, "raw_r_rep": -0.3830370306968689, "raw_validity_total": 0.0, "scale": 3, "score": -0.5311360330419215, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 42}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7488360404968262, "raw_r_fb": 52.48109459877014, "raw_r_phr": -0.0, "raw_r_rep": -0.3805820941925049, "raw_validity_total": 0.0, "scale": 3, "score": 0.4226871013164575, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 22, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7041186690330505, "raw_r_fb": 50.975156128406525, "raw_r_phr": -0.0, "raw_r_rep": -0.3267786204814911, "raw_validity_total": 0.0, "scale": 3, "score": 0.9231480767013375, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 63, "validity_unique_content_tokens": 48}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.8303183913230896, "raw_r_fb": 50.98747938871384, "raw_r_phr": -0.0, "raw_r_rep": -0.4045984204168673, "raw_validity_total": 0.0, "scale": 3, "score": -0.3331252333893905, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 54, "validity_unique_content_tokens": 32}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7905664443969727, "raw_r_fb": 50.31981411576271, "raw_r_phr": -0.0, "raw_r_rep": -0.37030404806137085, "raw_validity_total": 0.0, "scale": 3, "score": -0.11864661016913597, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.8239815831184387, "raw_r_fb": 50.24529987573624, "raw_r_phr": -0.0, "raw_r_rep": -0.3845363259315491, "raw_validity_total": 0.0, "scale": 3, "score": -0.36292730141734, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 8}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7349257469177246, "raw_r_fb": 57.02941018342972, "raw_r_phr": -0.0, "raw_r_rep": -0.3779249649781447, "raw_validity_total": 0.0, "scale": 4, "score": -1.2913466473891129, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 19, "validity_unique_content_tokens": 13}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7052768468856812, "raw_r_fb": 55.89326161146164, "raw_r_phr": -0.0, "raw_r_rep": -0.3589746057987213, "raw_validity_total": 0.0, "scale": 4, "score": -1.337270032270544, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7952329516410828, "raw_r_fb": 54.38053375482559, "raw_r_phr": -0.0, "raw_r_rep": -0.3376537263393402, "raw_validity_total": 0.0, "scale": 4, "score": 0.517677194144068, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 35, "validity_unique_content_tokens": 24}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7372050881385803, "raw_r_fb": 55.58295211195946, "raw_r_phr": -0.0, "raw_r_rep": -0.3629779815673828, "raw_validity_total": 0.0, "scale": 4, "score": -0.9487148894383907, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 23, "validity_unique_content_tokens": 16}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.7811120748519897, "raw_r_fb": 55.37530559301376, "raw_r_phr": -0.0, "raw_r_rep": -0.32193493843078613, "raw_validity_total": 0.0, "scale": 4, "score": 1.5963741986084254, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 8, "validity_unique_content_tokens": 7}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0012", "raw_r_anc": 0.8239815831184387, "raw_r_fb": 56.305129796266556, "raw_r_phr": -0.0, "raw_r_rep": -0.3490647077560425, "raw_validity_total": 0.0, "scale": 4, "score": 1.463280176345566, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 10, "validity_unique_content_tokens": 8}
+step:18 - actor/entropy:3.714 - actor/kl_loss:0.132 - actor/kl_coef:0.020 - actor/pg_loss:-0.000 - actor/pg_clipfrac:0.000 - actor/ppo_kl:0.000 - actor/pg_clipfrac_lower:0.000 - actor/grad_norm:128.828 - perf/mfu/actor:0.002 - perf/max_memory_allocated_gb:105.188 - perf/max_memory_reserved_gb:108.707 - perf/cpu_memory_used_gb:88.059 - actor/lr:0.000 - training/global_step:18.000 - training/epoch:0.000 - critic/score/mean:-0.000 - critic/score/max:1.596 - critic/score/min:-1.337 - critic/rewards/mean:-0.000 - critic/rewards/max:1.596 - critic/rewards/min:-1.337 - critic/advantages/mean:0.012 - critic/advantages/max:1.648 - critic/advantages/min:-0.980 - critic/returns/mean:0.012 - critic/returns/max:1.648 - critic/returns/min:-0.980 - response_length/mean:28.583 - response_length/max:64.000 - response_length/min:9.000 - response_length/clip_ratio:0.167 - prompt_length/mean:456.500 - prompt_length/max:457.000 - prompt_length/min:456.000 - prompt_length/clip_ratio:0.000 - timing_s/generate_sequences:4.828 - timing_s/reshard:2.263 - timing_s/gen:10.674 - timing_s/reward:1.954 - timing_s/old_log_prob:17.737 - timing_s/ref:19.235 - timing_s/adv:0.001 - timing_s/update_actor:30.335 - timing_s/step:79.937 - timing_per_token_ms/update_actor:5.211 - timing_per_token_ms/gen:31.119 - timing_per_token_ms/ref:3.304 - timing_per_token_ms/adv:0.000 - perf/total_num_tokens:5821.000 - perf/time_per_step:79.937 - perf/throughput:36.410
+Training Progress:  60%|██████    | 18/30 [26:40<16:51, 84.25s/it][36m(WorkerDict pid=2990525)[0m INFO 06-07 17:11:17 [executor_base.py:226] It took 0.575469 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:11:17 [executor_base.py:226] It took 0.499245 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:11:17 [executor_base.py:226] It took 0.048034 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:11:17 [executor_base.py:226] It took 0.038372 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:11:25 [worker.py:145] Sleep mode freed 69.77 GiB memory, 24.07 GiB memory is still in use.
+[36m(WorkerDict pid=2990525)[0m INFO 06-07 17:11:25 [executor_base.py:210] It took 1.990442 seconds to fall asleep.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:11:27 [worker.py:145] Sleep mode freed 69.77 GiB memory, 45.35 GiB memory is still in use.
+[36m(WorkerDict pid=2990524)[0m INFO 06-07 17:11:27 [executor_base.py:210] It took 3.260094 seconds to fall asleep.
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7358824014663696, "raw_r_fb": 21.885997027158737, "raw_r_phr": -0.0, "raw_r_rep": -0.27626505494117737, "raw_validity_total": 0.0, "scale": 2, "score": -0.0007176931251291763, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.8076260089874268, "raw_r_fb": 22.185554027557373, "raw_r_phr": -0.0, "raw_r_rep": -0.3222825527191162, "raw_validity_total": 0.0, "scale": 2, "score": 1.3541565207974768, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7735475301742554, "raw_r_fb": 22.142899334430695, "raw_r_phr": -1.0, "raw_r_rep": -0.3646721839904785, "raw_validity_total": 0.0, "scale": 2, "score": -0.5423558940296143, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 40}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7734208106994629, "raw_r_fb": 22.53221958875656, "raw_r_phr": -0.0, "raw_r_rep": -0.30117669701576233, "raw_validity_total": 0.0, "scale": 2, "score": 1.8131843272181838, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 23, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7717479467391968, "raw_r_fb": 22.03822773694992, "raw_r_phr": -0.0, "raw_r_rep": -0.3842498222986857, "raw_validity_total": 0.0, "scale": 2, "score": -1.8103356071407042, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 64, "validity_unique_content_tokens": 36}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7675567269325256, "raw_r_fb": 21.733387291431427, "raw_r_phr": -0.0, "raw_r_rep": -0.3099880814552307, "raw_validity_total": 0.0, "scale": 2, "score": -0.8139316537202317, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7358824014663696, "raw_r_fb": 21.765593945980072, "raw_r_phr": -0.0, "raw_r_rep": -0.30153554677963257, "raw_validity_total": 0.0, "scale": 3, "score": -0.7393072291399041, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 13, "validity_unique_content_tokens": 9}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.8076260089874268, "raw_r_fb": 22.03254097700119, "raw_r_phr": -0.0, "raw_r_rep": -0.3550933003425598, "raw_validity_total": 0.0, "scale": 3, "score": -0.9141324777563288, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 20, "validity_unique_content_tokens": 10}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.782994270324707, "raw_r_fb": 22.130320191383362, "raw_r_phr": -1.0, "raw_r_rep": -0.27515605092048645, "raw_validity_total": 0.0, "scale": 3, "score": 1.6575606827076856, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 47, "validity_unique_content_tokens": 29}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7806365489959717, "raw_r_fb": 21.840671002864838, "raw_r_phr": -0.0, "raw_r_rep": -0.30076196789741516, "raw_validity_total": 0.0, "scale": 3, "score": 0.18034217200554623, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 23, "validity_unique_content_tokens": 19}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.6906408071517944, "raw_r_fb": 23.000895261764526, "raw_r_phr": -0.0, "raw_r_rep": -0.28889983892440796, "raw_validity_total": 0.0, "scale": 3, "score": 0.8257596979150458, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 21, "validity_unique_content_tokens": 11}
+[coz_reward] {"event": "coz_reward", "has_crop": true, "image_id": "0013", "raw_r_anc": 0.7441927790641785, "raw_r_fb": 21.852470606565475, "raw_r_phr": -0.0, "raw_r_rep": -0.321353554725647, "raw_validity_total": 0.0, "scale": 3, "score": -1.0102228457320441, "validity_cjk_ratio": 0.0, "validity_invalid": 0, "validity_token_count": 16, "validity_unique_content_tokens": 12}

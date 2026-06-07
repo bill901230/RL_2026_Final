@@ -1,0 +1,5 @@
+Loading pretrained model MUSIQ from /work/seanma0627/RL_2026_Final/.torch_cache/hub/pyiqa/musiq_koniq_ckpt-e95806b9.pth
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Loading pretrained model MANIQA from /work/seanma0627/RL_2026_Final/.torch_cache/hub/pyiqa/ckpt_koniq10k.pt
+wrote 100 rows -> results/A1_full.csv

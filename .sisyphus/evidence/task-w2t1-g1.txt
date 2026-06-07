@@ -1,0 +1,12 @@
+G1 verdict: PASS
+reward_present: yes
+nan_traceback_cuda_count: 0
+adapter_path: experience/grpo_vlm/smoke/checkpoint-5/adapter_model.safetensors
+telemetry_count: 6
+wall_seconds: 136
+reward_tail:
+step 1 | reward/r_anc=0.9360 | reward/r_rep=-0.3511 | reward/total=0.5849 | loss/policy=-0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.7959 | lr=0.0000
+step 2 | reward/r_anc=0.8660 | reward/r_rep=-0.3492 | reward/total=0.5168 | loss/policy=-0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9978 | lr=0.0000
+step 3 | reward/r_anc=0.8099 | reward/r_rep=-0.3193 | reward/total=0.4906 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.7900 | lr=0.0000
+step 4 | reward/r_anc=0.8374 | reward/r_rep=-0.3235 | reward/total=0.5139 | loss/policy=0.0000 | loss/kl=0.0001 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.8468 | lr=0.0000
+step 5 | reward/r_anc=0.9094 | reward/r_rep=-0.3726 | reward/total=0.5367 | loss/policy=0.0000 | loss/kl=0.0001 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9188 | lr=0.0000

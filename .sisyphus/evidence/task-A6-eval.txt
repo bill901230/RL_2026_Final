@@ -1,0 +1,6 @@
+niqe -7.4362
+musiq 50.2986
+maniqa 0.397
+clipiqa 0.592
+consistency 0.782
+unique_token_ratio 0.6107

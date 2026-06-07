@@ -1,0 +1,29 @@
+### ACCEPTANCE 1: adapter
+ADAPTER_OK
+adapter_path=experience/grpo_vlm/A5/final/adapter_model.safetensors
+
+### ACCEPTANCE 2: A5 means (canonical results/A5.csv, md5=f797debbe0de57804871b7317be81801)
+A5 rows 30
+niqe -7.4076
+musiq 51.1002
+maniqa 0.3937
+clipiqa 0.5885
+consistency 0.7843
+unique_token_ratio 0.6158
+
+### A3 reference bar (author ckpt VLM_LoRA/checkpoint-10000)
+niqe -7.6018 | musiq 50.2718 | maniqa 0.3958 | clipiqa 0.607 | consistency 0.7808 | unique_token_ratio 0.6234
+
+### Delta vs A3 (higher=better all axes)
+niqe: A5=-7.4076  A3=-7.6018  delta=0.1942  UP
+musiq: A5=51.1002  A3=50.2718  delta=0.8284  UP
+maniqa: A5=0.3937  A3=0.3958  delta=-0.0021  down
+clipiqa: A5=0.5885  A3=0.607  delta=-0.0185  down
+consistency: A5=0.7843  A3=0.7808  delta=0.0035  UP
+unique_token_ratio: A5=0.6158  A3=0.6234  delta=-0.0076  down
+
+### NOTE on training provenance
+A5 adapter trained by concurrent orchestrator (tmux coz_A5 / proto-A5): R_anc-ONLY
+(r_rep/r_phr/r_fb/r_crit DISABLED = correct anchor isolation). max_steps=25 imgs_per_step=1
+(brief requested 150/2). Final step25 reward/r_anc=0.8455; reward rose 0.87->~0.92 over training.
+My own 150/2 run was repeatedly killed by orchestrator GPU2 process-management + clobber.

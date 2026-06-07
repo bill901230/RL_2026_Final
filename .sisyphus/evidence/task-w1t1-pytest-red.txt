@@ -1,0 +1,79 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+________ test_weight_application_matches_weighted_normalized_components ________
+
+    def test_weight_application_matches_weighted_normalized_components():
+        prompts = ["p0", "p1", "p2", "p3"]
+        weights = {"r_anc": 2.0, "r_rep": 0.5, "r_fb": 1.5, "r_crit": 0.25, "r_phr": 0.75}
+        values = {
+            "p0": {"r_anc": 1.0, "r_rep": 20.0, "r_fb": -3.0, "r_crit": 0.1, "r_phr": 0.0},
+            "p1": {"r_anc": 2.0, "r_rep": 10.0, "r_fb": 4.0, "r_crit": 0.4, "r_phr": -1.0},
+            "p2": {"r_anc": 4.0, "r_rep": 5.0, "r_fb": 9.0, "r_crit": 0.8, "r_phr": -2.0},
+            "p3": {"r_anc": 8.0, "r_rep": 1.0, "r_fb": 16.0, "r_crit": 1.6, "r_phr": -3.0},
+        }
+        orchestrator = _orchestrator(values, weights=weights)
+    
+>       results = orchestrator.compute_group(prompts, _ctx())
+E       AttributeError: 'RewardOrchestrator' object has no attribute 'compute_group'
+
+tests/test_rewards.py:74: AttributeError
+_________ test_per_group_normalization_balances_mixed_scale_components _________
+
+    def test_per_group_normalization_balances_mixed_scale_components():
+        prompts = ["low", "mid_low", "mid_high", "high"]
+        values = {
+            "low": {"r_anc": 1_000.0, "r_rep": 0.001, "r_fb": -40.0, "r_crit": -2.0, "r_phr": 0.0},
+            "mid_low": {"r_anc": 2_000.0, "r_rep": 0.002, "r_fb": -10.0, "r_crit": -1.0, "r_phr": 1.0},
+            "mid_high": {"r_anc": 3_000.0, "r_rep": 0.003, "r_fb": 10.0, "r_crit": 1.0, "r_phr": 0.0},
+            "high": {"r_anc": 4_000.0, "r_rep": 0.004, "r_fb": 40.0, "r_crit": 2.0, "r_phr": 1.0},
+        }
+        orchestrator = _orchestrator(values)
+    
+>       results = orchestrator.compute_group(prompts, _ctx())
+E       AttributeError: 'RewardOrchestrator' object has no attribute 'compute_group'
+
+tests/test_rewards.py:91: AttributeError
+_____________________ test_global_norm_is_order_dependent ______________________
+
+    def test_global_norm_is_order_dependent():
+        prompts = ["low", "mid", "high"]
+        reversed_prompts = list(reversed(prompts))
+        values = {
+            "low": {key: 0.0 for key in REWARD_KEYS},
+            "mid": {key: 10.0 for key in REWARD_KEYS},
+            "high": {key: 20.0 for key in REWARD_KEYS},
+        }
+    
+        running_a = _orchestrator(values, normalization_mode="running")
+        running_b = _orchestrator(values, normalization_mode="running")
+        running_by_prompt_a = {
+            prompt: running_a.compute(prompt, _ctx())[0] for prompt in prompts
+        }
+        running_by_prompt_b = {
+            prompt: running_b.compute(prompt, _ctx())[0] for prompt in reversed_prompts
+        }
+        assert running_by_prompt_a["mid"] != pytest.approx(running_by_prompt_b["mid"])
+    
+        per_group_a = _orchestrator(values)
+        per_group_b = _orchestrator(values)
+>       grouped_a = per_group_a.compute_group(prompts, _ctx())
+E       AttributeError: 'RewardOrchestrator' object has no attribute 'compute_group'
+
+tests/test_rewards.py:123: AttributeError
+________________ test_running_norm_state_can_reset_and_restore _________________
+
+    def test_running_norm_state_can_reset_and_restore():
+        norm = _RunningNorm()
+        for value in (1.0, 2.0, 4.0):
+            norm.update(value)
+    
+>       state = norm.state_dict()
+E       AttributeError: '_RunningNorm' object has no attribute 'state_dict'
+
+tests/test_rewards.py:136: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_rewards.py::test_weight_application_matches_weighted_normalized_components
+FAILED tests/test_rewards.py::test_per_group_normalization_balances_mixed_scale_components
+FAILED tests/test_rewards.py::test_global_norm_is_order_dependent - Attribute...
+FAILED tests/test_rewards.py::test_running_norm_state_can_reset_and_restore
+4 failed in 17.05s

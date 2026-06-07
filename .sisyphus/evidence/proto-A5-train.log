@@ -1,0 +1,35 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:14<00:14, 14.64s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:29<00:00, 14.68s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:29<00:00, 14.67s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[GRPO] trainable LoRA params: 14.97M | ref_adapter=True
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:629: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `1e-06` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+step 1 | reward/r_anc=0.8722 | reward/total=0.8722 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.6858 | lr=0.0000
+step 2 | reward/r_anc=0.8218 | reward/total=0.8218 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=2.1541 | lr=0.0000
+step 3 | reward/r_anc=0.8246 | reward/total=0.8246 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.6772 | lr=0.0000
+step 4 | reward/r_anc=0.8128 | reward/total=0.8128 | loss/policy=0.0000 | loss/kl=0.0001 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9579 | lr=0.0000
+step 5 | reward/r_anc=0.8335 | reward/total=0.8335 | loss/policy=0.0000 | loss/kl=0.0004 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4417 | lr=0.0000
+step 6 | reward/r_anc=0.8864 | reward/total=0.8864 | loss/policy=0.0000 | loss/kl=0.0009 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.8439 | lr=0.0000
+step 7 | reward/r_anc=0.7977 | reward/total=0.7977 | loss/policy=0.0001 | loss/kl=0.0022 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3449 | lr=0.0000
+step 8 | reward/r_anc=0.8139 | reward/total=0.8139 | loss/policy=0.0001 | loss/kl=0.0022 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3741 | lr=0.0000
+step 9 | reward/r_anc=0.8196 | reward/total=0.8196 | loss/policy=0.0002 | loss/kl=0.0050 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3059 | lr=0.0000
+step 10 | reward/r_anc=0.8901 | reward/total=0.8901 | loss/policy=0.0004 | loss/kl=0.0109 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4698 | lr=0.0000
+step 11 | reward/r_anc=0.9407 | reward/total=0.9407 | loss/policy=0.0005 | loss/kl=0.0133 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.6348 | lr=0.0000
+step 12 | reward/r_anc=0.8060 | reward/total=0.8060 | loss/policy=0.0006 | loss/kl=0.0159 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.7152 | lr=0.0000
+step 13 | reward/r_anc=0.8259 | reward/total=0.8259 | loss/policy=0.0010 | loss/kl=0.0241 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.5479 | lr=0.0000
+step 14 | reward/r_anc=0.8153 | reward/total=0.8153 | loss/policy=0.0010 | loss/kl=0.0258 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4558 | lr=0.0000
+step 15 | reward/r_anc=0.8553 | reward/total=0.8553 | loss/policy=0.0008 | loss/kl=0.0193 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.5275 | lr=0.0000
+step 16 | reward/r_anc=0.7952 | reward/total=0.7952 | loss/policy=0.0009 | loss/kl=0.0228 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.6226 | lr=0.0000
+step 17 | reward/r_anc=0.8939 | reward/total=0.8939 | loss/policy=0.0021 | loss/kl=0.0531 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.6709 | lr=0.0000
+step 18 | reward/r_anc=0.8872 | reward/total=0.8872 | loss/policy=0.0020 | loss/kl=0.0491 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9517 | lr=0.0000
+step 19 | reward/r_anc=0.8717 | reward/total=0.8717 | loss/policy=0.0012 | loss/kl=0.0304 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4743 | lr=0.0000
+step 20 | reward/r_anc=0.9146 | reward/total=0.9146 | loss/policy=0.0030 | loss/kl=0.0741 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.5818 | lr=0.0000
+step 21 | reward/r_anc=0.9259 | reward/total=0.9259 | loss/policy=0.0018 | loss/kl=0.0439 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=2.0508 | lr=0.0000
+step 22 | reward/r_anc=0.8934 | reward/total=0.8934 | loss/policy=0.0027 | loss/kl=0.0687 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.8437 | lr=0.0000
+step 23 | reward/r_anc=0.8892 | reward/total=0.8892 | loss/policy=0.0026 | loss/kl=0.0651 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9128 | lr=0.0000
+step 24 | reward/r_anc=0.9154 | reward/total=0.9154 | loss/policy=0.0025 | loss/kl=0.0617 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.5672 | lr=0.0000
+step 25 | reward/r_anc=0.8455 | reward/total=0.8455 | loss/policy=0.0018 | loss/kl=0.0444 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=2.0528 | lr=0.0000
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/peft/utils/save_and_load.py:236: UserWarning: Could not find a config file in /mnt/data1/bryanswkim/cache/modelscope/models/Qwen/Qwen2___5-VL-3B-Instruct - will assume that the vocabulary was not modified.
+  warnings.warn(
+[GRPO] saved adapter -> experience/grpo_vlm/A5/checkpoint-25
+[GRPO] saved adapter -> experience/grpo_vlm/A5/final
+TRAIN_EXIT=0

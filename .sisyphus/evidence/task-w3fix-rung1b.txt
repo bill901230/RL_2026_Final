@@ -1,0 +1,12 @@
+2026-05-29 21:47:13,526	INFO worker.py:1852 -- Started a local Ray instance.
+[{'pid': 1545438,
+  'CUDA_VISIBLE_DEVICES': '1',
+  'cuda_available': True,
+  'device_count': 1,
+  'device_name': 'NVIDIA H200'},
+ {'pid': 1545434,
+  'CUDA_VISIBLE_DEVICES': '3',
+  'cuda_available': True,
+  'device_count': 1,
+  'device_name': 'NVIDIA H200'}]
+RAY_GPU_WARMUP_PROBE_OK

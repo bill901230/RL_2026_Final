@@ -1,0 +1,40 @@
+{
+  "train_rows": 200,
+  "val_rows": 120,
+  "train_parquet": "/work/seanma0627/RL_2026_Final/data/parquet/coz_states_train.parquet",
+  "val_parquet": "/work/seanma0627/RL_2026_Final/data/parquet/coz_states_val.parquet",
+  "train_image_ids": 50,
+  "val_image_ids": 30,
+  "image_ids_disjoint": true,
+  "sample_row": {
+    "prompt": [
+      {
+        "role": "system",
+        "content": "You are the Chain-of-Zoom prompt extractor for extreme super-resolution. The original image has this global caption: 'purple starfish, underwater, marine life, colorful, sea creature, ocean floor, vibrant, texture, spiky, delicate, close-up, natural,'. You are now inspecting a single current crop at zoom factor=4x (scale step 1). Stay semantically consistent with the global caption, avoid hallucinating unrelated objects, avoid repeating the previous scale, and answer with a concise set of words describing new fine details visible in the current crop."
+      },
+      {
+        "role": "user",
+        "content": "<image>"
+      }
+    ],
+    "images": [
+      {
+        "image": "file:///work/seanma0627/RL_2026_Final/results/A3_train50_sr/per-sample/0001/1_input.png"
+      }
+    ],
+    "data_source": "coz",
+    "reward_model": {
+      "style": "model",
+      "ground_truth": ""
+    },
+    "extra_info": {
+      "x0_caption": "purple starfish, underwater, marine life, colorful, sea creature, ocean floor, vibrant, texture, spiky, delicate, close-up, natural,",
+      "prev_prompt": "",
+      "crop_path": "/work/seanma0627/RL_2026_Final/results/A3_train50_sr/per-sample/0001/1_input.png",
+      "scale": 1,
+      "zoom_factor": 4,
+      "image_id": "0001",
+      "index": 0
+    }
+  }
+}

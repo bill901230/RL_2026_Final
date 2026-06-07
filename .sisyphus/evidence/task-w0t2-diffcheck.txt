@@ -1,0 +1,5 @@
+=== W0.T2 git diff --check EVIDENCE (AC6) ===
+date: Fri May 29 16:43:41 CST 2026
+--- git diff --check (working tree) ---
+exit=0
+--- git status --short ---

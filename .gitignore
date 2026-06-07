@@ -20,13 +20,10 @@ results/
 outputs/
 high_density_imgs/
 
-# tooling / session artifacts
-.sisyphus/
-*.pdf
-opencode_session_*.md
-
 # model weights
 ckpt/RAM/*.pth
 ckpt/DAPE/*.pth
 ckpt/SR_LoRA/*.pkl
 ckpt/SR_VAE/*.pt
+ckpt/VLM_FT/*
+ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged/*

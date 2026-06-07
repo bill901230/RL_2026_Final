@@ -1,0 +1,48 @@
+{
+  "train_rows": 150,
+  "val_rows": 90,
+  "state": "expanded",
+  "scales": [
+    2,
+    3,
+    4
+  ],
+  "train_parquet": "/work/seanma0627/RL_2026_Final/data/parquet/coz_states_train_s2_4_expanded.parquet",
+  "val_parquet": "/work/seanma0627/RL_2026_Final/data/parquet/coz_states_val_s2_4_expanded.parquet",
+  "train_image_ids": 50,
+  "val_image_ids": 30,
+  "image_ids_disjoint": true,
+  "sample_row": {
+    "prompt": [
+      {
+        "role": "system",
+        "content": "You are the Chain-of-Zoom prompt extractor for extreme super-resolution. The original image has this global caption: 'purple starfish, underwater, marine life, colorful, sea creature, ocean floor, vibrant, texture, spiky, delicate, close-up, natural,'. The two-steps-back context caption is: 'purple starfish, underwater, marine life, colorful, sea creature, ocean floor, vibrant, texture, spiky, delicate, close-up, natural,'. You are now inspecting a single current crop at zoom factor=16x (scale step 2). Stay semantically consistent with the global caption and the two-steps-back context, avoid hallucinating unrelated objects, avoid repeating the previous scale, and answer with a concise set of words describing new fine details visible in the current crop."
+      },
+      {
+        "role": "user",
+        "content": "<image>"
+      }
+    ],
+    "images": [
+      {
+        "image": "file:///work/seanma0627/RL_2026_Final/results/A3_train50_sr/per-sample/0001/2_input.png"
+      }
+    ],
+    "data_source": "coz",
+    "reward_model": {
+      "style": "model",
+      "ground_truth": ""
+    },
+    "extra_info": {
+      "x0_caption": "purple starfish, underwater, marine life, colorful, sea creature, ocean floor, vibrant, texture, spiky, delicate, close-up, natural,",
+      "prev2_caption": "purple starfish, underwater, marine life, colorful, sea creature, ocean floor, vibrant, texture, spiky, delicate, close-up, natural,",
+      "prev2_crop_path": "/work/seanma0627/RL_2026_Final/results/A3_train50_sr/per-sample/0001/0.png",
+      "prev_prompt": "sea star, underwater, marine life, pink, texture, close-up, detail, coral reef, ocean floor, vibrant, colorful, natural, aquatic, sea",
+      "crop_path": "/work/seanma0627/RL_2026_Final/results/A3_train50_sr/per-sample/0001/2_input.png",
+      "scale": 2,
+      "zoom_factor": 16,
+      "image_id": "0001",
+      "index": 0
+    }
+  }
+}

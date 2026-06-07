@@ -1,0 +1,88 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:35<00:35, 35.79s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:54<00:00, 25.61s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:54<00:00, 27.14s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[GRPO] trainable LoRA params: 14.97M | ref_adapter=True
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:629: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `1e-06` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+step 1 | reward/r_anc=0.8470 | reward/r_rep=-0.3503 | reward/r_phr=-0.0312 | reward/total=0.4904 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.7222 | lr=0.0000
+step 2 | reward/r_anc=0.8151 | reward/r_rep=-0.3451 | reward/r_phr=-0.1250 | reward/total=0.4450 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3450 | lr=0.0000
+step 3 | reward/r_anc=0.8612 | reward/r_rep=-0.3580 | reward/r_phr=0.0000 | reward/total=0.5032 | loss/policy=0.0000 | loss/kl=0.0006 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.0820 | lr=0.0000
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/peft/utils/save_and_load.py:236: UserWarning: Could not find a config file in /mnt/data1/bryanswkim/cache/modelscope/models/Qwen/Qwen2___5-VL-3B-Instruct - will assume that the vocabulary was not modified.
+  warnings.warn(
+[GRPO] saved adapter -> experience/a6_out/checkpoint-3
+step 4 | reward/r_anc=0.8050 | reward/r_rep=-0.3083 | reward/r_phr=-0.1250 | reward/total=0.4717 | loss/policy=0.0002 | loss/kl=0.0041 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.0831 | lr=0.0000
+step 5 | reward/r_anc=0.8518 | reward/r_rep=-0.3347 | reward/r_phr=-0.0312 | reward/total=0.5108 | loss/policy=0.0008 | loss/kl=0.0188 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=0.8848 | lr=0.0000
+step 6 | reward/r_anc=0.8818 | reward/r_rep=-0.3488 | reward/r_phr=0.0000 | reward/total=0.5330 | loss/policy=0.0010 | loss/kl=0.0262 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1391 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-6
+step 7 | reward/r_anc=0.8460 | reward/r_rep=-0.3277 | reward/r_phr=0.0000 | reward/total=0.5183 | loss/policy=0.0012 | loss/kl=0.0294 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2021 | lr=0.0000
+step 8 | reward/r_anc=0.8330 | reward/r_rep=-0.3556 | reward/r_phr=0.0000 | reward/total=0.4774 | loss/policy=0.0010 | loss/kl=0.0251 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1589 | lr=0.0000
+step 9 | reward/r_anc=0.8918 | reward/r_rep=-0.3494 | reward/r_phr=0.0000 | reward/total=0.5424 | loss/policy=0.0021 | loss/kl=0.0532 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1631 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-9
+step 10 | reward/r_anc=0.8816 | reward/r_rep=-0.3523 | reward/r_phr=0.0000 | reward/total=0.5293 | loss/policy=0.0018 | loss/kl=0.0458 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1227 | lr=0.0000
+step 11 | reward/r_anc=0.8962 | reward/r_rep=-0.3563 | reward/r_phr=0.0000 | reward/total=0.5399 | loss/policy=0.0022 | loss/kl=0.0547 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2862 | lr=0.0000
+step 12 | reward/r_anc=0.8993 | reward/r_rep=-0.3653 | reward/r_phr=0.0000 | reward/total=0.5340 | loss/policy=0.0023 | loss/kl=0.0574 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.0750 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-12
+step 13 | reward/r_anc=0.9058 | reward/r_rep=-0.3802 | reward/r_phr=0.0000 | reward/total=0.5256 | loss/policy=0.0021 | loss/kl=0.0525 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1238 | lr=0.0000
+step 14 | reward/r_anc=0.9116 | reward/r_rep=-0.3578 | reward/r_phr=0.0000 | reward/total=0.5538 | loss/policy=0.0027 | loss/kl=0.0677 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=0.9642 | lr=0.0000
+step 15 | reward/r_anc=0.8966 | reward/r_rep=-0.3556 | reward/r_phr=0.0000 | reward/total=0.5410 | loss/policy=0.0025 | loss/kl=0.0621 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2642 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-15
+step 16 | reward/r_anc=0.9243 | reward/r_rep=-0.3711 | reward/r_phr=0.0000 | reward/total=0.5532 | loss/policy=0.0029 | loss/kl=0.0721 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1139 | lr=0.0000
+step 17 | reward/r_anc=0.8768 | reward/r_rep=-0.3704 | reward/r_phr=0.0000 | reward/total=0.5063 | loss/policy=0.0022 | loss/kl=0.0560 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1275 | lr=0.0000
+step 18 | reward/r_anc=0.8455 | reward/r_rep=-0.3685 | reward/r_phr=0.0000 | reward/total=0.4770 | loss/policy=0.0019 | loss/kl=0.0472 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3813 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-18
+step 19 | reward/r_anc=0.8917 | reward/r_rep=-0.3674 | reward/r_phr=0.0000 | reward/total=0.5243 | loss/policy=0.0034 | loss/kl=0.0840 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2767 | lr=0.0000
+step 20 | reward/r_anc=0.9064 | reward/r_rep=-0.3682 | reward/r_phr=0.0000 | reward/total=0.5383 | loss/policy=0.0038 | loss/kl=0.0956 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3707 | lr=0.0000
+step 21 | reward/r_anc=0.9285 | reward/r_rep=-0.3632 | reward/r_phr=0.0000 | reward/total=0.5653 | loss/policy=0.0044 | loss/kl=0.1104 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4395 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-21
+step 22 | reward/r_anc=0.8821 | reward/r_rep=-0.3460 | reward/r_phr=0.0000 | reward/total=0.5361 | loss/policy=0.0035 | loss/kl=0.0867 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2687 | lr=0.0000
+step 23 | reward/r_anc=0.9425 | reward/r_rep=-0.3637 | reward/r_phr=0.0000 | reward/total=0.5788 | loss/policy=0.0044 | loss/kl=0.1096 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3125 | lr=0.0000
+step 24 | reward/r_anc=0.8983 | reward/r_rep=-0.3705 | reward/r_phr=0.0000 | reward/total=0.5279 | loss/policy=0.0052 | loss/kl=0.1306 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2377 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-24
+step 25 | reward/r_anc=0.8922 | reward/r_rep=-0.3618 | reward/r_phr=0.0000 | reward/total=0.5304 | loss/policy=0.0045 | loss/kl=0.1125 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3068 | lr=0.0000
+step 26 | reward/r_anc=0.8864 | reward/r_rep=-0.3668 | reward/r_phr=0.0000 | reward/total=0.5195 | loss/policy=0.0032 | loss/kl=0.0811 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1349 | lr=0.0000
+step 27 | reward/r_anc=0.9146 | reward/r_rep=-0.3664 | reward/r_phr=0.0000 | reward/total=0.5482 | loss/policy=0.0057 | loss/kl=0.1436 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.0278 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-27
+step 28 | reward/r_anc=0.9284 | reward/r_rep=-0.3619 | reward/r_phr=0.0000 | reward/total=0.5665 | loss/policy=0.0077 | loss/kl=0.1931 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3047 | lr=0.0000
+step 29 | reward/r_anc=0.8384 | reward/r_rep=-0.3499 | reward/r_phr=0.0000 | reward/total=0.4885 | loss/policy=0.0058 | loss/kl=0.1455 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2479 | lr=0.0000
+step 30 | reward/r_anc=0.9397 | reward/r_rep=-0.3653 | reward/r_phr=0.0000 | reward/total=0.5744 | loss/policy=0.0063 | loss/kl=0.1570 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4077 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-30
+step 31 | reward/r_anc=0.8821 | reward/r_rep=-0.3606 | reward/r_phr=0.0000 | reward/total=0.5215 | loss/policy=0.0056 | loss/kl=0.1396 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3483 | lr=0.0000
+step 32 | reward/r_anc=0.9235 | reward/r_rep=-0.3658 | reward/r_phr=0.0000 | reward/total=0.5577 | loss/policy=0.0065 | loss/kl=0.1635 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1947 | lr=0.0000
+step 33 | reward/r_anc=0.9089 | reward/r_rep=-0.3601 | reward/r_phr=0.0000 | reward/total=0.5488 | loss/policy=0.0064 | loss/kl=0.1596 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1998 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-33
+step 34 | reward/r_anc=0.9197 | reward/r_rep=-0.3526 | reward/r_phr=0.0000 | reward/total=0.5670 | loss/policy=0.0076 | loss/kl=0.1892 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3271 | lr=0.0000
+step 35 | reward/r_anc=0.9336 | reward/r_rep=-0.3698 | reward/r_phr=0.0000 | reward/total=0.5638 | loss/policy=0.0082 | loss/kl=0.2052 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=0.9877 | lr=0.0000
+step 36 | reward/r_anc=0.9015 | reward/r_rep=-0.3700 | reward/r_phr=0.0000 | reward/total=0.5315 | loss/policy=0.0072 | loss/kl=0.1806 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3625 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-36
+step 37 | reward/r_anc=0.9367 | reward/r_rep=-0.3571 | reward/r_phr=0.0000 | reward/total=0.5796 | loss/policy=0.0125 | loss/kl=0.3113 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3342 | lr=0.0000
+step 38 | reward/r_anc=0.9723 | reward/r_rep=-0.3840 | reward/r_phr=0.0000 | reward/total=0.5883 | loss/policy=0.0102 | loss/kl=0.2549 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3877 | lr=0.0000
+step 39 | reward/r_anc=0.9275 | reward/r_rep=-0.3650 | reward/r_phr=0.0000 | reward/total=0.5625 | loss/policy=0.0092 | loss/kl=0.2309 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2110 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-39
+step 40 | reward/r_anc=0.9451 | reward/r_rep=-0.3736 | reward/r_phr=0.0000 | reward/total=0.5716 | loss/policy=0.0086 | loss/kl=0.2142 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.0768 | lr=0.0000
+step 41 | reward/r_anc=0.9521 | reward/r_rep=-0.3752 | reward/r_phr=0.0000 | reward/total=0.5769 | loss/policy=0.0079 | loss/kl=0.1984 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2509 | lr=0.0000
+step 42 | reward/r_anc=0.9278 | reward/r_rep=-0.3598 | reward/r_phr=0.0000 | reward/total=0.5680 | loss/policy=0.0103 | loss/kl=0.2585 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4926 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-42
+step 43 | reward/r_anc=0.9474 | reward/r_rep=-0.3758 | reward/r_phr=0.0000 | reward/total=0.5716 | loss/policy=0.0102 | loss/kl=0.2541 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3095 | lr=0.0000
+step 44 | reward/r_anc=0.9446 | reward/r_rep=-0.3627 | reward/r_phr=0.0000 | reward/total=0.5820 | loss/policy=0.0088 | loss/kl=0.2190 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3508 | lr=0.0000
+step 45 | reward/r_anc=0.9396 | reward/r_rep=-0.3633 | reward/r_phr=0.0000 | reward/total=0.5763 | loss/policy=0.0081 | loss/kl=0.2015 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3962 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-45
+step 46 | reward/r_anc=0.9298 | reward/r_rep=-0.3560 | reward/r_phr=0.0000 | reward/total=0.5738 | loss/policy=0.0087 | loss/kl=0.2176 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2259 | lr=0.0000
+step 47 | reward/r_anc=0.9035 | reward/r_rep=-0.3629 | reward/r_phr=0.0000 | reward/total=0.5405 | loss/policy=0.0077 | loss/kl=0.1915 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3681 | lr=0.0000
+step 48 | reward/r_anc=0.9269 | reward/r_rep=-0.3792 | reward/r_phr=0.0000 | reward/total=0.5477 | loss/policy=0.0098 | loss/kl=0.2460 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1419 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-48
+step 49 | reward/r_anc=0.9365 | reward/r_rep=-0.3715 | reward/r_phr=0.0000 | reward/total=0.5650 | loss/policy=0.0111 | loss/kl=0.2768 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3547 | lr=0.0000
+step 50 | reward/r_anc=0.9203 | reward/r_rep=-0.3658 | reward/r_phr=0.0000 | reward/total=0.5545 | loss/policy=0.0101 | loss/kl=0.2515 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1604 | lr=0.0000
+step 51 | reward/r_anc=0.9348 | reward/r_rep=-0.3621 | reward/r_phr=0.0000 | reward/total=0.5727 | loss/policy=0.0090 | loss/kl=0.2244 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2660 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-51
+step 52 | reward/r_anc=0.9224 | reward/r_rep=-0.3690 | reward/r_phr=0.0000 | reward/total=0.5534 | loss/policy=0.0077 | loss/kl=0.1930 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1088 | lr=0.0000
+step 53 | reward/r_anc=0.9251 | reward/r_rep=-0.3801 | reward/r_phr=0.0000 | reward/total=0.5450 | loss/policy=0.0069 | loss/kl=0.1721 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4171 | lr=0.0000
+step 54 | reward/r_anc=0.9441 | reward/r_rep=-0.3682 | reward/r_phr=0.0000 | reward/total=0.5759 | loss/policy=0.0111 | loss/kl=0.2780 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.0516 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-54
+step 55 | reward/r_anc=0.9415 | reward/r_rep=-0.3719 | reward/r_phr=0.0000 | reward/total=0.5695 | loss/policy=0.0114 | loss/kl=0.2841 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.6371 | lr=0.0000
+step 56 | reward/r_anc=0.8922 | reward/r_rep=-0.3426 | reward/r_phr=0.0000 | reward/total=0.5496 | loss/policy=0.0087 | loss/kl=0.2168 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2154 | lr=0.0000
+step 57 | reward/r_anc=0.9238 | reward/r_rep=-0.3642 | reward/r_phr=0.0000 | reward/total=0.5596 | loss/policy=0.0078 | loss/kl=0.1944 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2403 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-57
+step 58 | reward/r_anc=0.9264 | reward/r_rep=-0.3633 | reward/r_phr=0.0000 | reward/total=0.5630 | loss/policy=0.0119 | loss/kl=0.2977 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4774 | lr=0.0000
+step 59 | reward/r_anc=0.9480 | reward/r_rep=-0.3790 | reward/r_phr=0.0000 | reward/total=0.5690 | loss/policy=0.0082 | loss/kl=0.2053 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2754 | lr=0.0000
+step 60 | reward/r_anc=0.9457 | reward/r_rep=-0.3668 | reward/r_phr=0.0000 | reward/total=0.5789 | loss/policy=0.0078 | loss/kl=0.1955 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.4038 | lr=0.0000
+[GRPO] saved adapter -> experience/a6_out/checkpoint-60
+step 61 | reward/r_anc=0.9341 | reward/r_rep=-0.3726 | reward/r_phr=0.0000 | reward/total=0.5615 | loss/policy=0.0118 | loss/kl=0.2950 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2099 | lr=0.0000

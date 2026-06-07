@@ -1,0 +1,13 @@
+=== rung3 dependency fix 2026-05-29T21:51:10+08:00: install setuptools for triton/vllm import ===
+Using Python 3.10.19 environment at: .venv-train
+Resolved 1 package in 401ms
+Downloading setuptools (1.2MiB)
+ Downloaded setuptools
+Prepared 1 package in 397ms
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed 1 package in 1.53s
+ + setuptools==75.8.0
+Using Python 3.10.19 environment at: .venv-train
+setuptools 75.8.0

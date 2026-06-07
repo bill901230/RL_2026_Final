@@ -1,0 +1,14 @@
+W0.T4 train venv smoke
+Install path: PyPI verl==0.4.1 wheel with --prerelease=allow; PyPI verl unpinned resolved stale 0.1, so pinned modern release.
+Runtime note: export VLLM_USE_V1=0 when running multimodal vLLM rollouts.
+pyiqa note: openai-clip has no prebuilt wheel; installed pyiqa wheel with clip-anytorch/open-clip-torch and no source builds.
+/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/__init__.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+INFO 05-29 16:50:54 [importing.py:53] Triton module has been replaced with a placeholder.
+INFO 05-29 16:50:58 [__init__.py:239] Automatically detected platform cuda.
+VERSIONS 0.8.5.post1 2.6.0+cu124 2.47.1
+VERL 0.4.1
+INFO 05-29 16:51:32 [__init__.py:239] Automatically detected platform cuda.
+vllm 0.8.5.post1
+exit=0
+235 requirements.train.txt

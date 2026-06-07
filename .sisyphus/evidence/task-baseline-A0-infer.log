@@ -1,0 +1,933 @@
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/timm/models/hub.py:4: FutureWarning: Importing from timm.models.hub is deprecated, please import via timm.models
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.models", FutureWarning)
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/timm/models/registry.py:4: FutureWarning: Importing from timm.models.registry is deprecated, please import via timm.models
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.models", FutureWarning)
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/timm/models/helpers.py:7: FutureWarning: Importing from timm.models.helpers is deprecated, please import via timm.models
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.models", FutureWarning)
+BertLMHeadModel has generative capabilities, as `prepare_inputs_for_generation` is explicitly overwritten. However, it doesn't directly inherit from `GenerationMixin`. From 👉v4.50👈 onwards, `PreTrainedModel` will NOT inherit from `GenerationMixin`, and this model will lose the ability to call `generate` and other related functions.
+  - If you're using `trust_remote_code=True`, you can get rid of this warning by loading the model with an auto class. See https://huggingface.co/docs/transformers/en/model_doc/auto#auto-classes
+  - If you are the owner of the model architecture code, please modify your model class such that it inherits from `GenerationMixin` (after `PreTrainedModel`, otherwise you'll get an exception).
+  - If you are not the owner of the model architecture class, please contact the model code owner to update it.
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+/encoder/layer/0/crossattention/self/query is tied
+/encoder/layer/0/crossattention/self/key is tied
+/encoder/layer/0/crossattention/self/value is tied
+/encoder/layer/0/crossattention/output/dense is tied
+/encoder/layer/0/crossattention/output/LayerNorm is tied
+/encoder/layer/0/intermediate/dense is tied
+/encoder/layer/0/output/dense is tied
+/encoder/layer/0/output/LayerNorm is tied
+/encoder/layer/1/crossattention/self/query is tied
+/encoder/layer/1/crossattention/self/key is tied
+/encoder/layer/1/crossattention/self/value is tied
+/encoder/layer/1/crossattention/output/dense is tied
+/encoder/layer/1/crossattention/output/LayerNorm is tied
+/encoder/layer/1/intermediate/dense is tied
+/encoder/layer/1/output/dense is tied
+/encoder/layer/1/output/LayerNorm is tied
+Loading default thretholds from .txt....
+There are 100 images.
+Align Method Used: nofix
+Prompt Type: dape
+#### IMAGE: 0801.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0802.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0803.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0804.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0805.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0806.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0807.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0808.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0809.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0810.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0811.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0812.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0813.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0814.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0815.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0816.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0817.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0818.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0819.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0820.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0821.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0822.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0823.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0824.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0825.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0826.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0827.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0828.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0829.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0830.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0831.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0832.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0833.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0834.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0835.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0836.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0837.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0838.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0839.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0840.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0841.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0842.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0843.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0844.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0845.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0846.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0847.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0848.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0849.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0850.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0851.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0852.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0853.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0854.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0855.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0856.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0857.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0858.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0859.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0860.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0861.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0862.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0863.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0864.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0865.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0866.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0867.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0868.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0869.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0870.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0871.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0872.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0873.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0874.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0875.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0876.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0877.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0878.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0879.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0880.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0881.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0882.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0883.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0884.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0885.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0886.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0887.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0888.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0889.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0890.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0891.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0892.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0893.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0894.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0895.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0896.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0897.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0898.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0899.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512
+#### IMAGE: 0900.png
+RECURSION: 0
+CROP@rec0 strategy=center bbox=(192,192,320,320) of 512x512
+RECURSION: 1
+CROP@rec1 strategy=center bbox=(240,240,272,272) of 512x512
+RECURSION: 2
+CROP@rec2 strategy=center bbox=(252,252,260,260) of 512x512
+RECURSION: 3
+CROP@rec3 strategy=center bbox=(255,255,257,257) of 512x512

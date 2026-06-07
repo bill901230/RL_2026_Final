@@ -1,0 +1,16 @@
+[exp] smoke | HW=4090 | GPUs=0 | out=experience/grpo_vlm/smoke
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.63s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:08<00:00,  4.39s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:08<00:00,  4.42s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:629: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `1e-06` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/peft/utils/save_and_load.py:236: UserWarning: Could not find a config file in /mnt/data1/bryanswkim/cache/modelscope/models/Qwen/Qwen2___5-VL-3B-Instruct - will assume that the vocabulary was not modified.
+  warnings.warn(
+[GRPO] trainable LoRA params: 14.97M | ref_adapter=True
+step 1 | reward/r_anc=0.9360 | reward/r_rep=-0.3511 | reward/total=0.5849 | loss/policy=-0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.7959 | lr=0.0000
+step 2 | reward/r_anc=0.8660 | reward/r_rep=-0.3492 | reward/total=0.5168 | loss/policy=-0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9978 | lr=0.0000
+step 3 | reward/r_anc=0.8099 | reward/r_rep=-0.3193 | reward/total=0.4906 | loss/policy=0.0000 | loss/kl=0.0000 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.7900 | lr=0.0000
+step 4 | reward/r_anc=0.8374 | reward/r_rep=-0.3235 | reward/total=0.5139 | loss/policy=0.0000 | loss/kl=0.0001 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.8468 | lr=0.0000
+step 5 | reward/r_anc=0.9094 | reward/r_rep=-0.3726 | reward/total=0.5367 | loss/policy=0.0000 | loss/kl=0.0001 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.9188 | lr=0.0000
+[GRPO] saved adapter -> experience/grpo_vlm/smoke/checkpoint-5
+[GRPO] saved adapter -> experience/grpo_vlm/smoke/final
+[W2.T1] exit_status=0 wall_seconds=136

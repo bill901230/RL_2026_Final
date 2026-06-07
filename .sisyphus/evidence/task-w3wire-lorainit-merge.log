@@ -1,0 +1,24 @@
+loading base=Qwen/Qwen2.5-VL-3B-Instruct adapter=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/checkpoint-10000
+merging adapter
+saving merged model to /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged
+{
+  "path": "/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged",
+  "base_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "adapter": "/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/checkpoint-10000",
+  "dtype": "float16",
+  "files": [
+    "added_tokens.json",
+    "chat_template.json",
+    "config.json",
+    "generation_config.json",
+    "merges.txt",
+    "model-00001-of-00002.safetensors",
+    "model-00002-of-00002.safetensors",
+    "model.safetensors.index.json",
+    "preprocessor_config.json",
+    "special_tokens_map.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json"
+  ]
+}

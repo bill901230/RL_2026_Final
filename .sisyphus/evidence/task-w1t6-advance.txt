@@ -1,0 +1,14 @@
+R2 advance-default evidence
+
+Default and selectable advance policy:
+- train/grpo/rollout.py:65 defaults rollout.advance_policy to "sampled" when absent.
+- train/grpo/rollout.py:66-67 validates allowed values: "best" or "sampled".
+- train/grpo/rollout.py:43 tracks Group.sampled_idx, default 0.
+- train/grpo/rollout.py:185-189 keeps "best" argmax-reward available and uses sampled_idx for "sampled".
+
+Test coverage:
+- tests/test_rollout.py::test_advance_policy_best_picks_argmax_reward
+- tests/test_rollout.py::test_advance_policy_sampled_picks_tracked_sampled_index
+- tests/test_rollout.py::test_advance_sampled_default
+
+Result: default rollout trajectory now advances with a sampled policy action, not best-of-group reward selection.

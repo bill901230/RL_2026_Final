@@ -1,0 +1,12 @@
+R1 telemetry/no-op proof
+
+Toy proof covered by tests/test_grpo_math.py:
+- test_clamp_bind_fraction_zero_without_cache: old_logp == new_logp gives ratio = exp(0) = 1.0 everywhere, so clip_eps=0.2 cannot bind and clamp_bind_fraction == 0.
+- test_clamp_can_bind_with_cached_sample_logp: cached sample-time old_logp differs from update-time new_logp, ratio varies, and clamp_bind_fraction == 2/3 on the toy tensor.
+
+Fix refs:
+- train/grpo/rollout.py:32 stores Completion.old_logp.
+- train/grpo/rollout.py:107-116 captures old_logp at sample time.
+- train/grpo/trainer.py:189-196 consumes cached c.old_logp instead of recomputing old_logp at update time.
+- train/grpo/trainer.py:207-214 accumulates clamp-bind telemetry.
+- train/grpo/trainer.py:231-245 logs ratio/mean, ratio/std, ratio/clamp_bind_fraction.

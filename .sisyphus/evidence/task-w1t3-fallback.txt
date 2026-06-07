@@ -1,0 +1,7 @@
+Fallback parser evidence for W1.T3
+
+Test: tests/test_critic_phr.py::test_vlm_rating_parser_clamps_and_falls_back[fallback-banana]
+Input decoded rating: "banana"
+Expected/observed reward: 0.0, with no exception from Critic.score
+Line refs: tests/test_critic_phr.py:51-62; train/grpo/critic.py:56-65
+Final pytest evidence: .sisyphus/evidence/task-w1t3-pytest.txt (10 passed, 1 xfailed)

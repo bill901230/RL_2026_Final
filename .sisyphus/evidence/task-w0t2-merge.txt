@@ -1,0 +1,32 @@
+=== W0.T2 MERGE EVIDENCE ===
+date: Fri May 29 16:43:39 CST 2026
+branch: grpo/coz-vlm
+
+[AC1] FILES_OK check:
+FILES_OK
+
+[AC2] pyiqa lines in requirements.txt (>=1):
+1
+  pyiqa line(s):
+37:pyiqa==0.1.15.post2
+  setuptools line(s):
+32:setuptools==67.8.0
+
+[AC3] conflict markers in inference_coz.py (want exit=1):
+exit=1
+
+[AC4] python ast parse:
+parse ok
+
+[AC5] crop_strategy count in inference_coz.py (>=1):
+10
+  crop_x count: 8
+  select_crop_top_left def: 36:def select_crop_top_left(img, crop_w, crop_h, strategy='center', stride=16, n_bins=32):
+
+[AC7] last commit (merge):
+e00f443 Merge origin/main: pyiqa evaluator + visualize.py (keep crop_strategy)
+  merge-commit check: e00f443 Merge origin/main: pyiqa evaluator + visualize.py (keep crop_strategy)
+
+[extra] inference_coz_full.py deleted:
+DELETED_OK
+[extra] samples count: 11

@@ -1,0 +1,7 @@
+driver host=hgpn40 pid=1480046
+driver CUDA_VISIBLE_DEVICES=1,3
+2026-05-29 20:12:10,953	ERROR services.py:1355 -- Failed to start the dashboard 
+2026-05-29 20:12:10,953	ERROR services.py:1380 -- Error should be written to 'dashboard.log' or 'dashboard.err'. We are printing the last 20 lines for you. See 'https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#logging-directory-structure' to find where the log file is.
+2026-05-29 20:12:10,953	ERROR services.py:1390 -- Couldn't read dashboard.log file. Error: [Errno 2] No such file or directory: '/tmp/ray/session_2026-05-29_20-11-47_519075_1480046/logs/dashboard.log'. It means the dashboard is broken even before it initializes the logger (mostly dependency issues). Reading the dashboard.err file which contains stdout/stderr.
+2026-05-29 20:12:10,953	ERROR services.py:1424 -- Failed to read dashboard.err file: [Errno 2] No such file or directory: '/tmp/ray/session_2026-05-29_20-11-47_519075_1480046/logs/dashboard.err'. It is unexpected. Please report an issue to Ray github. https://github.com/ray-project/ray/issues
+2026-05-29 20:12:12,584	INFO worker.py:1917 -- Started a local Ray instance.

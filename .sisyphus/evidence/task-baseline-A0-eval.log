@@ -1,0 +1,42 @@
+Loading pretrained model MUSIQ from /work/seanma0627/RL_2026_Final/.torch_cache/hub/pyiqa/musiq_koniq_ckpt-e95806b9.pth
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Loading pretrained model MANIQA from /work/seanma0627/RL_2026_Final/.torch_cache/hub/pyiqa/ckpt_koniq10k.pt
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/pyiqa/matlab_utils/functions.py:173: UserWarning: cov(): degrees of freedom is <= 0. Correction should be strictly less than the number of observations. (Triggered internally at /pytorch/aten/src/ATen/native/Correlation.cpp:116.)
+  return torch.cov(tensor, correction=correction)
+/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/pyiqa/archs/niqe_arch.py:161: UserWarning: torch.linalg.svd: During SVD computation with the selected cusolver driver, batches 0 failed to converge. A more accurate method will be used to compute the SVD as a fallback. Check doc at https://pytorch.org/docs/stable/generated/torch.linalg.svd.html (Triggered internally at /pytorch/aten/src/ATen/native/cuda/linalg/BatchLinearAlgebraLib.cpp:690.)
+  invcov_param = torch.linalg.pinv((cov_pris_param + cov_distparam) / 2)
+Traceback (most recent call last):
+  File "/work/seanma0627/RL_2026_Final/evaluate.py", line 279, in <module>
+    main()
+  File "/work/seanma0627/RL_2026_Final/evaluate.py", line 269, in main
+    scores = evaluator.score_sample(sample)
+  File "/work/seanma0627/RL_2026_Final/evaluate.py", line 205, in score_sample
+    iqa_scores = self.iqa.score_all(deepest_tensor)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/train/grpo/metrics.py", line 70, in score_all
+    return {name: self._higher_better(name, self.score(name, img)) for name in self.models}
+  File "/work/seanma0627/RL_2026_Final/train/grpo/metrics.py", line 70, in <dictcomp>
+    return {name: self._higher_better(name, self.score(name, img)) for name in self.models}
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/train/grpo/metrics.py", line 65, in score
+    out = self.models[key](img)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/pyiqa/models/inference_model.py", line 117, in forward
+    output = self.net(target.to(device), **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/pyiqa/archs/niqe_arch.py", line 513, in forward
+    score = calculate_niqe(
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/pyiqa/archs/niqe_arch.py", line 204, in calculate_niqe
+    niqe_result = niqe(img, mu_pris_param, cov_pris_param)
+  File "/work/seanma0627/RL_2026_Final/.venv/lib/python3.10/site-packages/pyiqa/archs/niqe_arch.py", line 161, in niqe
+    invcov_param = torch.linalg.pinv((cov_pris_param + cov_distparam) / 2)
+torch._C._LinAlgError: linalg.svd: (Batch element 0): The algorithm failed to converge because the input matrix is ill-conditioned or has too many repeated singular values (error code: 36).

@@ -1,0 +1,2 @@
+934295d chore: preserve WIP inference crop-strategy edits + local tooling
+3fb2ff9 chore: add .gitignore for caches/data/outputs

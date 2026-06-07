@@ -1,0 +1,67 @@
+=== A7 stateexp seed123 2gpu real-coz grpo start 2026-06-02T02:17:06+08:00 ===
+hgpn44
+Did not find any active Ray processes.
+0, 0 %, 1 MiB, 143072 MiB
+1, 0 %, 1 MiB, 143072 MiB
+Traceback (most recent call last):
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/verl_direct_controller.py", line 23, in <module>
+    import verl
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/__init__.py", line 22, in <module>
+    from .protocol import DataProto
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/protocol.py", line 30, in <module>
+    import tensordict
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/tensordict/__init__.py", line 6, in <module>
+    import tensordict._reductions
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/tensordict/_reductions.py", line 11, in <module>
+    from tensordict._lazy import LazyStackedTensorDict
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/tensordict/_lazy.py", line 37, in <module>
+    from tensordict.memmap import MemoryMappedTensor
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/tensordict/memmap.py", line 22, in <module>
+    from tensordict.utils import _shape, implement_for, IndexType, NESTED_TENSOR_ERR
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/tensordict/utils.py", line 2609, in <module>
+    _lock_warn = assume_constant_result(_lock_warn)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/compiler/__init__.py", line 214, in assume_constant_result
+    import torch._dynamo
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/__init__.py", line 3, in <module>
+    from . import convert_frame, eval_frame, resume_execution
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/convert_frame.py", line 33, in <module>
+    from torch._dynamo.symbolic_convert import TensorifyState
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/symbolic_convert.py", line 30, in <module>
+    from . import config, exc, logging as torchdynamo_logging, trace_rules, variables
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/trace_rules.py", line 46, in <module>
+    from .variables import (
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/variables/__init__.py", line 2, in <module>
+    from .builtin import BuiltinVariable
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/variables/builtin.py", line 53, in <module>
+    from .ctx_manager import EventVariable, StreamVariable
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/variables/ctx_manager.py", line 22, in <module>
+    from .functions import (
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/_dynamo/variables/functions.py", line 33, in <module>
+    from torch.distributed.fsdp._fully_shard import _fsdp_param_group
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/fsdp/__init__.py", line 1, in <module>
+    from ._flat_param import FlatParameter as FlatParameter
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/fsdp/_flat_param.py", line 47, in <module>
+    from ._fsdp_extensions import (
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/fsdp/_fsdp_extensions.py", line 6, in <module>
+    from torch.distributed._shard.sharded_tensor.api import ShardedTensor
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/_shard/__init__.py", line 1, in <module>
+    from .api import _shard_tensor, load_with_process_group, shard_module, shard_parameter
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/_shard/api.py", line 9, in <module>
+    from torch.distributed._shard.sharded_tensor import ShardedTensor
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/__init__.py", line 8, in <module>
+    from .api import (
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/api.py", line 31, in <module>
+    from .reshard import reshard_local_shard, reshuffle_local_shard
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/_shard/sharded_tensor/reshard.py", line 14, in <module>
+    from torch.distributed.nn.functional import all_to_all, all_to_all_single
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/nn/__init__.py", line 7, in <module>
+    from .api.remote_module import RemoteModule
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/nn/api/remote_module.py", line 42, in <module>
+    instantiator.instantiate_non_scriptable_remote_module_template()
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/nn/jit/instantiator.py", line 154, in instantiate_non_scriptable_remote_module_template
+    return _do_instantiate_remote_module_template(generated_module_name, str_dict, True)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/nn/jit/instantiator.py", line 88, in _do_instantiate_remote_module_template
+    _write(out_path, generated_code_text)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/distributed/nn/jit/instantiator.py", line 72, in _write
+    with open(out_path, "w") as f:
+PermissionError: [Errno 13] Permission denied: '/tmp/seanma0627/tmp-manual/tmprng9mb6r/_remote_module_non_scriptable.py'

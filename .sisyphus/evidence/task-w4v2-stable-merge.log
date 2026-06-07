@@ -1,0 +1,8 @@
+config: ModelMergerConfig(operation='merge', backend='fsdp', target_dir='ckpt/VLM_FT/coz_w4v2_stable', hf_upload_path=None, private=False, test_hf_dir=None, tie_word_embedding=False, is_value_model=False, local_dir='checkpoints/w4v2_stable/global_step_100/actor', hf_model_config_path='checkpoints/w4v2_stable/global_step_100/actor/huggingface', hf_upload=False, use_cpu_initialization=False)
+Got device mesh tensor([0, 1], dtype=torch.int32), mesh_dim_names ('fsdp',)
+Processing model shards with 2 (2,) in total
+Loading 2 FSDP shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading 2 FSDP shards:  50%|█████     | 1/2 [00:09<00:09,  9.26s/it]Loading 2 FSDP shards: 100%|██████████| 2/2 [00:09<00:00,  4.63s/it]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Saving model to ckpt/VLM_FT/coz_w4v2_stable
+Saving processor to ckpt/VLM_FT/coz_w4v2_stable
+Saving tokenizer to ckpt/VLM_FT/coz_w4v2_stable

@@ -1,0 +1,55 @@
+=== w4v2 seed789 2gpu real-coz grpo start 2026-06-01T19:06:40+08:00 ===
+hgpn44
+Did not find any active Ray processes.
+0, 0 %, 1 MiB, 143072 MiB
+1, 0 %, 1 MiB, 143072 MiB
+Traceback (most recent call last):
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 390, in _apply_overrides_to_config
+    OmegaConf.update(cfg, key, value, merge=True)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/omegaconf.py", line 741, in update
+    root.__setattr__(last_key, value)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/dictconfig.py", line 337, in __setattr__
+    raise e
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/dictconfig.py", line 334, in __setattr__
+    self.__set_impl(key, value)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/dictconfig.py", line 318, in __set_impl
+    self._set_item_impl(key, value)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/basecontainer.py", line 549, in _set_item_impl
+    self._validate_set(key, value)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/dictconfig.py", line 180, in _validate_set
+    target = self._get_node(key) if key is not None else self
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/dictconfig.py", line 475, in _get_node
+    self._validate_get(key)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/dictconfig.py", line 164, in _validate_get
+    self._format_and_raise(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/base.py", line 231, in _format_and_raise
+    format_and_raise(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/_utils.py", line 899, in format_and_raise
+    _raise(ex, cause)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/omegaconf/_utils.py", line 797, in _raise
+    raise ex.with_traceback(sys.exc_info()[2])  # set env var OC_CAUSE=1 for full trace
+omegaconf.errors.ConfigAttributeError: Key 'seed' is not in struct
+    full_key: data.seed
+    object_type=dict
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/verl_direct_controller.py", line 221, in <module>
+    main()
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/verl_direct_controller.py", line 117, in main
+    config = load_config()
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/verl_direct_controller.py", line 36, in load_config
+    return compose(config_name="ppo_trainer", overrides=sys.argv[1:])
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/hydra/compose.py", line 38, in compose
+    cfg = gh.hydra.compose_config(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/hydra/_internal/hydra.py", line 594, in compose_config
+    cfg = self.config_loader.load_configuration(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 142, in load_configuration
+    return self._load_configuration_impl(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 276, in _load_configuration_impl
+    ConfigLoaderImpl._apply_overrides_to_config(config_overrides, cfg)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/hydra/_internal/config_loader_impl.py", line 392, in _apply_overrides_to_config
+    raise ConfigCompositionException(
+hydra.errors.ConfigCompositionException: Could not override 'data.seed'.
+To append to your config use +data.seed=789

@@ -1,0 +1,2 @@
+prompt proof results/smoke_sr/per-sample/0801/txt/0.txt
+animal, bird, rock, penguin, beak, feathers, black, white, yellow, tail, legs, claws, standing, close-up, zoom

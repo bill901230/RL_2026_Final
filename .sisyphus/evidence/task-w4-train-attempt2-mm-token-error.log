@@ -1,0 +1,761 @@
+=== w4 real-coz grpo start 2026-05-30T00:54:28+08:00 ===
+Did not find any active Ray processes.
+0, 1 MiB
+1, 1 MiB
+2, 1 MiB
+3, 1 MiB
+4, 1 MiB
+5, 1 MiB
+2026-05-30 00:54:42,505	INFO worker.py:1852 -- Started a local Ray instance.
+DirectController hostname: hgpn40, PID: 1779172
+{'data': {'tokenizer': None,
+          'use_shm': False,
+          'train_files': 'data/parquet/coz_states_train.parquet',
+          'val_files': 'data/parquet/coz_states_val.parquet',
+          'prompt_key': 'prompt',
+          'reward_fn_key': 'data_source',
+          'max_prompt_length': 1536,
+          'max_response_length': 64,
+          'train_batch_size': 6,
+          'val_batch_size': None,
+          'return_raw_input_ids': False,
+          'return_raw_chat': False,
+          'return_full_prompt': False,
+          'shuffle': True,
+          'validation_shuffle': False,
+          'filter_overlong_prompts': False,
+          'filter_overlong_prompts_workers': 1,
+          'truncation': 'error',
+          'image_key': 'images',
+          'video_key': 'videos',
+          'trust_remote_code': True,
+          'custom_cls': {'path': None, 'name': None}},
+ 'actor_rollout_ref': {'hybrid_engine': True,
+                       'model': {'path': '/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged',
+                                 'custom_chat_template': None,
+                                 'use_shm': False,
+                                 'external_lib': None,
+                                 'override_config': {},
+                                 'enable_gradient_checkpointing': True,
+                                 'enable_activation_offload': False,
+                                 'use_remove_padding': False,
+                                 'lora_rank': 0,
+                                 'lora_alpha': 16,
+                                 'target_modules': 'all-linear',
+                                 'use_liger': False,
+                                 'use_fused_kernels': False,
+                                 'fused_kernel_options': {'impl_backend': 'torch'},
+                                 'trust_remote_code': True},
+                       'actor': {'strategy': 'fsdp2',
+                                 'ppo_mini_batch_size': 6,
+                                 'ppo_micro_batch_size': None,
+                                 'ppo_micro_batch_size_per_gpu': 1,
+                                 'use_dynamic_bsz': False,
+                                 'ppo_max_token_len_per_gpu': 16384,
+                                 'grad_clip': 1.0,
+                                 'clip_ratio': 0.2,
+                                 'clip_ratio_low': 0.2,
+                                 'clip_ratio_high': 0.2,
+                                 'policy_loss': {'loss_mode': 'vanilla',
+                                                 'clip_cov_ratio': 0.0002,
+                                                 'clip_cov_lb': 1.0,
+                                                 'clip_cov_ub': 5.0,
+                                                 'kl_cov_ratio': 0.0002,
+                                                 'ppo_kl_coef': 0.1},
+                                 'clip_ratio_c': 3.0,
+                                 'loss_agg_mode': 'token-mean',
+                                 'entropy_coeff': 0,
+                                 'use_kl_loss': True,
+                                 'use_torch_compile': False,
+                                 'kl_loss_coef': 0.001,
+                                 'kl_loss_type': 'low_var_kl',
+                                 'ppo_epochs': 1,
+                                 'shuffle': False,
+                                 'ulysses_sequence_parallel_size': 1,
+                                 'entropy_from_logits_with_chunking': False,
+                                 'entropy_checkpointing': False,
+                                 'checkpoint': {'save_contents': ['model',
+                                                                  'optimizer',
+                                                                  'extra'],
+                                                'load_contents': ['model',
+                                                                  'optimizer',
+                                                                  'extra']},
+                                 'optim': {'lr': 1e-06,
+                                           'lr_warmup_steps': -1,
+                                           'lr_warmup_steps_ratio': 0.0,
+                                           'min_lr_ratio': 0.0,
+                                           'num_cycles': 0.5,
+                                           'warmup_style': 'constant',
+                                           'total_training_steps': -1,
+                                           'weight_decay': 0.01},
+                                 'fsdp_config': {'wrap_policy': {'min_num_params': 0},
+                                                 'param_offload': False,
+                                                 'optimizer_offload': False,
+                                                 'offload_policy': False,
+                                                 'reshard_after_forward': True,
+                                                 'fsdp_size': -1,
+                                                 'forward_prefetch': False},
+                                 'profiler': {'discrete': False,
+                                              'all_ranks': False,
+                                              'ranks': None}},
+                       'ref': {'strategy': 'fsdp2',
+                               'fsdp_config': {'param_offload': False,
+                                               'reshard_after_forward': True,
+                                               'forward_prefetch': False,
+                                               'wrap_policy': {'min_num_params': 0}},
+                               'use_torch_compile': False,
+                               'log_prob_micro_batch_size': None,
+                               'log_prob_micro_batch_size_per_gpu': 1,
+                               'log_prob_use_dynamic_bsz': False,
+                               'log_prob_max_token_len_per_gpu': 16384,
+                               'ulysses_sequence_parallel_size': 1,
+                               'entropy_from_logits_with_chunking': False,
+                               'entropy_checkpointing': False,
+                               'profiler': {'discrete': False,
+                                            'all_ranks': False,
+                                            'ranks': None}},
+                       'rollout': {'name': 'vllm',
+                                   'mode': 'sync',
+                                   'temperature': 1.0,
+                                   'top_k': -1,
+                                   'top_p': 1,
+                                   'use_fire_sampling': False,
+                                   'prompt_length': 1536,
+                                   'response_length': 64,
+                                   'dtype': 'bfloat16',
+                                   'gpu_memory_utilization': 0.55,
+                                   'ignore_eos': False,
+                                   'enforce_eager': True,
+                                   'free_cache_engine': True,
+                                   'load_format': 'dummy_dtensor',
+                                   'layered_summon': False,
+                                   'tensor_model_parallel_size': 2,
+                                   'max_num_batched_tokens': 4096,
+                                   'max_model_len': 4096,
+                                   'max_num_seqs': 36,
+                                   'log_prob_micro_batch_size': None,
+                                   'log_prob_micro_batch_size_per_gpu': 1,
+                                   'log_prob_use_dynamic_bsz': False,
+                                   'log_prob_max_token_len_per_gpu': 16384,
+                                   'disable_log_stats': True,
+                                   'enable_chunked_prefill': True,
+                                   'do_sample': True,
+                                   'n': 6,
+                                   'multi_stage_wake_up': False,
+                                   'engine_kwargs': {'vllm': {'swap_space': None,
+                                                              'disable_mm_preprocessor_cache': False,
+                                                              'limit_mm_per_prompt': {'image': 1,
+                                                                                      'video': 0},
+                                                              'mm_processor_kwargs': {'max_pixels': 200704}},
+                                                     'sglang': {'attention_backend': None}},
+                                   'val_kwargs': {'top_k': -1,
+                                                  'top_p': 1.0,
+                                                  'temperature': 0,
+                                                  'n': 1,
+                                                  'do_sample': False},
+                                   'multi_turn': {'enable': False,
+                                                  'max_assistant_turns': None,
+                                                  'tool_config_path': None,
+                                                  'max_user_turns': None,
+                                                  'interaction_config_path': None,
+                                                  'completion_callback': None,
+                                                  'use_inference_chat_template': False,
+                                                  'tokenization_sanity_check_mode': 'strict',
+                                                  'format': 'hermes'},
+                                   'calculate_log_probs': False,
+                                   'profiler': {'discrete': False,
+                                                'all_ranks': False,
+                                                'ranks': None}}},
+ 'critic': {'rollout_n': 6,
+            'strategy': 'fsdp2',
+            'optim': {'lr': 1e-05,
+                      'lr_warmup_steps_ratio': 0.0,
+                      'min_lr_ratio': None,
+                      'warmup_style': 'constant',
+                      'total_training_steps': -1,
+                      'weight_decay': 0.01},
+            'model': {'path': '~/models/deepseek-llm-7b-chat',
+                      'use_shm': False,
+                      'tokenizer_path': '/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged',
+                      'override_config': {},
+                      'external_lib': None,
+                      'enable_gradient_checkpointing': True,
+                      'enable_activation_offload': False,
+                      'use_remove_padding': False,
+                      'trust_remote_code': True,
+                      'fsdp_config': {'param_offload': False,
+                                      'optimizer_offload': False,
+                                      'offload_policy': False,
+                                      'reshard_after_forward': True,
+                                      'wrap_policy': {'min_num_params': 0},
+                                      'fsdp_size': -1,
+                                      'forward_prefetch': False},
+                      'lora_rank': 0,
+                      'lora_alpha': 16,
+                      'target_modules': 'all-linear'},
+            'ppo_mini_batch_size': 6,
+            'ppo_micro_batch_size': None,
+            'ppo_micro_batch_size_per_gpu': None,
+            'forward_micro_batch_size': None,
+            'forward_micro_batch_size_per_gpu': None,
+            'use_dynamic_bsz': False,
+            'ppo_max_token_len_per_gpu': 32768,
+            'forward_max_token_len_per_gpu': 32768,
+            'ulysses_sequence_parallel_size': 1,
+            'ppo_epochs': 1,
+            'shuffle': False,
+            'grad_clip': 1.0,
+            'cliprange_value': 0.5,
+            'loss_agg_mode': 'token-mean',
+            'checkpoint': {'save_contents': ['model', 'optimizer', 'extra'],
+                           'load_contents': ['model', 'optimizer', 'extra']},
+            'profiler': {'discrete': False, 'all_ranks': False, 'ranks': None}},
+ 'reward_model': {'enable': False,
+                  'strategy': 'fsdp2',
+                  'model': {'input_tokenizer': '/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged',
+                            'path': '~/models/FsfairX-LLaMA3-RM-v0.1',
+                            'use_shm': False,
+                            'external_lib': None,
+                            'use_remove_padding': False,
+                            'use_fused_kernels': False,
+                            'trust_remote_code': False,
+                            'fsdp_config': {'wrap_policy': {'min_num_params': 0},
+                                            'param_offload': False,
+                                            'reshard_after_forward': True,
+                                            'fsdp_size': -1,
+                                            'forward_prefetch': False}},
+                  'micro_batch_size': None,
+                  'micro_batch_size_per_gpu': None,
+                  'max_length': None,
+                  'ulysses_sequence_parallel_size': 1,
+                  'use_dynamic_bsz': False,
+                  'forward_max_token_len_per_gpu': 32768,
+                  'reward_manager': 'batch',
+                  'launch_reward_fn_async': False,
+                  'sandbox_fusion': {'url': None,
+                                     'max_concurrent': 64,
+                                     'memory_limit_mb': 1024},
+                  'profiler': {'discrete': False,
+                               'all_ranks': False,
+                               'ranks': None}},
+ 'custom_reward_function': {'path': '/work/seanma0627/RL_2026_Final/verl_custom_reward.py',
+                            'name': 'compute_score'},
+ 'algorithm': {'gamma': 1.0,
+               'lam': 1.0,
+               'adv_estimator': 'grpo',
+               'norm_adv_by_std_in_grpo': True,
+               'use_kl_in_reward': False,
+               'kl_penalty': 'kl',
+               'kl_ctrl': {'type': 'fixed',
+                           'kl_coef': 0.001,
+                           'horizon': 10000,
+                           'target_kl': 0.1},
+               'use_pf_ppo': False,
+               'pf_ppo': {'reweight_method': 'pow', 'weight_pow': 2.0}},
+ 'trainer': {'balance_batch': False,
+             'total_epochs': 4,
+             'total_training_steps': 120,
+             'profile_steps': None,
+             'controller_nsight_options': {'trace': 'cuda,nvtx,cublas,ucx',
+                                           'cuda-memory-usage': 'true',
+                                           'cuda-graph-trace': 'graph'},
+             'worker_nsight_options': {'trace': 'cuda,nvtx,cublas,ucx',
+                                       'cuda-memory-usage': 'true',
+                                       'cuda-graph-trace': 'graph',
+                                       'capture-range': 'cudaProfilerApi',
+                                       'capture-range-end': None,
+                                       'kill': 'none'},
+             'project_name': 'w4',
+             'experiment_name': 'coz_a6_verl',
+             'logger': ['console'],
+             'log_val_generations': 0,
+             'rollout_data_dir': None,
+             'validation_data_dir': None,
+             'nnodes': 1,
+             'n_gpus_per_node': 6,
+             'save_freq': 40,
+             'resume_mode': 'disable',
+             'resume_from_path': None,
+             'val_before_train': False,
+             'val_only': False,
+             'test_freq': -1,
+             'critic_warmup': 0,
+             'default_hdfs_dir': None,
+             'del_local_ckpt_after_load': False,
+             'default_local_dir': 'checkpoints/w4/coz_a6_verl',
+             'max_actor_ckpt_to_keep': 2,
+             'max_critic_ckpt_to_keep': None,
+             'ray_wait_register_center_timeout': 300,
+             'device': 'cuda'},
+ 'ray_init': {'num_cpus': 8, 'timeline_json_file': None}}
+INFO 05-30 00:54:48 [importing.py:53] Triton module has been replaced with a placeholder.
+INFO 05-30 00:54:48 [__init__.py:239] Automatically detected platform cuda.
+/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/utils/data/dataloader.py:624: UserWarning: This DataLoader will create 8 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(
+2026-05-30 00:54:53,652	WARNING __init__.py:161 -- DeprecationWarning: `ray.state.available_resources_per_node` is a private attribute and access will be removed in a future Ray version.
+[36m(WorkerDict pid=1780560)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=1780562)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=1780559)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=1780558)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=1780561)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=1780557)[0m Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+[36m(WorkerDict pid=1780560)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=1780562)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=1780559)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=1780561)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=1780558)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=1780560)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780562)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780559)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780561)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780558)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780557)[0m You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[36m(WorkerDict pid=1780557)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780562)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:28<00:28, 28.49s/it]
+[36m(WorkerDict pid=1780560)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:28<00:28, 28.51s/it]
+[36m(WorkerDict pid=1780559)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:28<00:28, 28.50s/it]
+[36m(WorkerDict pid=1780558)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:28<00:28, 28.44s/it]
+[36m(WorkerDict pid=1780561)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:28<00:28, 28.50s/it]
+[36m(WorkerDict pid=1780557)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:28<00:28, 28.39s/it]
+[36m(WorkerDict pid=1780560)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.45s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.46s/it]
+[36m(WorkerDict pid=1780562)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.47s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.47s/it]
+[36m(WorkerDict pid=1780559)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.46s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.47s/it]
+[36m(WorkerDict pid=1780558)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.43s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.43s/it]
+[36m(WorkerDict pid=1780561)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.45s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:56<00:00, 28.46s/it]
+[36m(WorkerDict pid=1780557)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:55<00:00, 27.75s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:55<00:00, 27.84s/it]
+using customized reward function 'compute_score' from '/work/seanma0627/RL_2026_Final/verl_custom_reward.py'
+using customized reward function 'compute_score' from '/work/seanma0627/RL_2026_Final/verl_custom_reward.py'
+Using dataset class: RLHFDataset
+dataset len: 200
+Using dataset class: RLHFDataset
+dataset len: 120
+[validate_config] All configuration checks passed successfully!
+Size of train dataloader: 33, Size of val dataloader: 1
+Total training steps: 120
+colocated worker base class <class 'verl.single_controller.base.worker.Worker'>
+[36m(WorkerDict pid=1780557)[0m Model config after override: Qwen2_5_VLConfig {
+[36m(WorkerDict pid=1780557)[0m   "architectures": [
+[36m(WorkerDict pid=1780557)[0m     "Qwen2_5_VLForConditionalGeneration"
+[36m(WorkerDict pid=1780557)[0m   ],
+[36m(WorkerDict pid=1780557)[0m   "attention_dropout": 0.0,
+[36m(WorkerDict pid=1780557)[0m   "eos_token_id": 151645,
+[36m(WorkerDict pid=1780557)[0m   "hidden_act": "silu",
+[36m(WorkerDict pid=1780557)[0m   "hidden_size": 2048,
+[36m(WorkerDict pid=1780557)[0m   "image_token_id": 151655,
+[36m(WorkerDict pid=1780557)[0m   "initializer_range": 0.02,
+[36m(WorkerDict pid=1780557)[0m   "intermediate_size": 11008,
+[36m(WorkerDict pid=1780557)[0m   "max_position_embeddings": 128000,
+[36m(WorkerDict pid=1780557)[0m   "max_window_layers": 70,
+[36m(WorkerDict pid=1780557)[0m   "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=1780557)[0m   "num_attention_heads": 16,
+[36m(WorkerDict pid=1780557)[0m   "num_hidden_layers": 36,
+[36m(WorkerDict pid=1780557)[0m   "num_key_value_heads": 2,
+[36m(WorkerDict pid=1780557)[0m   "pad_token_id": 151643,
+[36m(WorkerDict pid=1780557)[0m   "rms_norm_eps": 1e-06,
+[36m(WorkerDict pid=1780557)[0m   "rope_scaling": {
+[36m(WorkerDict pid=1780557)[0m     "mrope_section": [
+[36m(WorkerDict pid=1780557)[0m       16,
+[36m(WorkerDict pid=1780557)[0m       24,
+[36m(WorkerDict pid=1780557)[0m       24
+[36m(WorkerDict pid=1780557)[0m     ],
+[36m(WorkerDict pid=1780557)[0m     "rope_type": "default",
+[36m(WorkerDict pid=1780557)[0m     "type": "default"
+[36m(WorkerDict pid=1780557)[0m   },
+[36m(WorkerDict pid=1780557)[0m   "rope_theta": 1000000.0,
+[36m(WorkerDict pid=1780557)[0m   "sliding_window": 32768,
+[36m(WorkerDict pid=1780557)[0m   "tie_word_embeddings": true,
+[36m(WorkerDict pid=1780557)[0m   "torch_dtype": "float16",
+[36m(WorkerDict pid=1780557)[0m   "transformers_version": "4.51.3",
+[36m(WorkerDict pid=1780557)[0m   "use_cache": true,
+[36m(WorkerDict pid=1780557)[0m   "use_sliding_window": false,
+[36m(WorkerDict pid=1780557)[0m   "video_token_id": 151656,
+[36m(WorkerDict pid=1780557)[0m   "vision_config": {
+[36m(WorkerDict pid=1780557)[0m     "depth": 32,
+[36m(WorkerDict pid=1780557)[0m     "fullatt_block_indexes": [
+[36m(WorkerDict pid=1780557)[0m       7,
+[36m(WorkerDict pid=1780557)[0m       15,
+[36m(WorkerDict pid=1780557)[0m       23,
+[36m(WorkerDict pid=1780557)[0m       31
+[36m(WorkerDict pid=1780557)[0m     ],
+[36m(WorkerDict pid=1780557)[0m     "hidden_act": "silu",
+[36m(WorkerDict pid=1780557)[0m     "hidden_size": 1280,
+[36m(WorkerDict pid=1780557)[0m     "in_channels": 3,
+[36m(WorkerDict pid=1780557)[0m     "in_chans": 3,
+[36m(WorkerDict pid=1780557)[0m     "intermediate_size": 3420,
+[36m(WorkerDict pid=1780557)[0m     "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=1780557)[0m     "num_heads": 16,
+[36m(WorkerDict pid=1780557)[0m     "out_hidden_size": 2048,
+[36m(WorkerDict pid=1780557)[0m     "patch_size": 14,
+[36m(WorkerDict pid=1780557)[0m     "spatial_merge_size": 2,
+[36m(WorkerDict pid=1780557)[0m     "spatial_patch_size": 14,
+[36m(WorkerDict pid=1780557)[0m     "temporal_patch_size": 2,
+[36m(WorkerDict pid=1780557)[0m     "tokens_per_second": 2,
+[36m(WorkerDict pid=1780557)[0m     "torch_dtype": "float16",
+[36m(WorkerDict pid=1780557)[0m     "window_size": 112
+[36m(WorkerDict pid=1780557)[0m   },
+[36m(WorkerDict pid=1780557)[0m   "vision_end_token_id": 151653,
+[36m(WorkerDict pid=1780557)[0m   "vision_start_token_id": 151652,
+[36m(WorkerDict pid=1780557)[0m   "vision_token_id": 151654,
+[36m(WorkerDict pid=1780557)[0m   "vocab_size": 151936
+[36m(WorkerDict pid=1780557)[0m }
+[36m(WorkerDict pid=1780557)[0m 
+[36m(WorkerDict pid=1780560)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780562)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780559)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780558)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780561)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780557)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780557)[0m Qwen2_5_VLForConditionalGeneration contains 3.75B parameters
+[36m(WorkerDict pid=1780557)[0m wrap_policy: functools.partial(<function _or_policy at 0x14ea447aa200>, policies=[functools.partial(<function transformer_auto_wrap_policy at 0x14ea447aa0e0>, transformer_layer_cls={<class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLDecoderLayer'>, <class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLVisionBlock'>})])
+[36m(WorkerDict pid=1780557)[0m Actor use_remove_padding=False
+[36m(WorkerDict pid=1780557)[0m Actor use_fused_kernels=False
+[36m(WorkerDict pid=1780557)[0m Model config after override: Qwen2_5_VLConfig {
+[36m(WorkerDict pid=1780557)[0m   "architectures": [
+[36m(WorkerDict pid=1780557)[0m     "Qwen2_5_VLForConditionalGeneration"
+[36m(WorkerDict pid=1780557)[0m   ],
+[36m(WorkerDict pid=1780557)[0m   "attention_dropout": 0.0,
+[36m(WorkerDict pid=1780557)[0m   "eos_token_id": 151645,
+[36m(WorkerDict pid=1780557)[0m   "hidden_act": "silu",
+[36m(WorkerDict pid=1780557)[0m   "hidden_size": 2048,
+[36m(WorkerDict pid=1780557)[0m   "image_token_id": 151655,
+[36m(WorkerDict pid=1780557)[0m   "initializer_range": 0.02,
+[36m(WorkerDict pid=1780557)[0m   "intermediate_size": 11008,
+[36m(WorkerDict pid=1780557)[0m   "max_position_embeddings": 128000,
+[36m(WorkerDict pid=1780557)[0m   "max_window_layers": 70,
+[36m(WorkerDict pid=1780557)[0m   "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=1780557)[0m   "num_attention_heads": 16,
+[36m(WorkerDict pid=1780557)[0m   "num_hidden_layers": 36,
+[36m(WorkerDict pid=1780557)[0m   "num_key_value_heads": 2,
+[36m(WorkerDict pid=1780557)[0m   "pad_token_id": 151643,
+[36m(WorkerDict pid=1780557)[0m   "rms_norm_eps": 1e-06,
+[36m(WorkerDict pid=1780557)[0m   "rope_scaling": {
+[36m(WorkerDict pid=1780557)[0m     "mrope_section": [
+[36m(WorkerDict pid=1780557)[0m       16,
+[36m(WorkerDict pid=1780557)[0m       24,
+[36m(WorkerDict pid=1780557)[0m       24
+[36m(WorkerDict pid=1780557)[0m     ],
+[36m(WorkerDict pid=1780557)[0m     "rope_type": "default",
+[36m(WorkerDict pid=1780557)[0m     "type": "default"
+[36m(WorkerDict pid=1780557)[0m   },
+[36m(WorkerDict pid=1780557)[0m   "rope_theta": 1000000.0,
+[36m(WorkerDict pid=1780557)[0m   "sliding_window": 32768,
+[36m(WorkerDict pid=1780557)[0m   "tie_word_embeddings": true,
+[36m(WorkerDict pid=1780557)[0m   "torch_dtype": "float16",
+[36m(WorkerDict pid=1780557)[0m   "transformers_version": "4.51.3",
+[36m(WorkerDict pid=1780557)[0m   "use_cache": true,
+[36m(WorkerDict pid=1780557)[0m   "use_sliding_window": false,
+[36m(WorkerDict pid=1780557)[0m   "video_token_id": 151656,
+[36m(WorkerDict pid=1780557)[0m   "vision_config": {
+[36m(WorkerDict pid=1780557)[0m     "depth": 32,
+[36m(WorkerDict pid=1780557)[0m     "fullatt_block_indexes": [
+[36m(WorkerDict pid=1780560)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780557)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780557)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780560)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780562)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780562)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780559)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780559)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780558)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780558)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780561)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VLForConditionalGeneration is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780561)[0m Flash Attention 2.0 only supports torch.float16 and torch.bfloat16 dtypes, but the current dype in Qwen2_5_VisionTransformerPretrainedModel is torch.float32. You should run training or inference using Automatic Mixed-Precision via the `with torch.autocast(device_type='torch_device'):` decorator, or load the model with the `torch_dtype` argument. Example: `model = AutoModel.from_pretrained("openai/whisper-tiny", attn_implementation="flash_attention_2", torch_dtype=torch.float16)`
+[36m(WorkerDict pid=1780557)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780560)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780562)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780559)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780561)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780558)[0m Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+[36m(WorkerDict pid=1780557)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:21<00:21, 21.75s/it]
+[36m(WorkerDict pid=1780559)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:21<00:21, 21.76s/it]
+[36m(WorkerDict pid=1780561)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:21<00:21, 21.76s/it]
+[36m(WorkerDict pid=1780562)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:21<00:21, 21.82s/it]
+[36m(WorkerDict pid=1780560)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:21<00:21, 21.89s/it]
+[36m(WorkerDict pid=1780558)[0m Loading checkpoint shards:  50%|█████     | 1/2 [00:21<00:21, 21.78s/it]
+[36m(WorkerDict pid=1780557)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.81s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.65s/it]
+[36m(WorkerDict pid=1780560)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.78s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.64s/it]
+[36m(WorkerDict pid=1780562)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.81s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.66s/it]
+[36m(WorkerDict pid=1780559)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.81s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.66s/it]
+[36m(WorkerDict pid=1780558)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.73s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.58s/it]
+[36m(WorkerDict pid=1780561)[0m Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.82s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:45<00:00, 22.66s/it]
+[36m(WorkerDict pid=1780557)[0m       7,
+[36m(WorkerDict pid=1780557)[0m       15,
+[36m(WorkerDict pid=1780557)[0m       23,
+[36m(WorkerDict pid=1780557)[0m       31
+[36m(WorkerDict pid=1780557)[0m     ],
+[36m(WorkerDict pid=1780557)[0m     "hidden_act": "silu",
+[36m(WorkerDict pid=1780557)[0m     "hidden_size": 1280,
+[36m(WorkerDict pid=1780557)[0m     "in_channels": 3,
+[36m(WorkerDict pid=1780557)[0m     "in_chans": 3,
+[36m(WorkerDict pid=1780557)[0m     "intermediate_size": 3420,
+[36m(WorkerDict pid=1780557)[0m     "model_type": "qwen2_5_vl",
+[36m(WorkerDict pid=1780557)[0m     "num_heads": 16,
+[36m(WorkerDict pid=1780557)[0m     "out_hidden_size": 2048,
+[36m(WorkerDict pid=1780557)[0m     "patch_size": 14,
+[36m(WorkerDict pid=1780557)[0m     "spatial_merge_size": 2,
+[36m(WorkerDict pid=1780557)[0m     "spatial_patch_size": 14,
+[36m(WorkerDict pid=1780557)[0m     "temporal_patch_size": 2,
+[36m(WorkerDict pid=1780557)[0m     "tokens_per_second": 2,
+[36m(WorkerDict pid=1780557)[0m     "torch_dtype": "float16",
+[36m(WorkerDict pid=1780557)[0m     "window_size": 112
+[36m(WorkerDict pid=1780557)[0m   },
+[36m(WorkerDict pid=1780557)[0m   "vision_end_token_id": 151653,
+[36m(WorkerDict pid=1780557)[0m   "vision_start_token_id": 151652,
+[36m(WorkerDict pid=1780557)[0m   "vision_token_id": 151654,
+[36m(WorkerDict pid=1780557)[0m   "vocab_size": 151936
+[36m(WorkerDict pid=1780557)[0m }
+[36m(WorkerDict pid=1780557)[0m 
+[36m(WorkerDict pid=1780562)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780559)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780558)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780561)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780557)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780557)[0m Qwen2_5_VLForConditionalGeneration contains 3.75B parameters
+[36m(WorkerDict pid=1780557)[0m wrap_policy: functools.partial(<function _or_policy at 0x14ea447aa200>, policies=[functools.partial(<function transformer_auto_wrap_policy at 0x14ea447aa0e0>, transformer_layer_cls={<class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLDecoderLayer'>, <class 'transformers.models.qwen2_5_vl.modeling_qwen2_5_vl.Qwen2_5_VLVisionBlock'>})])
+[36m(WorkerDict pid=1780560)[0m Skipping monkey patch for Qwen2_5_VLForConditionalGeneration as use_fused_kernels is False or fused_kernels_backend is torch
+[36m(WorkerDict pid=1780557)[0m Total steps: 120, num_warmup_steps: 0
+[36m(WorkerDict pid=1780557)[0m Actor use_remove_padding=False
+[36m(WorkerDict pid=1780557)[0m Actor use_fused_kernels=False
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 00:58:56 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 00:58:56 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 00:58:56 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 00:58:56 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 00:58:56 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 00:58:56 [importing.py:53] Triton module has been replaced with a placeholder.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 00:58:56 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 00:58:56 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 00:58:56 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 00:58:56 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 00:58:56 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 00:58:56 [__init__.py:239] Automatically detected platform cuda.
+[36m(WorkerDict pid=1780557)[0m WARNING 05-30 00:59:19 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=1780560)[0m WARNING 05-30 00:59:19 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=1780562)[0m WARNING 05-30 00:59:19 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=1780559)[0m WARNING 05-30 00:59:19 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=1780558)[0m WARNING 05-30 00:59:19 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=1780561)[0m WARNING 05-30 00:59:19 [config.py:2972] Casting torch.float16 to torch.bfloat16.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:22 [config.py:717] This model supports multiple tasks: {'score', 'reward', 'generate', 'classify', 'embed'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=1780557)[0m WARNING 05-30 01:00:22 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:22 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:22 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=1780557)[0m WARNING 05-30 01:00:22 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:22 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:22 [config.py:717] This model supports multiple tasks: {'generate', 'score', 'classify', 'embed', 'reward'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=1780560)[0m WARNING 05-30 01:00:22 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:22 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:22 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=1780560)[0m WARNING 05-30 01:00:22 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:22 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:22 [config.py:717] This model supports multiple tasks: {'embed', 'score', 'classify', 'reward', 'generate'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=1780562)[0m WARNING 05-30 01:00:22 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:22 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:22 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=1780562)[0m WARNING 05-30 01:00:22 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:22 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:22 [config.py:717] This model supports multiple tasks: {'embed', 'generate', 'reward', 'classify', 'score'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=1780559)[0m WARNING 05-30 01:00:22 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:22 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:22 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=1780559)[0m WARNING 05-30 01:00:22 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:22 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:22 [config.py:717] This model supports multiple tasks: {'generate', 'embed', 'classify', 'score', 'reward'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=1780558)[0m WARNING 05-30 01:00:22 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:22 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:22 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=1780558)[0m WARNING 05-30 01:00:22 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:22 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:22 [config.py:717] This model supports multiple tasks: {'classify', 'generate', 'reward', 'score', 'embed'}. Defaulting to 'generate'.
+[36m(WorkerDict pid=1780561)[0m WARNING 05-30 01:00:22 [arg_utils.py:1550] --enable-prefix-caching is not supported for multimodal models in V0 and has been disabled.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:22 [config.py:1729] Disabling V1 multiprocessing for external launcher.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:22 [config.py:2003] Chunked prefill is enabled with max_num_batched_tokens=4096.
+[36m(WorkerDict pid=1780561)[0m WARNING 05-30 01:00:22 [cuda.py:93] To see benefits of async output processing, enable CUDA graph. Since, enforce-eager is enabled, async output processor cannot be used
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:22 [llm_engine.py:240] Initializing a V0 LLM engine (v0.8.5.post1) with config: model='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', speculative_config=None, tokenizer='/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=dummy, tensor_parallel_size=2, pipeline_parallel_size=1, disable_custom_all_reduce=True, quantization=None, enforce_eager=True, kv_cache_dtype=auto,  device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='xgrammar', reasoning_backend=None), observability_config=ObservabilityConfig(show_hidden_metrics=False, otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=/work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged, num_scheduler_steps=1, multi_step_stream_outputs=True, enable_prefix_caching=False, chunked_prefill_enabled=True, use_async_output_proc=False, disable_mm_preprocessor_cache=False, mm_processor_kwargs={'max_pixels': 200704}, pooler_config=None, compilation_config={"splitting_ops":[],"compile_sizes":[],"cudagraph_capture_sizes":[],"max_capture_size":0}, use_cached_outputs=False, 
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:26 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:26 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:26 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:26 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:26 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:26 [cuda.py:292] Using Flash Attention backend.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:28 [utils.py:1055] Found nccl from library libnccl.so.2
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:28 [pynccl.py:69] vLLM is using nccl==2.21.5
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:28 [utils.py:1055] Found nccl from library libnccl.so.2
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:28 [pynccl.py:69] vLLM is using nccl==2.21.5
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:28 [utils.py:1055] Found nccl from library libnccl.so.2
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:28 [pynccl.py:69] vLLM is using nccl==2.21.5
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:28 [utils.py:1055] Found nccl from library libnccl.so.2
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:28 [pynccl.py:69] vLLM is using nccl==2.21.5
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:28 [utils.py:1055] Found nccl from library libnccl.so.2
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:28 [pynccl.py:69] vLLM is using nccl==2.21.5
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:28 [utils.py:1055] Found nccl from library libnccl.so.2
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:28 [pynccl.py:69] vLLM is using nccl==2.21.5
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:34 [shm_broadcast.py:266] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_c4571f0d'), local_subscribe_addr='ipc:///tmp/seanma0627/tmp-manual/e5854220-c6d3-4c84-909e-7c2bdbc79dfb', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:34 [parallel_state.py:1004] rank 5 in world size 6 is assigned as DP rank 0, PP rank 0, TP rank 1
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:34 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:34 [parallel_state.py:1004] rank 4 in world size 6 is assigned as DP rank 0, PP rank 0, TP rank 0
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:34 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:35 [shm_broadcast.py:266] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_5e8a0c78'), local_subscribe_addr='ipc:///tmp/seanma0627/tmp-manual/cf772649-c5af-4fa4-81af-0ef7e3a8b78d', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:35 [parallel_state.py:1004] rank 0 in world size 6 is assigned as DP rank 0, PP rank 0, TP rank 0
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:35 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:35 [parallel_state.py:1004] rank 1 in world size 6 is assigned as DP rank 0, PP rank 0, TP rank 1
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:35 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:35 [shm_broadcast.py:266] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_8733281e'), local_subscribe_addr='ipc:///tmp/seanma0627/tmp-manual/0ae6c5b8-fed7-4aa8-bc6e-ed9c8bc7c743', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:35 [parallel_state.py:1004] rank 3 in world size 6 is assigned as DP rank 0, PP rank 0, TP rank 1
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:35 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:35 [parallel_state.py:1004] rank 2 in world size 6 is assigned as DP rank 0, PP rank 0, TP rank 0
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:35 [model_runner.py:1108] Starting to load model /work/seanma0627/RL_2026_Final/ckpt/VLM_LoRA/qwen2_5_vl_3b_author_merged...
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:35 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:35 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:36 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:36 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:36 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:36 [config.py:3614] cudagraph sizes specified by model runner [] is overridden by config []
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:00:38 [model_runner.py:1140] Model loading took 3.6683 GiB and 2.073765 seconds
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:00:38 [model_runner.py:1140] Model loading took 3.6683 GiB and 2.093343 seconds
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:00:38 [model_runner.py:1140] Model loading took 3.6683 GiB and 1.473921 seconds
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:00:38 [model_runner.py:1140] Model loading took 3.6683 GiB and 1.465974 seconds
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:00:39 [model_runner.py:1140] Model loading took 3.6683 GiB and 1.556398 seconds
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:00:39 [model_runner.py:1140] Model loading took 3.6683 GiB and 1.491416 seconds
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:01:13 [worker.py:287] Memory profiling takes 32.14 seconds
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:01:13 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.55) = 76.85GiB
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:01:13 [worker.py:287] model weights take 3.67GiB; non_torch_memory takes 1.52GiB; PyTorch activation peak memory takes 0.60GiB; the rest of the memory reserved for KV Cache is 71.06GiB.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:01:13 [worker.py:287] Memory profiling takes 32.15 seconds
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:01:13 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.55) = 76.85GiB
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:01:13 [worker.py:287] model weights take 3.67GiB; non_torch_memory takes 1.52GiB; PyTorch activation peak memory takes 0.60GiB; the rest of the memory reserved for KV Cache is 71.06GiB.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:01:26 [worker.py:287] Memory profiling takes 45.09 seconds
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:01:26 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.55) = 76.85GiB
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:01:26 [worker.py:287] model weights take 3.67GiB; non_torch_memory takes 1.52GiB; PyTorch activation peak memory takes 0.60GiB; the rest of the memory reserved for KV Cache is 71.06GiB.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:01:26 [worker.py:287] Memory profiling takes 45.15 seconds
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:01:26 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.55) = 76.85GiB
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:01:26 [worker.py:287] model weights take 3.67GiB; non_torch_memory takes 1.52GiB; PyTorch activation peak memory takes 0.60GiB; the rest of the memory reserved for KV Cache is 71.06GiB.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:01:27 [worker.py:287] Memory profiling takes 46.50 seconds
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:01:27 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.55) = 76.85GiB
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:01:27 [worker.py:287] model weights take 3.67GiB; non_torch_memory takes 1.52GiB; PyTorch activation peak memory takes 0.60GiB; the rest of the memory reserved for KV Cache is 71.06GiB.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:01:27 [worker.py:287] Memory profiling takes 46.63 seconds
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:01:27 [worker.py:287] the current vLLM instance can use total_gpu_memory (139.72GiB) x gpu_memory_utilization (0.55) = 76.85GiB
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:01:27 [worker.py:287] model weights take 3.67GiB; non_torch_memory takes 1.52GiB; PyTorch activation peak memory takes 0.60GiB; the rest of the memory reserved for KV Cache is 71.06GiB.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:01:28 [executor_base.py:112] # cuda blocks: 258715, # CPU blocks: 14563
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:01:28 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 1010.61x
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:01:28 [executor_base.py:112] # cuda blocks: 258715, # CPU blocks: 14563
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:01:28 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 1010.61x
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:01:28 [executor_base.py:112] # cuda blocks: 258715, # CPU blocks: 14563
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:01:28 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 1010.61x
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:01:28 [executor_base.py:112] # cuda blocks: 258715, # CPU blocks: 14563
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:01:28 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 1010.61x
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:01:28 [executor_base.py:112] # cuda blocks: 258715, # CPU blocks: 14563
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:01:28 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 1010.61x
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:01:28 [executor_base.py:112] # cuda blocks: 258715, # CPU blocks: 14563
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:01:28 [executor_base.py:117] Maximum concurrency for 4096 tokens per request: 1010.61x
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:01:41 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 63.15 seconds
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:01:42 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 62.82 seconds
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:01:42 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 63.74 seconds
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:01:42 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 62.90 seconds
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:01:42 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 63.34 seconds
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:01:42 [llm_engine.py:437] init engine (profile, create kv cache, warmup model) took 63.72 seconds
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:02:35 [worker.py:145] Sleep mode freed 74.81 GiB memory, 7.25 GiB memory is still in use.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:02:35 [executor_base.py:210] It took 19.347331 seconds to fall asleep.
+[36m(WorkerDict pid=1780557)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:02:35 [worker.py:145] Sleep mode freed 74.81 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:02:35 [executor_base.py:210] It took 19.157158 seconds to fall asleep.
+[36m(WorkerDict pid=1780559)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:02:35 [worker.py:145] Sleep mode freed 74.81 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:02:35 [executor_base.py:210] It took 19.387335 seconds to fall asleep.
+[36m(WorkerDict pid=1780558)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:02:35 [worker.py:145] Sleep mode freed 74.81 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:02:35 [executor_base.py:210] It took 19.263297 seconds to fall asleep.
+[36m(WorkerDict pid=1780561)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+Training Progress:   0%|          | 0/120 [00:00<?, ?it/s][36m(WorkerDict pid=1780560)[0m INFO 05-30 01:02:35 [worker.py:145] Sleep mode freed 74.81 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:02:35 [executor_base.py:210] It took 19.164493 seconds to fall asleep.
+[36m(WorkerDict pid=1780560)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:02:35 [worker.py:145] Sleep mode freed 74.81 GiB memory, 7.45 GiB memory is still in use.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:02:35 [executor_base.py:210] It took 19.199279 seconds to fall asleep.
+[36m(WorkerDict pid=1780562)[0m kwargs: {'n': 6, 'logprobs': 0, 'max_tokens': 64, 'detokenize': False, 'temperature': 1.0, 'top_k': -1, 'top_p': 1, 'ignore_eos': False}
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:02:42 [executor_base.py:226] It took 0.422350 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:02:42 [executor_base.py:226] It took 0.432836 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:02:42 [executor_base.py:226] It took 0.457396 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:02:42 [executor_base.py:226] It took 0.464112 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:02:42 [executor_base.py:226] It took 0.547591 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:02:42 [executor_base.py:226] It took 0.459429 seconds to wake up tags ['weights'].
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:02:44 [executor_base.py:226] It took 0.063737 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:02:43 [executor_base.py:226] It took 0.034549 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:02:43 [executor_base.py:226] It took 0.052008 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:02:44 [executor_base.py:226] It took 0.087992 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:02:44 [executor_base.py:226] It took 0.106613 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:02:44 [executor_base.py:226] It took 0.082627 seconds to wake up tags ['kv_cache'].
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:03:07 [worker.py:145] Sleep mode freed 74.83 GiB memory, 7.45 GiB memory is still in use.
+[36m(WorkerDict pid=1780562)[0m INFO 05-30 01:03:07 [executor_base.py:210] It took 6.108936 seconds to fall asleep.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:03:07 [worker.py:145] Sleep mode freed 74.82 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780559)[0m INFO 05-30 01:03:07 [executor_base.py:210] It took 6.143396 seconds to fall asleep.
+Traceback (most recent call last):
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/verl_direct_controller.py", line 221, in <module>
+    main()
+  File "/work/seanma0627/RL_2026_Final/.sisyphus/evidence/verl_direct_controller.py", line 216, in main
+    trainer.fit()
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/trainer/ppo/ray_trainer.py", line 983, in fit
+    gen_batch_output = self.actor_rollout_wg.generate_sequences(gen_batch)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/single_controller/ray/base.py", line 51, in __call__
+    output = ray.get(output)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/auto_init_hook.py", line 21, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/client_mode_hook.py", line 103, in wrapper
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/worker.py", line 2782, in get
+    values, debugger_breakpoint = worker.get_objects(object_refs, timeout=timeout)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/ray/_private/worker.py", line 929, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ValueError): [36mray::WorkerDict.actor_rollout_generate_sequences()[39m (pid=1780562, ip=172.21.100.110, actor_id=76f1648c4ce932a27f3382ea01000000, repr=<verl.single_controller.ray.base.WorkerDict object at 0x1524dd5849a0>)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/single_controller/ray/base.py", line 663, in func
+    return getattr(self.worker_dict[key], name)(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/single_controller/base/decorator.py", line 540, in inner
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/workers/fsdp_workers.py", line 665, in generate_sequences
+    output = self.rollout.generate_sequences(prompts=prompts)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/utils/debug/performance.py", line 78, in f
+    return self.log(decorated_function, *args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/utils/debug/performance.py", line 88, in log
+    output = func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/verl/workers/rollout/vllm_rollout/vllm_rollout_spmd.py", line 285, in generate_sequences
+    outputs = self.inference_engine.generate(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/utils.py", line 1196, in inner
+    return fn(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 473, in generate
+    outputs = self._run_engine(use_tqdm=use_tqdm)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/entrypoints/llm.py", line 1423, in _run_engine
+    step_outputs = self.llm_engine.step()
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/engine/llm_engine.py", line 1412, in step
+    outputs = self.model_executor.execute_model(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/executor/executor_base.py", line 140, in execute_model
+    output = self.collective_rpc("execute_model",
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/executor/uniproc_executor.py", line 56, in collective_rpc
+    answer = run_method(self.driver_worker, method, args, kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/utils.py", line 2456, in run_method
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/worker/worker_base.py", line 420, in execute_model
+    output = self.model_runner.execute_model(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/worker/model_runner.py", line 1764, in execute_model
+    hidden_or_intermediate_states = model_executable(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/model_executor/models/qwen2_5_vl.py", line 1100, in forward
+    inputs_embeds = self.get_input_embeddings_v0(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/model_executor/models/qwen2_5_vl.py", line 1035, in get_input_embeddings_v0
+    inputs_embeds = merge_multimodal_embeddings(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/model_executor/models/utils.py", line 481, in merge_multimodal_embeddings
+    return _merge_multimodal_embeddings(
+  File "/work/seanma0627/RL_2026_Final/.venv-train/lib/python3.10/site-packages/vllm/model_executor/models/utils.py", line 397, in _merge_multimodal_embeddings
+    raise ValueError(
+ValueError: Attempted to assign 256 + 256 + 256 + 256 + 256 + 256 + 256 + 256 + 256 + 256 + 256 = 2816 multimodal tokens to 2639 placeholders
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:03:07 [worker.py:145] Sleep mode freed 74.82 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780560)[0m INFO 05-30 01:03:07 [executor_base.py:210] It took 6.160874 seconds to fall asleep.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:03:07 [worker.py:145] Sleep mode freed 74.82 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780561)[0m INFO 05-30 01:03:07 [executor_base.py:210] It took 6.174715 seconds to fall asleep.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:03:07 [worker.py:145] Sleep mode freed 74.91 GiB memory, 7.25 GiB memory is still in use.
+[36m(WorkerDict pid=1780557)[0m INFO 05-30 01:03:07 [executor_base.py:210] It took 5.772227 seconds to fall asleep.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:03:07 [worker.py:145] Sleep mode freed 75.07 GiB memory, 7.35 GiB memory is still in use.
+[36m(WorkerDict pid=1780558)[0m INFO 05-30 01:03:07 [executor_base.py:210] It took 5.776366 seconds to fall asleep.
+Training Progress:   0%|          | 0/120 [00:34<?, ?it/s]

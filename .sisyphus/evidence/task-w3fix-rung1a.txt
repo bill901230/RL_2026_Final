@@ -1,0 +1,4 @@
+2026-05-29 21:46:41,405	INFO worker.py:1852 -- Started a local Ray instance.
+[{'pid': 1544205, 'CUDA_VISIBLE_DEVICES': '1'},
+ {'pid': 1544204, 'CUDA_VISIBLE_DEVICES': '3'}]
+RAY_TRIVIAL_PROBE_OK

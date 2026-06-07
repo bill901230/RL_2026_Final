@@ -1,0 +1,19 @@
+### ACCEPTANCE 1: eval_subset manifest
+30 data/manifests/eval_subset.txt
+
+### ACCEPTANCE 2: A3 means
+A3 rows 30
+niqe -7.6018
+musiq 50.2718
+maniqa 0.3958
+clipiqa 0.607
+consistency 0.7808
+unique_token_ratio 0.6234
+
+### A3 = REFERENCE BAR (author ckpt VLM_LoRA/checkpoint-10000)
+# Convention (train/grpo/metrics.py:_higher_better): ALL axes HIGHER = BETTER.
+#   niqe is stored as -rawNIQE  -> A3 stored -7.6018  => raw NIQE ~= 7.6018 (lower raw = better)
+#   To beat A3 at G2: prototype mean must be >= A3 mean on each axis.
+# Fixed protocol: recursive_multiscale, greedy (do_sample=False, max_new_tokens=32), rec_num=4 (scales 0..4).
+# Canonical eval subset: data/eval_subset/ (0801.png..0830.png), manifest data/manifests/eval_subset.txt (30 abs paths).
+# Per-sample CSV: results/A3.csv (30 rows). Inference tree: results/A3_sr/per-sample/<stem>/{0..4}.png + txt/{0..3}.txt

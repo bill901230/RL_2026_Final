@@ -1,0 +1,16 @@
+[19:43:44] PIPELINE_START pid=1431559
+[19:43:44] waiting for training done sentinel: .sisyphus/evidence/task-A6-train.done
+[22:42:18] training done: cum~60 Fri May 29 22:42:15 CST 2026
+[22:42:19] final train step line: step 61 | reward/r_anc=0.9341 | reward/r_rep=-0.3726 | reward/r_phr=0.0000 | reward/total=0.5615 | loss/policy=0.0118 | loss/kl=0.2950 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2099 | lr=0.0000
+[22:42:19] ADAPTER_OK experience/grpo_vlm/A6/final/adapter_model.safetensors
+[22:42:19] inference+eval already complete (30 dirs, csv present); skipping to verify
+[22:42:20] running evaluate.py -> results/A6.csv
+[22:42:50] evaluate exited code=0
+ADAPTER_OK
+niqe -7.4362
+musiq 50.2986
+maniqa 0.397
+clipiqa 0.592
+consistency 0.782
+unique_token_ratio 0.6107
+[22:42:51] PIPELINE_DONE final_step=[step 61 | reward/r_anc=0.9341 | reward/r_rep=-0.3726 | reward/r_phr=0.0000 | reward/total=0.5615 | loss/policy=0.0118 | loss/kl=0.2950 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.2099 | lr=0.0000]

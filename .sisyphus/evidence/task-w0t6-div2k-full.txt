@@ -1,0 +1,4 @@
+ALL CHECKS PASS
+train 800 ids 0001-0800 dims=512x512 (all)
+valid 100 ids 0801-0900 dims=512x512 (all)
+intersection 0

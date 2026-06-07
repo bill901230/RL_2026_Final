@@ -1,0 +1,26 @@
+A4: FAIL
+  final_step_reached: no (last logged step: 7/25)
+  last_reward_line: step 7 | reward/r_rep=-0.3143 | reward/total=-0.3143 | loss/policy=0.0000 | loss/kl=0.0003 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.1241 | lr=0.0000
+  adapter_path: NONE (missing experience/grpo_vlm/A4/final/adapter_model.safetensors and experience/grpo_vlm/A4/checkpoint-25/adapter_model.safetensors)
+  error: process exited/gone before checkpoint; log contains no Traceback/Error/Exception/Killed/NaN line.
+
+A5: FAIL
+  final_step_reached: no (last logged step: 7/25)
+  last_reward_line: step 7 | reward/r_anc=0.7969 | reward/total=0.7969 | loss/policy=0.0001 | loss/kl=0.0022 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.5152 | lr=0.0000
+  adapter_path: NONE (missing experience/grpo_vlm/A5/final/adapter_model.safetensors and experience/grpo_vlm/A5/checkpoint-25/adapter_model.safetensors)
+  error: process exited/gone before checkpoint; log contains no Traceback/Error/Exception/Killed/NaN line.
+
+A6: FAIL
+  final_step_reached: no (last logged step: 7/25)
+  last_reward_line: step 7 | reward/r_anc=0.7977 | reward/r_rep=-0.3098 | reward/r_phr=-0.0625 | reward/total=0.4754 | loss/policy=0.0001 | loss/kl=0.0022 | ratio/mean=1.0000 | ratio/std=0.0000 | ratio/clamp_bind_fraction=0.0000 | grad_norm=1.3056 | lr=0.0000
+  adapter_path: NONE (missing experience/grpo_vlm/A6/final/adapter_model.safetensors and experience/grpo_vlm/A6/checkpoint-25/adapter_model.safetensors)
+  error: process exited/gone before checkpoint; log contains no Traceback/Error/Exception/Killed/NaN line.
+
+Acceptance checks:
+  A4: FAIL no adapter_model.safetensors
+  A5: FAIL no adapter_model.safetensors
+  A6: FAIL no adapter_model.safetensors
+
+Notes:
+  Launched with python -u via setsid on CUDA_VISIBLE_DEVICES=0/2/4 only, with r_fb=false and r_crit=false.
+  PIDs reported at launch: A4=1347078, A5=1347079, A6=1347080; subsequent process checks found no train.train_grpo_vlm processes.
