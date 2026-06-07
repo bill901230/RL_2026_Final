@@ -81,7 +81,7 @@ Round 2 tested the obvious idea (raise the grounding weight) and, in the process
 
 Round 3 stress-tested the winner two ways: confirm at scale, and probe the neighborhood for a better operating point.
 
-- **Confirmation at n=100** (Section 4): the win holds. The margin arm beats the naive-RL control by **+0.905 grounding_deep** with a CI strictly above zero (p=0.0038), and the n=30 screen result (7.68) replicates at n=100 (7.625).
+- **Confirmation at n=100, seed 123** (Section 4): the seed-123 margin arm beats the naive-RL control by **+0.905 grounding_deep** (CI strictly above zero, p=0.0038), and the n=30 screen (7.68) replicates at n=100 (7.625) — *within this seed*. **A second training seed (456) reverses it (§4b): the win does NOT hold across seeds.**
 - **Weight sweep around the winner.** Pushing the margin weight to 2.0 (`ancW20margin`) regressed to gdeep **6.133**: too much anchor pressure over-pulls again. So the margin curve *peaks* at weight 1.0 (0.2 to 1.0 to 2.0 reads as roughly base / 7.68 / 6.13), in contrast to the absolute-cosine curve which only ever decreases (6.70 / 6.30 / 5.73). Weight 1.0 is the sweet spot.
 - **KL sweep.** Raising the policy KL anchor on top of the winner (`ancW10margin_klUp05`, KL 0.02 to 0.05) did not help; it regressed to gdeep **5.600** (Δ -1.100, p=0.050). The default KL 0.02 is better than 0.05 here, so KL up is not the move.
 - **Step count.** A 60-step variant (`ancW10margin_s60`) regressed to gdeep **6.300** (Δ -0.400 vs control, p=0.41; far below the 30-step 7.683): doubling training re-introduces drift even with the margin reward. **30 steps is the optimum, not merely the default.**
@@ -144,7 +144,7 @@ All arms are one change on the base recipe, 30 steps, seed123, judged on ids 080
 | `ancW20margin` | margin anchor w2.0 | 6.133 | -0.567 | 0.24 | 0.563 | 51.750 | worse (over-pull) |
 | `ancW10margin_klUp05` | margin w1.0 + KL 0.05 | 5.600 | -1.100 | 0.050 | **0.636** | 51.449 | worse (KL over-anchors) |
 | `ancW10margin_s60` | margin w1.0, 60 steps | 6.300 | -0.400 | 0.41 | 0.554 | 51.495 | worse (over-trains) |
-| **`ancW10margin`** | **margin anchor w1.0** | **7.683** | **+0.983** | **0.0038** | 0.570 | 52.351 | **WINNER** |
+| `ancW10margin` | margin anchor w1.0 | 7.683 | +0.983 | 0.0038 | 0.570 | 52.351 | best @seed123 — NOT seed-robust (§4b) |
 
 The two anchor curves tell the whole story. Absolute cosine only ever falls as weight rises (6.70 / 6.30 / 5.73 at w0.2 / 0.5 / 1.0). The margin formulation peaks at w1.0 (7.68) and falls off by w2.0 (6.13). The optimizer knobs sit flat on the control. The highest unique-token ratio (0.636) belongs to `klUp05`, which is also the worst on grounding, a reminder that raw diversity is not the goal. See `results/abl_rl_compare_figs/` for the weight-curve and per-arm comparison plots.
 
@@ -185,7 +185,7 @@ A few popular RL-for-LLM techniques were considered and deliberately left out. N
 ## Reproducibility
 
 - **Means**: re-derived per arm from `results/<arm>.csv` (n=30) and `results/<arm>_n100.csv` (n=100), NaN dropped per axis (no NaNs were present in the cited columns).
-- **Paired stats**: `scipy.stats.ttest_rel` on per-image deltas over shared ids, with a percentile bootstrap 95% CI (B=10000, seed=12345), via `scripts/abl_paired_analysis.py`; the locked n=100 confirmation is in `results/rl_confirm_n100.md`.
+- **Paired stats**: `scipy.stats.ttest_rel` on per-image deltas over shared ids, with a percentile bootstrap 95% CI (B=10000, seed=12345), via `scripts/abl_paired_analysis.py`; the seed-123 n=100 confirmation is in `results/rl_confirm_n100.md` and the seed-456 robustness check in `results/rl_seed456_paired.md`.
 - **Running log**: `results/abl_rl_rounds.md` (round-by-round narrative and queue).
 - **Figures**: `results/abl_rl_compare_figs/` (generated separately).
 - **No CSVs or code were modified to produce this report.**
