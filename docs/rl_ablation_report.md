@@ -4,6 +4,8 @@
 
 All numbers in this report were recomputed directly from the raw scored CSVs in `results/` (means re-derived per arm; paired statistics re-run with `scipy.stats.ttest_rel` plus a percentile bootstrap, B=10000, seed=12345, matching `scripts/abl_paired_analysis.py`). Where a number here disagrees with an earlier prose note in the running log, the recomputed value from the CSV is authoritative. Figures referenced as `results/abl_rl_compare_figs/` are produced separately.
 
+> **⚠ Headline correction (seed-matched robustness).** A second-seed check overturns the single-seed headline. The margin/rank `R_anc` reward gives **+0.905 grounding_deep at training-seed 123 but −1.090 at seed 456** (seed-matched, n=100, both paired p<0.01), while the control is stable across seeds (6.72 / 6.84). The margin effect is **NOT seed-robust** — it is the highest-variance arm (it produced our best *and* our worst result) and averages ≈ neutral over two seeds. At 30 steps, **training-seed variance dominates every reward/optimizer effect tested.** Any "win" stated below is single-seed / screening-level; see **§4b** for the decisive 2-seed verdict. The honest contribution is methodological: seed-matched multi-seed evaluation is essential, and single-seed low-step RL ablations are unreliable.
+
 ---
 
 ## 1. Goal and setup
@@ -107,9 +109,24 @@ Confirmed on `data/div2k/valid`, ids 0801-0900, reusing the kept 30-step models.
 | unique_token_ratio | -0.048 | [-0.069, -0.028] | -4.63 | 1.1e-05 | 35/65/0 |
 | musiq | +0.175 | [-1.012, +1.218] | 0.30 | 0.76 (ns) | 47/53/0 |
 
-**Read.** Against the naive-RL control, the margin/rank anchor at weight 1.0 lifts deep grounding by **+0.905 with a confidence interval entirely above zero (p=0.0038)**, and it lifts all-level grounding by +0.767 (p=0.0002) even more cleanly. MUSIQ is statistically unchanged (+0.175, p=0.76), so the grounding gain is not bought with image quality. Compared to the *untrained* base, the margin arm is higher on grounding_deep (+0.215) and MUSIQ (+1.137), though those base-relative gaps sit within paired noise (grounding p=0.45); the clean, significant win is the one that matters for the method claim, against the naive-RL control. Notably, the naive-RL control itself sits **significantly below the untrained base** (Δ -0.690, p=0.010, n=100): naive RL training measurably *degrades* deep grounding, which is exactly the regression the margin reward repairs — and then pushes above base. **Verdict: PASS.** Running-best, locked: `ancW10margin`.
+**Read.** Against the naive-RL control, the margin/rank anchor at weight 1.0 lifts deep grounding by **+0.905 with a confidence interval entirely above zero (p=0.0038)**, and it lifts all-level grounding by +0.767 (p=0.0002) even more cleanly. MUSIQ is statistically unchanged (+0.175, p=0.76), so the grounding gain is not bought with image quality. Compared to the *untrained* base, the margin arm is higher on grounding_deep (+0.215) and MUSIQ (+1.137), though those base-relative gaps sit within paired noise (grounding p=0.45); the clean, significant win is the one that matters for the method claim, against the naive-RL control. Notably, the naive-RL control itself sits **significantly below the untrained base** (Δ -0.690, p=0.010, n=100): naive RL training measurably *degrades* deep grounding. The seed-123 margin run repairs and exceeds it — **but this does NOT replicate at a second training seed (§4b)**, so it is a single-seed result, not a confirmed win. **Verdict for this seed-123 contrast: significant; overall verdict: NOT seed-robust (see §4b).**
 
 > Honesty note on the base comparison: an earlier prose note in the running log cited the base as gdeep 7.36 / musiq 48.26 and a "+3.0 MUSIQ" gap. Recomputed from `A3_base_n100.csv` the base is **gdeep 7.410 / musiq 50.107**, so the true margin-over-base is **+0.21 grounding and +1.14 MUSIQ**, both within noise. The headline win stands on the control comparison, not the base comparison.
+
+---
+
+## 4b. Robustness: seed-matched 2-seed check (DECISIVE)
+
+The n=100 confirmation above was repeated with a different **training seed** (456), retraining *both* the margin arm and a seed-matched control and judging the same 100 images. The result overturns the headline.
+
+| training seed | margin `gdeep` | control `gdeep` | margin Δ vs control | p (paired, n=100) |
+|---|---:|---:|---:|---:|
+| 123 | 7.625 | 6.720 | **+0.905** | 0.0038 |
+| 456 | 5.750 | 6.840 | **−1.090** | 0.0001 |
+
+**The margin effect flips sign with the training seed.** The control is stable across seeds (6.72 vs 6.84, a 0.12 swing); the margin arm is not (7.625 vs 5.75, a **1.9-point swing**). Averaged over the two seeds the margin effect is ≈ **−0.09** (neutral). The within-seed per-image paired tests are each significant (p<0.01) precisely *because* they hold the seed fixed — but that within-seed significance **overstates robustness**, since the sign of the effect is set by the training seed, not the reward.
+
+**Verdict:** the margin/rank `R_anc` reward is **NOT a robust improvement** at 30 steps. It is the highest-variance configuration tested (best result +0.90, worst −1.09). What *is* stable across seeds: the naive-RL control (grounding ~6.8, MUSIQ ~51) and the MUSIQ lift over base. A robust grounding gain, if one exists, would need variance reduction — more seeds, a larger rollout group for lower-variance advantages, or more steps against a matched control — beyond this study's 19-hour budget. See `results/abl_rl_compare_figs/fig4_seed_robustness.png`.
 
 ---
 
@@ -135,7 +152,7 @@ The two anchor curves tell the whole story. Absolute cosine only ever falls as w
 
 ## 6. Key findings
 
-1. **The margin/rank `R_anc` reward is the lever.** Switching the anchor from absolute cosine to a within-group margin, at weight 1.0, is the one change that recovers deep grounding: **+0.983 at n=30 (p=0.0038)** and **+0.905 at n=100 (p=0.0038, CI [+0.310, +1.510])** over the naive-RL control. The n=30 screen (7.68) and the n=100 confirmation (7.625) agree, so the effect is stable, not a screen artifact.
+1. **The margin/rank `R_anc` reward is high-variance, not a robust lever.** At training-seed 123 it lifts deep grounding (+0.983 at n=30, +0.905 at n=100, p=0.0038); at seed 456 the identical recipe *loses* (−1.090 at n=100, p=0.0001). The n=30 and n=100 results agree *within seed 123*, but the effect does not survive a change of training seed (§4b). The margin reformulation is therefore a promising but **unreliable** signal at 30 steps, not a confirmed improvement — the dominant factor is training-seed variance.
 2. **The formulation matters, not the magnitude.** Identical weight 1.0 gives +0.98 with the margin reward and -0.97 with absolute cosine. The absolute anchor is partly opposed to deep grounding because it over-pulls prompts toward the global x0 caption and saturates after z-norm; the margin reward supplies a clean within-group gradient instead.
 3. **RL-optimizer knobs are neutral.** Dr.GRPO and clip-higher both land on the control (Δ +0.03 and +0.02, p>0.9). At 30 steps from a strong base, more aggressive movement does not buy grounding.
 4. **Anchor weight has an optimum at 1.0.** The margin curve peaks at w1.0 and regresses by w2.0 (6.13); raising the KL anchor (0.05) regresses too (5.60). The confirmed operating point is margin / w1.0 / KL 0.02 / 30 steps.

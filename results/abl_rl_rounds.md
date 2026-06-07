@@ -86,3 +86,20 @@ Variations in flight (may push further): ancW20margin (w2.0), ancW10margin_klUp0
 - `ancW20margin` (margin **w2.0**) = gdeep **6.13** → WORSE than w1.0. **Margin weight 1.0 is the sweet spot** (w2.0 over-pulls toward anchor). Contrast: abs-cosine monotonically worsens with weight (0.2/0.5/1.0 → 6.70/6.30/5.73); margin peaks at w1.0 (7.68) then drops (w2.0 6.13). This is the optimal-weight ablation curve.
 - `ancW10margin_klUp05` (margin w1.0 + KL 0.05): pending.
 - `ancW10margin_s60` (margin w1.0, **60 steps**) = gdeep **6.30** (Δ -0.40 vs control, p=0.41) → over-trains, re-introduces drift. **30 steps optimal.** Full sweep confirms winner = margin / w1.0 / KL0.02 / 30 steps (every neighbor worse).
+
+## *** ROBUSTNESS ALERT (Round 4): the 30-step win is SEED-FRAGILE ***
+- `margin_s456` = margin winner recipe retrained at **seed456**, eval n=100 → gdeep **5.75** (uniq 0.511), vs `ancW10margin` seed123 = 7.625. **A 1.9-point swing from the training seed alone.** 30-step GRPO grounding has very large run-to-run variance.
+- margin@s456 vs control@s123 = -0.97 (p=0.0035), but this is **seed-MISMATCHED** (seed shifts the absolute level for both arms), so it is not the right test.
+- **Decisive experiment now running: `control_s456`** (base recipe @ seed456, n=100) → enables the SEED-MATCHED pair margin@s456 vs control@s456 (alongside margin@s123 vs control@s123).
+- Honest verdict pending: if margin>control WITHIN each seed → the effect is real (headline reframed as seed-matched relative gain, abs level is seed-dependent); if not → the +0.90 at seed123 was largely seed-luck and the honest conclusion is "within 30-step seed variance; needs variance reduction (more seeds / larger group / more eval) to confirm."
+
+## *** FINAL 2-SEED VERDICT (seed-matched, n=100): margin is NOT seed-robust ***
+| training seed | margin gdeep | control gdeep | margin Δ vs control | p (paired) |
+|---|---:|---:|---:|---:|
+| 123 | 7.625 | 6.720 | **+0.905** | 0.0038 |
+| 456 | 5.750 | 6.840 | **-1.090** | 0.0001 |
+
+- **Control is STABLE across seeds (6.72 / 6.84); margin is HIGH-VARIANCE (7.625 / 5.75, ~1.9-pt swing).** The margin effect FLIPS SIGN with the training seed; mean over 2 seeds ≈ -0.09 (neutral).
+- **HONEST CONCLUSION:** the +0.905 seed123 result was largely training-seed luck; the margin/rank R_anc reward is **NOT a robust improvement** at 30 steps. Training-seed variance dominates every reward/optimizer effect tested. Within-seed per-image significance (p<0.01) is real but overstates robustness because the sign flips across seeds.
+- **Methodological takeaway (the real deliverable):** seed-matched multi-seed evaluation is essential; single-seed low-step RL ablations are unreliable. Robust gains would need variance reduction (more seeds, larger rollout group, more steps with a matched control) beyond the 19h budget.
+- **What IS stable:** naive RL reliably lifts MUSIQ (~51 vs base 50.1) and gives stable grounding ~6.8. See fig4_seed_robustness.png.
