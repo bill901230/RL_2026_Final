@@ -1,0 +1,5 @@
+0820  (ours: GRPO ALL-reward (abl_all))
+x4: train, tracks, metal fence, power lines, sky, windows, doors, front view, side view, reflection, modern design, urban setting, transportation,
+x16: train, side view, reflection, windows, door, exterior, metallic, beige, modern, sleek, transportation, vehicle, close-up, details, design,
+x64: Window, Reflection, Trees, Fog, Glass, Vertical, Light, Dark, Outdoor, Nature, Urban, Architecture, Symmetry, Texture, Contrast, Ser
+x256: Window, Reflection, Trees, Foggy, Outdoor, Interior, Glass, Frame, Nature, Urban, Architecture, Weather, Daylight, Privacy, View,

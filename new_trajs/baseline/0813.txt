@@ -1,0 +1,5 @@
+0813  (baseline: author CoZ-VLM (A3))
+x4: wheelchair, patient, medical staff, gloves, uniforms, hospital, equipment, assistance, care, treatment, recovery, injury, disabled, wheelchair-bound, mobility
+x16: medical equipment, wheelchair, patient, medical gloves, bandages, bandage application, medical procedure, healthcare, assistance, care, patient support, medical aid,
+x64: blue, pillow, green, black, white, zigzag, pattern, close-up, detail, texture, soft, plush, vibrant, colorful, design,
+x256: blue, green, pixelated, close-up, abstract, digital, pattern, texture, detail, sharp, high-resolution, vibrant, contrast, color, gradient

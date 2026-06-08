@@ -1,0 +1,5 @@
+0806  (ours: GRPO ALL-reward (abl_all))
+x4: beach, palm tree, ocean, blue sky, white clouds, lounge chairs, rocky cliffs, turquoise water, sunny day, vacation, relaxation, tropical,
+x16: sky, palm tree, leaf, green, blue, cloud, nature, outdoors, summer, tropical, serene, peaceful, vibrant, fluffy, white, fluffy
+x64: leaf, palm, green, texture, close-up, detail, nature, outdoors, sky, sunlight, shadow, pattern, veins, frond, summer,
+x256: leaf, close-up, texture, green, veins, detail, macro, natural, plant, nature,放大,放大镜,微观,细节,纹理,

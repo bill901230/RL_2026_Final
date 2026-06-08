@@ -1,0 +1,5 @@
+0815  (baseline: author CoZ-VLM (A3))
+x4: fungi, forest floor, pine needles, grass, close-up, texture, spores, cap, gills, mycelium, natural, environment,
+x16: fruit, close-up, texture, skin, brown spots, yellow, orange, natural, detail, macro, closeup, nature, food, organic, fresh
+x64: fruit, texture, close-up, skin, surface, detail, macro, natural, organic, fresh, juicy, vibrant, color, pattern, irregular, spots
+x256: sponge texture, close-up view, yellow color, porous structure, soft material, kitchen tool, cleaning sponge, natural sponge, absorbent properties, texture details

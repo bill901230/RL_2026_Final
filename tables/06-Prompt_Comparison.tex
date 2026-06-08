@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\caption{Ours (GRPO ALL-reward) vs.\ the author CoZ-VLM baseline, on identical crops. \textbf{\textcolor{red}{Red}} = baseline failures (repeated / hallucinated / non-English / non-visual). Each row is the generated prompt at the noted zoom level.}
+\label{tab:prompt}
+% \footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.36\linewidth} >{\raggedright\arraybackslash}p{0.36\linewidth}@{}}
+\toprule
+Failure mode & Ours (GRPO ALL) & Baseline (author CoZ-VLM) \\
+\midrule
+\textbf{Prompt convergence}\newline{\scriptsize\itshape 0809,\,$\times$64} & animal eye, fur texture, animal skin, natural pattern, macro & animal, fur, eye, \textbf{\textcolor{red}{whisker, whiskers, whisker-end, whisker-end, whisker}} \\
+\addlinespace
+\textbf{Semantic drift}\newline{\scriptsize\itshape 0829,\,$\times$256} & cracks, surface, texture, intricate, natural, geological & crack, texture, \textbf{\textcolor{red}{marble}}, dark, brown, pattern \\
+\addlinespace
+\textbf{Non-English degeneration}\newline{\scriptsize\itshape 0802,\,$\times$256} & leaf, texture, green, veins, plant, nature, sharp & leaf, vein, green, natural, plant, leafy, \textcolor{red}{\cjklight 放大, 放大} \\
+\addlinespace
+\textbf{Ungrounded abstraction}\newline{\scriptsize\itshape 0816,\,$\times$64} & stone carving, sculpture, face, profile, head, weathered & stone sculpture, head detail, weathered, \textbf{\textcolor{red}{historical significance, artistic expression}} \\
+\bottomrule
+\end{tabular}
+\end{table}

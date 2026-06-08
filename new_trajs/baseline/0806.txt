@@ -1,0 +1,5 @@
+0806  (baseline: author CoZ-VLM (A3))
+x4: beach, palm tree, ocean, blue sky, white clouds, lounge chairs, rocky cliffs, turquoise water, sunny day, vacation, relaxation, tropical,
+x16: sky, palm tree, leaf, green, blue, cloud, nature, outdoors, summer, tropical, serene, peaceful, vibrant, fresh, sunny, bright
+x64: leaf, palm, green, texture, close-up, nature, outdoors, sky, sunlight, detail, vibrant, natural, plant, environment, outdoor, summer
+x256: leaf, texture, close-up, green, natural, detail, pattern, sunlight, shadow, veins, organic, plant, macro, nature, vibrant, bright

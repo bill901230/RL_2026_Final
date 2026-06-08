@@ -1,0 +1,5 @@
+0805  (ours: GRPO ALL-reward (abl_all))
+x4: animal, fur, close-up, detail, eyes, nose, mouth, whiskers, texture, white, gray, wild, nature, wildlife, forest,
+x16: animal fur, close-up, texture, white, fluffy, soft, fur detail, animal skin, natural, close-up shot, macro, detail view, fur
+x64: fur texture, close-up view, soft, natural, light beige, fluffy, detailed, macro shot, animal fur, wool-like, high-resolution, softness
+x256: Fur texture, Close-up view, Soft, Natural, Light beige, Animal fur, Detail, Macro shot, Wool-like, Fluffy, Cozy,

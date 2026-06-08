@@ -1,0 +1,5 @@
+0825  (baseline: author CoZ-VLM (A3))
+x4: band, music, orchestra, outdoor, steps, audience, flags, banners, musicians, instruments, sunglasses, casual, white shirts, black pants, red,
+x16: drum, marching band, outdoor, performance, steps, musicians, white shirts, sunglasses, brass instruments, percussion, drumsticks, metal stands, casual attire
+x64: drum, close-up, shiny, silver, details, texture, metal, instrument, performance, music, band, player, hand, grip, stand,
+x256: drum, close-up, chrome, details, texture, metal, shiny, black, surface, reflection, craftsmanship, musical, instrument, vintage, classic,

@@ -1,0 +1,5 @@
+0816  (ours: GRPO ALL-reward (abl_all))
+x4: stone, carving, ancient, artifact, museum, exhibition, historical, art, sculpture, relief, craftsmanship, intricate, detailed, cultural, heritage, history,
+x16: stone carving, ancient, sculpture, detailed, intricate, historical, art, craftsmanship, cultural, heritage, monument, temple, architecture, history, artifact, stone
+x64: stone carving, sculpture, ancient, historical, art, detail, texture, craftsmanship, weathered, intricate, face, profile, head, stone, gray,
+x256: rock, texture, surface, natural, stone, close-up, detail, pattern, rough, weathered, beige, brown, gray, dark, light,

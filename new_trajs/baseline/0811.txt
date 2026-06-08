@@ -1,0 +1,5 @@
+0811  (baseline: author CoZ-VLM (A3))
+x4: beach, surfers, ocean, waves, rocks, grass, cliff, coastline, nature, outdoor, activity, sport, leisure, adventure, landscape,
+x16: rock, ocean, water, cliff, shore, coastline, landscape, natural, rocky, coastal, seascape, geology, marine, environment, rock formations
+x64: ocean, rocks, water, waves, depth, surface, natural, landscape, marine, coastal, texture, color, dark, blue, rock, sea
+x256: Ocean, Water, Dark, Blue, Texture, Surface, Ripples, Waves, Night, Calm, Serene, Natural, Maritime, Deep,广阔

@@ -1,0 +1,5 @@
+0810  (baseline: author CoZ-VLM (A3))
+x4: animal, squirrel, fur, tail, rock, close-up, detail, texture, nature, wildlife, outdoors, greenery, forest, park, wildlife,
+x16: animal fur texture close-up, fur pattern, animal skin, natural fur, soft texture, fur detail, close-up shot, animal coat, fur background, natural
+x64: fur texture, close-up view, animal fur, soft, fluffy, natural, brown, black, gray, texture details, macro photography, natural fibers, animal
+x256: hair texture, close-up, fur, natural, detail, macro, closeup, natural hair, animal fur, texture, detail view, close up, macro

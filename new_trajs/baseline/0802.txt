@@ -1,0 +1,5 @@
+0802  (baseline: author CoZ-VLM (A3))
+x4: lemon, lime, citrus, fruit, green, yellow, close-up, texture, freshness, vibrant, juicy, natural, organic, market, grocery,
+x16: lemon, lime, citrus, fruit, close-up, texture, green, juicy, fresh, vibrant, bright, round, smooth, skin, peel,
+x64: lemon, fruit, green, texture, close-up, citrus, skin, natural, vibrant, juicy, fresh, bright, glossy, smooth, round,
+x256: leaf, vein, close-up, texture, green, natural, macro, detail, plant, leafy, organic, nature, closeup,放大,放大

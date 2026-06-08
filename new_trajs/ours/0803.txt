@@ -1,0 +1,5 @@
+0803  (ours: GRPO ALL-reward (abl_all))
+x4: leaves, orange flowers, green leaves, close-up, vibrant colors, detailed view, nature, botanical, floral, garden, plant, foliage, petal
+x16: leaves, green, close-up, nature, plant, vibrant, texture, detail, macro, foliage, leaves, natural, greenery, plantlife,
+x64: leaf, green, texture, close-up, detail, natural, vibrant, bright, fresh, plant, leafy, foliage, macro,放大,放大倍
+x256: leaf, texture, green, macro, close-up, natural, plant, veins, detail, bright, vibrant, fresh, organic, nature, leafy,

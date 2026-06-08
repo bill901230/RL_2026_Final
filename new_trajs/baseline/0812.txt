@@ -1,0 +1,5 @@
+0812  (baseline: author CoZ-VLM (A3))
+x4: statue, sculpture, statue of woman, classical architecture, grand building, outdoor scene, clear sky, greenery, pedestal, detailed features, historical monument,
+x16: statue, black, close-up, details, legs, torso, statue, figure, sculpture, historical, art, architecture, building, outdoors, outdoor,
+x64: Breast, mammogram, mammography, breast cancer, dense tissue, texture, density, nodules, abnormality, imaging, medical, scan, X
+x256: Breast, Mammogram, X-ray, Medical, Diagnostic, Imaging, Scan, Radiology, Healthcare, Female, Anatomy, Tissue, Texture,

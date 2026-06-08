@@ -1,0 +1,5 @@
+0801  (baseline: author CoZ-VLM (A3))
+x4: animal, bird, rock, penguin, beak, feathers, black, white, yellow, legs, claws, standing, close-up, detail, texture
+x16: animal, fur, black, white, close-up, texture, detail, natural, fur, pattern, animal, coat, skin, fur, texture, close
+x64: animal fur, texture, close-up, detail, fur pattern, animal skin, natural, soft, fluffy, dark, light, contrast, fur texture, animal
+x256: animal fur, close-up, texture, detail, fur pattern, animal skin, natural, hair, fur texture, close-up view, animal fur texture, animal

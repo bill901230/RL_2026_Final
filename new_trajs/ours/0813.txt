@@ -1,0 +1,5 @@
+0813  (ours: GRPO ALL-reward (abl_all))
+x4: wheelchair, patient, medical staff, gloves, uniforms, hospital, equipment, assistance, care, treatment, recovery, mobility, movement, support, comfort,
+x16: medical equipment, wheelchair, gloves, patient, medical bag, bandages, bandage application, healthcare, assistance, care, treatment, medical procedure, patient care
+x64: blue, green, yellow, black, zigzag, pattern, fabric, texture, close-up, detail, design, vibrant, colorful, soft, plush,
+x256: blue, yellow, fabric, texture, close-up, pattern, gradient, color, detail, macro, zoom-in, close-up-shot, fabric-texture,

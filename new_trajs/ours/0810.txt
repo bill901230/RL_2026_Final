@@ -1,0 +1,5 @@
+0810  (ours: GRPO ALL-reward (abl_all))
+x4: animal, squirrel, fur, tail, rock, close-up, detail, texture, nature, wildlife, outdoors, forest, park, environment, wildlife, mamm
+x16: animal fur texture close-up, natural fur pattern, soft and fluffy, dark brown and beige colors, detailed fur structure, natural animal skin, high-quality fabric material
+x64: fur texture, close-up view, animal fur, soft, fluffy, natural, brown, beige, dark, light, contrast, detail, macro, closeup
+x256: hair texture, close-up, fur, natural, detail, macro, closeup, natural hair, strands, fibers, brown, dark, light, contrast,

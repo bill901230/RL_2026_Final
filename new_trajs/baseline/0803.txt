@@ -1,0 +1,5 @@
+0803  (baseline: author CoZ-VLM (A3))
+x4: orange flower, green leaves, close-up, vibrant colors, garden setting, detailed view, natural beauty, floral arrangement, botanical study, summer bloom, colorful background
+x16: leaves, green, close-up, nature, plant, vibrant, texture, detail, leafy, foliage, macro, natural, greenery, plantlife
+x64: leaf, green, texture, close-up, detail, nature, plant, vibrant, bright, fresh, natural, organic, greenery, foliage, macro,
+x256: leaf, close-up, texture, green, veins, natural, detail, macro, plant, leafy, nature,放大,放大倍数高，细节

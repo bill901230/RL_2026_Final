@@ -1,0 +1,5 @@
+0805  (baseline: author CoZ-VLM (A3))
+x4: animal, fur, close-up, detail, face, eyes, nose, mouth, whiskers, texture, white, gray, wild, nature, wildlife,
+x16: animal fur, close-up, texture, fluffy, soft, white, gray, fur detail, animal skin, natural, close-up shot, macro, detail,
+x64: fur texture, close-up view, soft, natural, light beige, animal fur, fluffy, detailed, high resolution, macro shot, natural pattern, softness
+x256: Fur texture, Close-up, Soft, Natural, Light, Creamy, Fluffy, Cozy, Warm, Detail, Macro, Softness, Texture

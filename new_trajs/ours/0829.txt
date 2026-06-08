@@ -1,0 +1,5 @@
+0829  (ours: GRPO ALL-reward (abl_all))
+x4: Butterfly, wings, green, brown, yellow, spots, leaf, close-up, nature, insect, vibrant, detailed, texture,放大，特
+x16: Butterfly wing, wing veins, wing scales, wing texture, wing patterns, wing colors, wing edges, wing tips, wing surface, wing structure,
+x64: Fossilized insect wing, intricate vein patterns, dark brown coloration, close-up view, geological specimen, ancient insect, fossilized wing structure, natural history
+x256: cracks, surface, texture, close-up, detail, pattern, dark, illuminated, macro, zoomed-in, intricate, complex, natural, geological,

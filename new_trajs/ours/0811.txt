@@ -1,0 +1,5 @@
+0811  (ours: GRPO ALL-reward (abl_all))
+x4: beach, surfers, ocean, waves, rocks, grass, cliff, coastline, nature, outdoor, activity, leisure, sport, summer, vacation,
+x16: rock, ocean, water, shore, cliff, landscape, natural, coastal, texture, detail, rocks, stones, pebbles, waves, tide,
+x64: water, rocks, ocean, waves, depth, texture, natural, landscape, stillness, calm, serene, outdoors, environment, nature, rock formations,
+x256: Ocean, Water, Dark, Blue, Texture, Surface, Ripples, Waves, Night, Calm, Serene, Natural, Maritime, Deep,广阔

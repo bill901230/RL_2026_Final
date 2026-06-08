@@ -1,0 +1,5 @@
+0815  (ours: GRPO ALL-reward (abl_all))
+x4: fungi, forest floor, grass, pine needles, close-up, texture, spores, cap, gills, mycelium, natural, environment,
+x16: fruit, close-up, texture, skin, brown spots, yellowish-green, orange, natural, detailed, macro, closeup, detail, surface, color
+x64: fruit, texture, close-up, skin, surface, detail, macro, natural, organic, fresh, juicy, vibrant, color, pattern, irregular, spots
+x256: Texture, Close-up, Sponge, Surface, Detail, Macro, Yellow, Soft, Bumpy, Crumbly, Porous, Fibrous, Cellul

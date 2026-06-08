@@ -1,0 +1,5 @@
+0825  (ours: GRPO ALL-reward (abl_all))
+x4: band, musicians, audience, steps, banner, flags, outdoor, performance, music, instruments, sunglasses, white shirts, black pants, red and white,
+x16: drum, marching band, uniform, performance, outdoor, steps, spectators, brass, percussion, music, event, bandstand, instrument, marching, drum
+x64: trophies, trophy, silver, close-up, details, shiny, metallic, awards, celebration, victory, achievement, trophy case, trophy stand, trophy
+x256: metallic surface, reflective, close-up, detail, texture, shine, polished, metallic, glossy, high-resolution, zoomed-in, macro, close-up

@@ -1,0 +1,5 @@
+0829  (baseline: author CoZ-VLM (A3))
+x4: Butterfly, wings, green, brown, yellow, leaf, close-up, nature, insect, detail, vibrant, colorful, wildlife, macro,放大
+x16: Butterfly, wings, close-up, green background, intricate patterns, vibrant colors, detailed texture, nature, wildlife, macro photography, insect, wingspan
+x64: Insect wing, macro, detail, texture, veins, scales, exoskeleton, insect anatomy, close-up, natural, biological, scientific, magnified
+x256: crack, texture, marble, dark, brown, close-up, zoom-in, detail, pattern, surface, macro, closeup, zoomed-in,

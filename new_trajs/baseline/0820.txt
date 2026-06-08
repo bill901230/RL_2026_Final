@@ -1,0 +1,5 @@
+0820  (baseline: author CoZ-VLM (A3))
+x4: train, tracks, metal fence, power lines, sky, windows, doors, front view, side view, modern, sleek, metallic, beige, blue accents
+x16: train, side view, reflection, windows, door, metal, beige, details, close-up, exterior, modern, sleek, transportation, industrial, design,
+x64: Window, Reflection, Trees, Metal, Vertical, Lines, Glass, Outdoor, Urban, Architecture, Structure, Texture, Detail, Close-up, Focus, Shadows
+x256: Window, Reflection, Trees, Glass, Vertical Stripes, Indoor, Outdoor, Natural Light, Privacy, Home Decor, Architectural Detail, Urban Setting, Forest

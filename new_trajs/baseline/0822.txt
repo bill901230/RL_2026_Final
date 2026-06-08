@@ -1,0 +1,5 @@
+0822  (baseline: author CoZ-VLM (A3))
+x4: basket, mushrooms, grass, close-up, detail, texture, natural, outdoor, wicker, brown, green, wild, forest, harvest, autumn,
+x16: stone, basket, close-up, texture, natural, beige, brown, rough, smooth, pattern, detail, close, zoomed-in, macro, nature
+x64: rock, texture, close-up, natural, surface, detail, macro, stone, rough, beige, white, pattern, grainy, organic, earthy
+x256: rock texture, beige, natural, rough, surface, close-up, detail, pattern, stone, earthy, naturalistic, organic, rugged, weathered

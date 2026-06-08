@@ -1,0 +1,5 @@
+0809  (baseline: author CoZ-VLM (A3))
+x4: animal, lion, close-up, mouth, whiskers, fur, mane, grass, tree, nature, wildlife, portrait, eyes, nose, tongue,
+x16: animal, lion, nose, tongue, close-up, fur, whiskers, eyes, mouth, skin, texture, detail, macro, zoom-in, pet
+x64: animal, fur, close-up, detail, texture, eye, whiskers, whisker, whiskers, whisker-end, whisker-end, whisker
+x256: hair, texture, close-up, detail, strands, color, blonde, black, contrast, natural, soft, smooth, fine, delicate, close, detailed

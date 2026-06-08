@@ -1,0 +1,5 @@
+0802  (ours: GRPO ALL-reward (abl_all))
+x4: lemon, lime, citrus, fruit, green, yellow, close-up, texture, fresh, vibrant, juicy, organic, market, grocery, produce,
+x16: lemon, lime, citrus, fruit, close-up, texture, vibrant, juicy, fresh, green, yellow, orange, skin, peel, pith
+x64: lemon, fruit, close-up, texture, green, skin, citrus, juicy, vibrant, fresh, natural, organic, bright, color, detail,
+x256: leaf, close-up, texture, green, veins, natural, macro, detail, plant, nature, organic, bright, illuminated, dark, contrast, sharp

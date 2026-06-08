@@ -1,0 +1,5 @@
+0801  (ours: GRPO ALL-reward (abl_all))
+x4: animal, bird, rock, penguin, beak, feathers, black and white, standing, close-up, detail, nature, wildlife, outdoors, rocky
+x16: animal fur, black and white, texture, close-up, natural, fur detail, animal skin, natural pattern, fur texture, close-up view, animal fur
+x64: animal fur, texture, close-up, fur pattern, natural, dark, light, contrast, detail, fur texture, animal skin, natural fibers, close-up
+x256: hair, close-up, texture, detail, skin, human, natural, close, macro, closeup, detail-oriented, close-up-shot, macro-shot,

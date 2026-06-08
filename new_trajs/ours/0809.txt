@@ -1,0 +1,5 @@
+0809  (ours: GRPO ALL-reward (abl_all))
+x4: animal, lion, close-up, mouth, whiskers, fur, mane, grass, outdoors, wildlife, nature, portrait, eyes, nose, tongue,
+x16: animal, lion, nose, tongue, close-up, fur, whiskers, skin, texture, detail, eyes, mouth, nose, nosehair, whisk
+x64: animal eye, fur texture, close-up, animal skin, natural pattern, detail view, macro photography, animal eye, fur texture, close-up, animal skin
+x256: Hair, Close-up, Texture, Detail, Color, Blonde, Highlights, Strands, Soft, Gentle, Natural, Light, Softness, Smooth, Sh

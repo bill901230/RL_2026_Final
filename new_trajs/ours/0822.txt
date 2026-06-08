@@ -1,0 +1,5 @@
+0822  (ours: GRPO ALL-reward (abl_all))
+x4: basket, mushrooms, grass, close-up, detail, texture, natural, outdoor, wild, forest, harvest, autumn, food, seasoning, culinary, gourmet
+x16: stone, basket, close-up, texture, natural, beige, brown, rough, smooth, pattern, detail, rock, wicker, organic, earthy
+x64: rock, texture, close-up, natural, surface, detail, stone, rough, beige, brown, pattern, naturalistic, organic, earthy, rugged
+x256: rock texture, natural stone, beige color, rough surface, geological pattern, earthy tones, mineral formation, outdoor material, stone wall, natural stone tile,

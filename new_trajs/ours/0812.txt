@@ -1,0 +1,5 @@
+0812  (ours: GRPO ALL-reward (abl_all))
+x4: statue, sculpture, classical architecture, grand building, outdoor, daytime, clear sky, greenery, pedestal, detailed, intricate, historical, cultural, monument
+x16: statue, black, ancient, historical, sculpture, detailed, craftsmanship, art, monument, outdoor, architecture, background, close-up, details, texture,
+x64: Breast, mammogram, breast cancer, tissue, texture, scan, medical, imaging, X-ray, mammography, mammogram, breast tissue, breast
+x256: Breast, mammogram, scan, tissue, density, texture, imaging, medical, diagnostic, X-ray, mammography, breast cancer, abnormality,
